@@ -16,7 +16,8 @@
     "body-parser": "~1.13.2",
     "config": "~1.14.0",
     "express": "~4.13.1",
-    "node-resemble-js": "0.0.4"
+    "node-resemble-js": "0.0.4",
+    "pngjs": "~0.4.0"
   },
   "devDependencies": {
     "chai": "^2.3.0",

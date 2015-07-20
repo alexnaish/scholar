@@ -5,7 +5,7 @@ module.exports = {
 
     apply: function (app) {
         app.route(config.app.apiPath + '/screenshot')
-            .post(api.submitNewScreenshot)
+            .get(api.submitNewScreenshot)
 
         app.route(config.app.apiPath + '/screenshot/:name')
             .get(api.listByName);
