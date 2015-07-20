@@ -1,0 +1,29 @@
+{
+  "name": "scholar",
+  "version": "0.0.1",
+  "description": "Image Comparison Tool For Visual Regression Testing",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "test": "gulp test"
+  },
+  "author": "Alex Naish",
+  "dependencies": {
+    "lodash": "^3.9.3",
+    "mongoose": "^4.0.0",
+    "morgan": "^1.5.3",
+    "async": "~1.4.0",
+    "body-parser": "~1.13.2",
+    "config": "~1.14.0",
+    "express": "~4.13.1"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "gulp": "^3.8.11",
+    "gulp-istanbul": "~0.9.0",
+    "gulp-mocha": "^2.1.0",
+    "gulp-sass": "^2.0.1",
+    "moment": "^2.10.3",
+    "sinon": "^1.14.1"
+  }
+}
