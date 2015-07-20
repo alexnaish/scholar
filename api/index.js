@@ -11,7 +11,7 @@ module.exports = app;
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
+db.once('open', function () {
     console.log('database connection established');
 });
 
@@ -19,17 +19,17 @@ app.use(express.static(__dirname + '/../public'));
 
 app.use(bodyParser.raw());
 app.use(morgan('dev', {
-    skip: function (req, res) {
-        return req.url === '/favicon.ico'
+    skip: function (req) {
+        return req.url === '/favicon.ico';
     }
 }));
 app.disable('x-powered-by');
 
 router.apply(app);
-app.get('/config', function (req, res, next) {
+app.get('/config', function (req, res) {
     res.json(config);
 });
-app.get('*', function (req, res, next) {
+app.get('*', function (req, res) {
     res.status(404).send('Scholar Fallback 404');
     res.end();
 });
