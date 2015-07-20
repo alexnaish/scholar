@@ -4,5 +4,5 @@ languages:
   JavaScript: true
   PHP: false
   Python: false
-# exclude_paths:
-# - "**/*.spec.js"
+exclude_paths:
+ - "**/*.spec.js"
