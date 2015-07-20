@@ -1,5 +1,14 @@
 module.exports = {
+    app: {
+        apiPath: '/api'
+    },
+    mongo: {
+        host: "localhost",
+        db: "scholar",
+        user: "scholar",
+        pass: "kernel"
+    },
     comparison: {
-        threshold: '/api'
+        threshold: '0.1'
     }
-}
+};

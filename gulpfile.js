@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
-    istanbul = require('gulp-istanbul'),
-    app;
+    istanbul = require('gulp-istanbul');
 
 gulp.task('mocha', function () {
     process.env.NODE_ENV = 'development';
