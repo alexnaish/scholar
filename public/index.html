@@ -11,9 +11,39 @@
 </head>
 
 <body ng-app="Scholar">
-    <h1>Yoooooooo</h1>
-    <h2>Scholar in residence....</h2>
-    <footer>Created By Alex Naish 2015</footer>
+
+    <header class="top-bar">
+        <div class="top-title">
+            <a href="/#/"><i class="fa fa-university"></i> Scholar</a>
+        </div>
+    </header>
+
+    <div class="main">
+        <aside class="side-bar ng-scope" ng-controller="SidebarController">
+            <nav>
+                <ul class="nav">
+                    <li>
+                        <a href="/#/latest"><i class="fa fa-dashboard icon"></i> Latest</a>
+                    </li>
+                    <li>
+                        <a href="/#/branch/master"><i class="fa fa-code-fork icon"></i> Branch Tracker</a>
+                    </li>
+                    <li>
+                        <a href="/#/stats/master"><i class="fa fa-flask icon"></i> Stats</a>
+                    </li>
+                    <li>
+                        <a href="/#/branch/master"> <i class="fa fa-file-text icon"></i> Another</a>
+                    </li>
+                    <li>
+                        <a href="http://www.alexnaish.co.uk"> <i class="fa fa-pencil icon"></i> Credits</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="main-content">
+            Main View Goes Here
+        </div>
+    </div>
 </body>
 
 </html>

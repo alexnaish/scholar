@@ -10,7 +10,10 @@ module.exports = {
     find: function (callback) {
         var errorCode = 200;
         BaselineModel.find({}, 'name dateCreated', {
-            lean: true
+            lean: true,
+            sort: {
+                dateCreated: -1
+            }
         }, function (err, results) {
             if (err) {
                 errorCode = 500;

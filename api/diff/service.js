@@ -12,7 +12,10 @@ module.exports = {
         DiffModel.find({
             name: name
         }, 'name dateCreated', {
-            lean: true
+            lean: true,
+            sort: {
+                dateCreated: -1
+            }
         }, function (err, results) {
             if (err) {
                 errorCode = 500;
