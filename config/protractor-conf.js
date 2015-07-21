@@ -1,20 +1,26 @@
+var request = require('request');
+
 exports.config = {
     directConnect: true,
-
-    // Capabilities to be passed to the webdriver instance.
     capabilities: {
         'browserName': 'chrome'
     },
-
-    // Framework to use. Jasmine 2 is recommended.
+    baseUrl: 'http://localhost:8000',
     framework: 'jasmine2',
-
-    // Spec patterns are relative to the current working directly when
-    // protractor is called.
-    specs: ['public/**/*.spec.js'],
-
-    // Options to be passed to Jasmine.
+    restartBrowserBetweenTests: false,
+    specs: [__dirname + '/../**/*.spec.js'],
     jasmineNodeOpts: {
-        defaultTimeoutInterval: 15000
+        defaultTimeoutInterval: 15000,
+        isVerbose: true,
+        includeStackTrace: true,
+        showTiming: true,
+        realtimeFailure: true,
+        showColors: true
+    },
+    chromeDriver: __dirname + '/../node_modules/protractor/selenium/chromedriver',
+    onPrepare: function () {
+
+        browser.request = request;
+
     }
 };

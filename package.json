@@ -4,8 +4,10 @@
   "description": "Image Comparison Tool For Visual Regression Testing",
   "main": "api/index.js",
   "scripts": {
+    "postinstall": "node_modules/protractor/bin/webdriver-manager update",
     "start": "node api/index.js",
-    "test": "gulp test"
+    "test": "gulp test",
+    "e2e": "protractor config/protractor-conf.js"
   },
   "author": "Alex Naish",
   "dependencies": {
@@ -17,7 +19,8 @@
     "config": "~1.14.0",
     "express": "~4.13.1",
     "node-resemble-js": "0.0.4",
-    "pngjs": "~0.4.0"
+    "pngjs": "~0.4.0",
+    "protractor": "^2.1.0"
   },
   "devDependencies": {
     "chai": "^2.3.0",
@@ -26,6 +29,8 @@
     "gulp-mocha": "^2.1.0",
     "gulp-sass": "^2.0.1",
     "moment": "^2.10.3",
+    "request": "^2.59.0",
+    "should": "^7.0.2",
     "sinon": "^1.14.1"
   }
 }

@@ -9,6 +9,6 @@ module.exports = {
         pass: "kernel"
     },
     comparison: {
-        threshold: '0.1'
+        threshold: '0.05'
     }
 };

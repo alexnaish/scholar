@@ -19,7 +19,9 @@ mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@
 
 app.use(express.static(__dirname + '/../public'));
 
-app.use(bodyParser.raw());
+app.use(bodyParser.urlencoded({
+    limit: '10mb'
+}));
 app.use(morgan('dev', {
     skip: function (req) {
         return req.url === '/favicon.ico';

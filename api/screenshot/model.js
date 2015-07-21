@@ -1,20 +1,12 @@
 var mongoose = require('mongoose');
 
-var screenshot = mongoose.Schema({
+var screenshotSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    width: {
-        type: Number,
-        required: true
-    },
-    height: {
-        type: Number,
-        required: true
-    },
     data: {
-        type: Buffer,
+        type: String,
         required: true
     },
     dateCreated: {
@@ -23,4 +15,7 @@ var screenshot = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Screenshot', screenshot);
+
+module.exports = {
+    schema: screenshotSchema
+}
