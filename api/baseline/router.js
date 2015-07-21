@@ -6,6 +6,9 @@ module.exports = {
 
     apply: function (app) {
 
+        app.route(config.app.apiPath + '/baseline')
+            .get(api.find);
+
         app.route(config.app.apiPath + '/baseline/:name')
             .get(api.findOne);
 

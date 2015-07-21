@@ -3,23 +3,20 @@ var service = require('./service'),
     ImageService = require('../image/service');
 
 module.exports = {
+
+    find: function (req, res) {
+        service.find(function (errorCode, result) {
+            res.status(errorCode).json(result);
+        });
+    },
     findOne: function (req, res) {
-        service.findOne({
-            name: req.params.name
-        }, 'name dateCreated', function (err, result) {
-            if (!result) {
-                res.status(404).send();
-            } else {
-                result.raw = config.app.apiPath + '/baseline/' + result.name + '/raw';
-                res.status(200).json(result);
-            }
+        service.findOne(req.params.name, 'name dateCreated', function (errorCode, result) {
+            res.status(errorCode).json(result);
         });
     },
 
     renderRawImage: function (req, res) {
-        service.findOne({
-            name: req.params.name
-        }, '', function (err, result) {
+        service.findOne(req.params.name, 'data', function (err, result) {
             if (!result) {
                 res.status(404).send();
             } else {

@@ -1,4 +1,9 @@
-var CandidateModel = require('./model');
+var config = require('config'),
+    CandidateModel = require('./model');
+
+function addRawUrl(result) {
+    result.raw = config.app.apiPath + '/baseline/' + result.name + '/raw';
+}
 
 module.exports = {
 
