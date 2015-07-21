@@ -1,4 +1,5 @@
 var service = require('./service'),
+    config = require('config'),
     ImageService = require('../image/service');
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
             if (!result) {
                 res.status(404).send();
             } else {
-                result.raw = config.app.apiPath + '/diff/' + result.name + '/raw';
+                result.raw = config.app.apiPath + '/diff/' + result.name + '/' + result._id + '/raw';
                 res.status(200).json(result);
             }
 

@@ -30,7 +30,7 @@ app.use(morgan('dev', {
 app.disable('x-powered-by');
 
 router.apply(app);
-app.get('/config', function (req, res) {
+app.get('/api/config', function (req, res) {
     res.json(config);
 });
 app.get('*', function (req, res) {

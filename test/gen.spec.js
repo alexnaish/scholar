@@ -24,6 +24,7 @@ describe('can visit www.nowtv.com', function () {
     it('user can successfully navigate to nowtv.com', function () {
         browser.takeScreenshot().then(function (png) {
             browser.controlFlow().await(submitScreenshot(png)).then(function (result) {
+                console.log('result', result);
                 expect(result.passes).toBe(true);
             });
         });

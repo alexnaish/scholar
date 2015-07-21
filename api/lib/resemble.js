@@ -1,20 +1,13 @@
-/*
-James Cryer / Huddle 2014
-URL: https://github.com/Huddle/Resemble.js
-*/
 'use strict';
 
-//var pngparse = require('pngparse');
 var PNG = require('pngjs').PNG;
 var fs = require('fs');
 
-
-//keeping wrong indentation and '_this' for better diff with origin resemble.js
 var _this = {};
 
 var pixelTransparency = 1;
 
-var errorPixelColor = { // Color for Error Pixels. Between 0 and 255.
+var errorPixelColor = {
     red: 255,
     green: 0,
     blue: 255,

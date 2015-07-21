@@ -2,13 +2,13 @@ var resemble = require('../lib/resemble.js');
 
 resemble.outputSettings({
     errorColor: {
-        red: 155,
-        green: 100,
-        blue: 155
+        red: 200,
+        green: 50,
+        blue: 50
     },
     errorType: 'movement',
     transparency: 0.8,
-    largeImageThreshold: 1800
+    largeImageThreshold: 2100
 });
 
 module.exports = {
@@ -20,8 +20,8 @@ module.exports = {
 
         resemble(bufferA)
             .compareTo(bufferB)
-            //            .ignoreAntialiasing()
-            //                    .ignoreColors()
+            .ignoreAntialiasing()
+            .ignoreColors()
             .onComplete(function (diffData) {
 
                 var chunks = [];
