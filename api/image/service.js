@@ -2,13 +2,13 @@ var resemble = require('../lib/resemble.js');
 
 resemble.outputSettings({
     errorColor: {
-        red: 250,
-        green: 30,
-        blue: 30
+        red: 220,
+        green: 60,
+        blue: 60
     },
     errorType: 'movement',
-    transparency: 0.8,
-    largeImageThreshold: 2100
+    transparency: 0.95,
+    largeImageThreshold: 2400
 });
 
 module.exports = {

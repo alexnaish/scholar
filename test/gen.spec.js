@@ -3,7 +3,7 @@ describe('can visit www.nowtv.com', function () {
     var myScreenshot;
 
     beforeEach(function () {
-        browser.driver.get('http://q1ice.nowtv.bskyb.com');
+        browser.driver.get('http://localhost.nowtv.bskyb.com:3000/');
     });
 
 
@@ -22,6 +22,9 @@ describe('can visit www.nowtv.com', function () {
     };
 
     it('user can successfully navigate to nowtv.com', function () {
+
+        //        browser.sleep(1000);
+
         browser.takeScreenshot().then(function (png) {
             browser.controlFlow().await(submitScreenshot(png)).then(function (result) {
                 console.log('result', result);

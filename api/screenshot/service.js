@@ -8,9 +8,7 @@ var BaselineService = require('../baseline/service'),
 module.exports = {
 
     saveAndCompare: function (name, imageData, callback) {
-        BaselineService.findOne({
-            name: name
-        }, '', function (err, result) {
+        BaselineService.findOne(name, '', function (err, result) {
 
             if (result) {
                 ImageService.compareImages(result.data, imageData, function (resultJson, diffImage) {

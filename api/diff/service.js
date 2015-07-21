@@ -1,16 +1,43 @@
-var DiffModel = require('./model');
+var DiffModel = require('./model'),
+    config = require('config');
+
+function addRawUrl(result) {
+    result.raw = config.app.apiPath + '/diff/' + result.name + '/' + result._id + '/raw';
+}
 
 module.exports = {
 
-    find: function (query, fields, callback) {
-        DiffModel.find(query, fields, callback);
-    },
-    findOne: function (query, fields, callback) {
-        DiffModel.findOne(query, fields, function (err, result) {
-            if (result) {
-                result = result.toObject();
+    find: function (name, callback) {
+        var errorCode = 200;
+        DiffModel.find({
+            name: name
+        }, 'name dateCreated', {
+            lean: true
+        }, function (err, results) {
+            if (err) {
+                errorCode = 500;
+            } else {
+                for (var i = 0; i < results.length; i++) {
+                    addRawUrl(results[i]);
+                }
             }
-            callback(err, result);
+            callback(errorCode, results);
+        });
+
+    },
+    findOne: function (name, id, fields, callback) {
+        var errorCode = 200;
+        DiffModel.findOne({
+            name: name
+        }, fields, {
+            lean: true
+        }, function (err, result) {
+            if (!result) {
+                errorCode = 404;
+            } else {
+                addRawUrl(result);
+            }
+            callback(errorCode, result);
         });
     },
     save: function (payload, callback) {
