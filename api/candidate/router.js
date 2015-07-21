@@ -6,15 +6,17 @@ module.exports = {
 
     apply: function (app) {
 
-        app.route(config.app.apiPath + '/candidate/:name')
+        var path = '/candidate/:name/';
+
+        app.route(config.app.apiPath + path)
             .get(api.find);
 
-        app.route(config.app.apiPath + '/candidate/:name/:id')
+        app.route(config.app.apiPath + path + '/:id')
             .get(api.findOne);
 
-        app.route(config.app.apiPath + '/candidate/:name/:id/raw')
+        app.route(config.app.apiPath + path + '/:id/raw')
             .get(api.renderRawImage);
 
     }
 
-}
+};

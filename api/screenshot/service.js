@@ -1,8 +1,6 @@
 var BaselineService = require('../baseline/service'),
-    CandidateService = require('../candidate/service'),
     DiffService = require('../diff/service'),
     ImageService = require('../image/service'),
-    async = require('async'),
     config = require('config');
 
 module.exports = {
@@ -38,7 +36,7 @@ module.exports = {
                 BaselineService.save({
                     name: name,
                     data: imageData
-                }, function (err, result) {
+                }, function (err) {
                     var noError = (err === null);
                     callback({
                         passes: noError,

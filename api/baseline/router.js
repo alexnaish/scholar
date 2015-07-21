@@ -6,13 +6,15 @@ module.exports = {
 
     apply: function (app) {
 
-        app.route(config.app.apiPath + '/baseline')
+        var path = '/baseline';
+
+        app.route(config.app.apiPath + path)
             .get(api.find);
 
-        app.route(config.app.apiPath + '/baseline/:name')
+        app.route(config.app.apiPath + path + '/:name')
             .get(api.findOne);
 
-        app.route(config.app.apiPath + '/baseline/:name/raw')
+        app.route(config.app.apiPath + path + '/:name/raw')
             .get(api.renderRawImage);
 
     }

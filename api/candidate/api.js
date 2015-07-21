@@ -1,17 +1,17 @@
-var service = require('./service'),
+var CandidateService = require('./service'),
     ImageService = require('../image/service');
 
 module.exports = {
 
     find: function (req, res) {
-        service.find({
+        CandidateService.find({
             name: req.params.name
         }, 'name dateCreated', function (err, data) {
             res.status(200).json(data);
         });
     },
     findOne: function (req, res) {
-        service.findOne({
+        CandidateService.findOne({
             _id: req.params.id,
             name: req.params.name
         }, function (err, data) {
@@ -20,7 +20,7 @@ module.exports = {
     },
 
     renderRawImage: function (req, res) {
-        service.findOne({
+        CandidateService.findOne({
             _id: req.params.id,
             name: req.params.name
         }, '', function (err, result) {
