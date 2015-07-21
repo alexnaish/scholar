@@ -1,15 +1,8 @@
 var resemble = require('../lib/resemble.js');
 
-resemble.outputSettings({
-    errorColor: {
-        red: 220,
-        green: 60,
-        blue: 60
-    },
-    errorType: 'movement',
-    transparency: 0.95,
-    largeImageThreshold: 2400
-});
+resemble.setErrorRgbColour(255, 0, 0);
+resemble.setErrorOpacity(0.4);
+resemble.setLargeImageThreshold(2400);
 
 module.exports = {
 

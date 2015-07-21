@@ -2,48 +2,48 @@
 
 <head>
     <title>Scholar Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
     <base href="/">
 </head>
 
 <body ng-app="Scholar">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/#/"><i class="fa fa-university"></i> Scholar</a>
+            </div>
 
-    <header class="top-bar">
-        <div class="top-title">
-            <a href="/#/"><i class="fa fa-university"></i> Scholar</a>
         </div>
-    </header>
+    </nav>
 
-    <div class="main">
-        <aside class="side-bar ng-scope" ng-controller="SidebarController">
-            <nav>
-                <ul class="nav">
-                    <li>
-                        <a href="/#/latest"><i class="fa fa-dashboard icon"></i> Latest</a>
-                    </li>
-                    <li>
-                        <a href="/#/branch/master"><i class="fa fa-code-fork icon"></i> Branch Tracker</a>
-                    </li>
-                    <li>
-                        <a href="/#/stats/master"><i class="fa fa-flask icon"></i> Stats</a>
-                    </li>
-                    <li>
-                        <a href="/#/branch/master"> <i class="fa fa-file-text icon"></i> Another</a>
-                    </li>
-                    <li>
-                        <a href="http://www.alexnaish.co.uk"> <i class="fa fa-pencil icon"></i> Credits</a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-        <div class="main-content">
-            Main View Goes Here
-        </div>
+    <div class="container">
+
+        <ng-view></ng-view>
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Alex Naish 2015</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
     </div>
+
+    <script src="/app/app.js"></script>
+    <script src="/app/baseline/index.js"></script>
+    <script src="/app/baseline/config.js"></script>
+    <script src="/app/baseline/controller.js"></script>
+    <script src="/app/baseline/service.js"></script>
 </body>
 
 </html>

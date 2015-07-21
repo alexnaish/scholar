@@ -20,7 +20,8 @@ mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@
 app.use(express.static(__dirname + '/../public'));
 
 app.use(bodyParser.urlencoded({
-    limit: '10mb'
+    limit: '10mb',
+    extended: false
 }));
 app.use(morgan('dev', {
     skip: function (req) {

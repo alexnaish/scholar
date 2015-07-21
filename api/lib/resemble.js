@@ -6,34 +6,19 @@ var fs = require('fs');
 var _this = {};
 
 var pixelTransparency = 1;
-
-var errorPixelColor = {
-    red: 255,
-    green: 0,
-    blue: 255,
+var errorPixelColour = {
     alpha: 255
 };
+var largeImageThreshold = 1280;
 
-var errorPixelTransform = {
-    flat: function () {
-        return {
-            r: errorPixelColor.red,
-            g: errorPixelColor.green,
-            b: errorPixelColor.blue,
-            a: errorPixelColor.alpha
-        };
-    },
-    movement: function (d1, d2) {
-        return {
-            r: ((d2.r * (errorPixelColor.red / 255)) + errorPixelColor.red) / 2,
-            g: ((d2.g * (errorPixelColor.green / 255)) + errorPixelColor.green) / 2,
-            b: ((d2.b * (errorPixelColor.blue / 255)) + errorPixelColor.blue) / 2,
-            a: d2.a
-        };
-    }
+var errorPixelTransformer = function (d1, d2) {
+    return {
+        r: ((d2.r * (errorPixelColour.red / 255)) + errorPixelColour.red) / 2,
+        g: ((d2.g * (errorPixelColour.green / 255)) + errorPixelColour.green) / 2,
+        b: ((d2.b * (errorPixelColour.blue / 255)) + errorPixelColour.blue) / 2,
+        a: d2.a
+    };
 };
-
-var errorPixelTransformer = errorPixelTransform.flat;
 
 _this.resemble = function (fileData) {
 
@@ -340,7 +325,7 @@ _this.resemble = function (fileData) {
         var currentRectangle = null;
         var rectagnlesIdx = 0;
 
-        if ((width > 1200 || height > 1200) && ignoreAntialiasing) {
+        if ((width > largeImageThreshold || height > largeImageThreshold) && ignoreAntialiasing) {
             skip = 6;
         }
 
@@ -467,23 +452,6 @@ _this.resemble = function (fileData) {
         }
 
         var self = {
-            ignoreNothing: function () {
-
-                tolerance.red = 16;
-                tolerance.green = 16;
-                tolerance.blue = 16;
-                tolerance.alpha = 16;
-                tolerance.minBrightness = 16;
-                tolerance.maxBrightness = 240;
-
-                ignoreAntialiasing = false;
-                ignoreColors = false;
-
-                if (hasMethod) {
-                    param();
-                }
-                return self;
-            },
             ignoreAntialiasing: function () {
 
                 tolerance.red = 32;
@@ -510,18 +478,6 @@ _this.resemble = function (fileData) {
                 ignoreAntialiasing = false;
                 ignoreColors = true;
 
-                if (hasMethod) {
-                    param();
-                }
-                return self;
-            },
-            //array of rectangles, each rectangle is defined as (x, y, width. height)
-            //e.g. [[325, 170, 100, 40]]
-            ignoreRectangles: function (rectangles) {
-                ignoreRectangles = rectangles;
-                return self;
-            },
-            repaint: function () {
                 if (hasMethod) {
                     param();
                 }
@@ -558,22 +514,16 @@ _this.resemble = function (fileData) {
 
 };
 
-_this.resemble.outputSettings = function (options) {
-    var key;
-
-    if (options.errorColor) {
-        for (key in options.errorColor) {
-            errorPixelColor[key] = options.errorColor[key] === undefined ? errorPixelColor[key] : options.errorColor[key];
-        }
-    }
-
-    if (options.errorType && errorPixelTransform[options.errorType]) {
-        errorPixelTransformer = errorPixelTransform[options.errorType];
-    }
-
-    pixelTransparency = options.transparency || pixelTransparency;
-
-    return this;
+_this.resemble.setErrorRgbColour = function (redValue, greenValue, blueValue) {
+    errorPixelColour.red = redValue || 200;
+    errorPixelColour.green = greenValue || 50;
+    errorPixelColour.blue = blueValue || 50;
+};
+_this.resemble.setErrorOpacity = function (value) {
+    pixelTransparency = value || 0.95;
+};
+_this.resemble.setLargeImageThreshold = function (value) {
+    largeImageThreshold = value || 1280;
 };
 
 module.exports = _this.resemble;

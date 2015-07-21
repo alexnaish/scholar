@@ -3,14 +3,14 @@ describe('can visit www.nowtv.com', function () {
     var myScreenshot;
 
     beforeEach(function () {
-        browser.driver.get('http://localhost.nowtv.bskyb.com:3000/');
+        browser.driver.get('http://sky.com/');
     });
 
 
     function submitScreenshot(png) {
         var deferred = protractor.promise.defer();
 
-        browser.request.post('http://localhost.nowtv.bskyb.com:8000/api/screenshot/test', {
+        browser.request.post('http://localhost:8000/api/screenshot/test', {
             form: {
                 imageData: png
             }
@@ -23,7 +23,7 @@ describe('can visit www.nowtv.com', function () {
 
     it('user can successfully navigate to nowtv.com', function () {
 
-        //        browser.sleep(1000);
+        browser.sleep(1000);
 
         browser.takeScreenshot().then(function (png) {
             browser.controlFlow().await(submitScreenshot(png)).then(function (result) {
