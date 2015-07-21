@@ -15,13 +15,13 @@ var errorPixelColor = {
 };
 
 var errorPixelTransform = {
-    flat: function (d1, d2) {
+    flat: function () {
         return {
             r: errorPixelColor.red,
             g: errorPixelColor.green,
             b: errorPixelColor.blue,
             a: errorPixelColor.alpha
-        }
+        };
     },
     movement: function (d1, d2) {
         return {
@@ -29,13 +29,13 @@ var errorPixelTransform = {
             g: ((d2.g * (errorPixelColor.green / 255)) + errorPixelColor.green) / 2,
             b: ((d2.b * (errorPixelColor.blue / 255)) + errorPixelColor.blue) / 2,
             a: d2.a
-        }
+        };
     }
 };
 
 var errorPixelTransformer = errorPixelTransform.flat;
 
-_this['resemble'] = function (fileData) {
+_this.resemble = function (fileData) {
 
     var data = {};
     var images = [];
@@ -119,7 +119,7 @@ _this['resemble'] = function (fileData) {
                 .on('parsed', function () {
                     callback(this, this.width, this.height);
                 });
-        };
+        }
     }
 
     function isColorSimilar(a, b, color) {
@@ -186,7 +186,7 @@ _this['resemble'] = function (fileData) {
         var h;
         var d;
 
-        if (max == min) {
+        if (max === min) {
             h = 0; // achromatic
         } else {
             d = max - min;
@@ -222,9 +222,7 @@ _this['resemble'] = function (fileData) {
         for (i = distance * -1; i <= distance; i++) {
             for (j = distance * -1; j <= distance; j++) {
 
-                if (i === 0 && j === 0) {
-                    // ignore source pixel
-                } else {
+                if (!(i === 0 && j === 0)) {
 
                     offset = ((verticalPos + j) * width + (horizontalPos + i)) * 4;
                     targetPix = getPixelInfo(data, offset, cacheSet);
@@ -560,9 +558,8 @@ _this['resemble'] = function (fileData) {
 
 };
 
-_this['resemble'].outputSettings = function (options) {
+_this.resemble.outputSettings = function (options) {
     var key;
-    var undefined;
 
     if (options.errorColor) {
         for (key in options.errorColor) {
@@ -579,4 +576,4 @@ _this['resemble'].outputSettings = function (options) {
     return this;
 };
 
-module.exports = _this['resemble']
+module.exports = _this.resemble;
