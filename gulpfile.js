@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
+    sass = require('gulp-sass'),
     istanbul = require('gulp-istanbul');
 
 gulp.task('mocha', function () {
@@ -27,8 +28,16 @@ gulp.task('mocha', function () {
         });
 });
 
+gulp.task('sass', function () {
+    gulp.src('./sass/style.scss')
+        .pipe(sass({
+            outputStyle: 'compressed'
+        }).on('error', sass.logError))
+        .pipe(gulp.dest('./public/css/'));
+});
+
 gulp.task('watch', function () {
-    gulp.watch('./api/**/*.js');
+    gulp.watch(['./api/**/*.js', './sass/*'], ['sass']);
 });
 
 gulp.task('default', ['watch']);

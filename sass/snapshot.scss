@@ -1,0 +1,54 @@
+.snapshot {
+    @include columns(1);
+    padding: 10px;
+    min-height: 20px;
+    position: relative;
+    border: 1px solid lightgrey;
+    &:hover {
+        .image:after {
+            opacity: 0;
+        }
+        .info {
+            background-color: rgba(10, 10, 10, 0);
+            color: grey;
+        }
+    }
+    .image:after {
+        opacity: 0;
+    }
+    .image {
+        img {
+            width: 100%;
+            height: auto;
+        }
+        &:after {
+            transition: all 0.3s ease;
+            content: "";
+            display: block;
+            height: 100%;
+            width: 100%;
+            opacity: 1;
+            background: rgba(0, 0, 0, .3);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+    .info {
+        transition: all 0.3s ease;
+        background-color: rgba(10, 10, 10, .7);
+        height: 30%;
+        width: 100%;
+        z-index: 200;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        opacity: 1;
+        color: white;
+        padding: 10px;
+        .name {
+            font-size: 2em;
+            line-height: 1.3em;
+        }
+    }
+}

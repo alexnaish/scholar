@@ -1,0 +1,49 @@
+$DESKTOP_GRID_COLUMNS: 6;
+$TABLET_GRID_COLUMNS: 4;
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.grid {
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    &:after {
+        /* Or @extend clearfix */
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+.row {
+    float: left;
+    & > * {
+        float: left;
+    }
+    .grid &:last-of-type {
+        padding-right: 0;
+    }
+}
+.row {
+    width: 100%;
+}
+@mixin columns($number) {
+    float: left;
+    @media screen and (max-width: 320px) {
+        min-width: 100%;
+        width: 100%;
+    }
+    @media screen and (max-width: 480px) {
+        min-width: 50%;
+        width: 50%;
+    }
+    @media screen and (min-width: 481px) and (max-width: 1440px) {
+        min-width: percentage($number / $TABLET_GRID_COLUMNS);
+        width: percentage($number / $TABLET_GRID_COLUMNS);
+    }
+    @media screen and (min-width: 1441px) {
+        min-width: percentage($number / $DESKTOP_GRID_COLUMNS);
+        width: percentage($number / $DESKTOP_GRID_COLUMNS);
+    }
+}

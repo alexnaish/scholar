@@ -10,3 +10,7 @@ app.config(['$locationProvider', '$routeProvider', function ($locationProvider, 
 
     $locationProvider.html5Mode(false);
 }]);
+
+app.config(['$compileProvider', function ($compileProvider) {
+    $compileProvider.debugInfoEnabled(false);
+}]);

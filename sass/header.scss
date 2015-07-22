@@ -1,0 +1,34 @@
+.top-bar {
+    color: #9db1c5;
+    background-color: #25313e;
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    z-index: 100;
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+    .top-title {
+        position: relative;
+        float: left;
+        width: 220px;
+        height: 60px;
+        float: none;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 50px;
+        display: inline-block;
+        padding: 0 15px;
+        a {
+            text-decoration: none;
+            line-height: 60px;
+            color: #9db1c5;
+            &:hover {
+                color: white;
+            }
+        }
+        i {
+            margin-right: 10px;
+        }
+    }
+}
