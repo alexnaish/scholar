@@ -1,6 +1,4 @@
-var mongoose = require('mongoose');
-
-var screenshotSchema = mongoose.Schema({
+var screenshotSchema = {
     name: {
         type: String,
         required: true
@@ -13,7 +11,7 @@ var screenshotSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
+};
 
 
 module.exports = {

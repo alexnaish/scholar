@@ -37,7 +37,7 @@
     .info {
         transition: all 0.3s ease;
         background-color: rgba(10, 10, 10, .7);
-        height: 30%;
+        height: auto;
         width: 100%;
         z-index: 200;
         bottom: 0;
@@ -45,10 +45,12 @@
         position: absolute;
         opacity: 1;
         color: white;
-        padding: 10px;
+        padding: 1vh 1vw;
         .name {
-            font-size: 2em;
-            line-height: 1.3em;
+            font-size: 2vw;
+        }
+        .date {
+            font-size: 1.2vw;
         }
         &:hover {
             background-color: rgba(10, 10, 10, 1);
