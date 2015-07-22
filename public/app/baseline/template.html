@@ -4,16 +4,41 @@
     </div>
 </div>
 
-<!-- Projects Row -->
-<div class="row">
-    <div ng-repeat="baseline in baselines" class="col-md-4 portfolio-item">
-        <a href="http://localhost:8000{{baseline.raw}}">
-            <img class="img-responsive" src="http://localhost:8000{{baseline.raw}}" alt="">
-        </a>
-        <h3>
-                    <a href="#">{{baseline.name}}</a>
-                </h3>
-        <p>{{baseline.dateCreated}}</p>
-    </div>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>DateCreated</th>
+            <th>Snapshot</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr >
+            <th scope="row">{{baseline.name}}</th>
+            <td>{{baseline.dateCreated}}</td>
+            <td>
+                <img src="http://localhost:8000{{baseline.raw}}" alt="snapshot">
+            </td>
+        </tr>
+    </tbody>
+</table>
 
+
+<div class="col-md-4" ng-repeat="baseline in baselines">
+    <div class="card">
+        <div class="card-image">
+            <img class="img-responsive" src="http://localhost:8000{{baseline.raw}}">
+        </div>
+        <div class="card-content">
+            <span class="card-title">{{baseline.name}}/span>                    
+        </div>
+        <div class="card-action">
+            <a href="#" target="new_blank">Link</a>
+            <a href="#" target="new_blank">Link</a>                    
+            <a href="#" target="new_blank">Link</a>
+            <a href="#" target="new_blank">Link</a>
+            <a href="#" target="new_blank">Link</a>
+        </div>
+    </div>
 </div>

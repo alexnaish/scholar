@@ -3,14 +3,14 @@ describe('can visit www.nowtv.com', function () {
     var myScreenshot;
 
     beforeEach(function () {
-        browser.driver.get('http://sky.com/');
+        browser.driver.get('http://q1ice.nowtv.bskyb.com/');
     });
 
 
     function submitScreenshot(png) {
         var deferred = protractor.promise.defer();
 
-        browser.request.post('http://localhost:8000/api/screenshot/test', {
+        browser.request.post('http://localhost:8000/api/screenshot/module-carousel', {
             form: {
                 imageData: png
             }
