@@ -5,6 +5,10 @@
     min-height: 20px;
     position: relative;
     border: 1px solid lightgrey;
+    transition: all 0.3s ease;
+    &.hidden {
+        opacity: 0
+    }
     &:hover {
         .image:after {
             opacity: 0;

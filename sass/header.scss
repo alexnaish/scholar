@@ -8,7 +8,8 @@
     -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
     -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-    .top-title {
+    .top-title,
+    .easter-egg {
         position: relative;
         float: left;
         width: 220px;
@@ -29,6 +30,12 @@
         }
         i {
             margin-right: 10px;
+        }
+    }
+    .easter-egg {
+        float: right;
+        a {
+            color: #25313e;
         }
     }
 }
