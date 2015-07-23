@@ -64,6 +64,9 @@
         li {
             display: inline-block;
             font-size: 14px;
+            &:last-child {
+                float: right;
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-<div class="row">
-    <h1 class="title">{{name}}</h1>
-</div>
+<h1 class="title">{{name}}</h1>
 <div class="row" ng-repeat="snapshot in snapshots">
     <div class="snapshot">
         <div class="image">
@@ -26,12 +24,17 @@
             <h2 class="name">Candidate</h2>
         </div>
     </div>
+
+    <div class="action">
+        <a class="promote" href="#">Baseline This Candidate</a>
+    </div>
+
 </div>
 
 
-<div ng-show="!snapshots.length" ng-cloak class="row">
-    <div class="error">
-        <div class="face">:)</div>
-        <div class="message">No differences. Either every snapshot passes <span class="highlight">acceptance</span> threshold or you <span class="highlight">haven't sent any</span>.</div>
+<div ng-show="!snapshots.length" class="row" ng-class="{hidden: !emptyResult}">
+    <div class=" error ">
+        <div class="face ">:)</div>
+        <div class="message ">No differences. Either every snapshot passes <span class="highlight ">acceptance thresholds</span> or you <span class="highlight ">haven't sent any</span>.</div>
     </div>
 </div>
