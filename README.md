@@ -1,14 +1,9 @@
 # scholar
 Visual Regression Engine
 
-## Screenshots
+## Dashboard
+http://s30.postimg.org/6lu7luj00/dashboard.jpg
 
-<p align="center">
-  <h2>Dashboard</h2>
-  <img src="http://s30.postimg.org/6lu7luj00/dashboard.jpg"/>
-</p>
+## Comparison Page
+http://s30.postimg.org/xie6u61tc/comparison.jpg
 
-<p align="center">
-  <h2>Comparison</h2>
-  <img src="http://s30.postimg.org/xie6u61tc/comparison.jpg"/>
-</p>
