@@ -1,0 +1,37 @@
+<div class="row">
+    <h1 class="title">{{name}}</h1>
+</div>
+<div class="row" ng-repeat="snapshot in snapshots">
+    <div class="snapshot">
+        <div class="image">
+            <img ng-src="/api/baseline/{{snapshot.name}}/raw" alt="{{snapshot.name}} Baseline">
+        </div>
+        <div class="info">
+            <h2 class="name">Baseline</h2>
+        </div>
+    </div>
+    <div class="snapshot">
+        <div class="image">
+            <img ng-src="/api/diff/{{snapshot.name}}/{{snapshot._id}}/raw" alt="{{snapshot.name}} Diff">
+        </div>
+        <div class="info">
+            <h2 class="name">Diff</h2>
+        </div>
+    </div>
+    <div class="snapshot">
+        <div class="image">
+            <img ng-src="/api/candidate/{{snapshot.name}}/{{snapshot.candidate}}/raw" alt="{{snapshot.name}} Candidate">
+        </div>
+        <div class="info">
+            <h2 class="name">Candidate</h2>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="!snapshots.length" ng-cloak class="row">
+    <div class="error">
+        <div class="face">:)</div>
+        <div class="message">No differences. Either every snapshot passes <span class="highlight">acceptance</span> threshold or you <span class="highlight">haven't sent any</span>.</div>
+    </div>
+</div>

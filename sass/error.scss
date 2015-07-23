@@ -1,0 +1,19 @@
+.error {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    .face {
+        font-size: 18vw;
+        padding: 6vh 6vw;
+        letter-spacing: -1vw;
+        color: #535353;
+    }
+    .message {
+        font-size: 28px;
+        font-weight: 300;
+        .highlight {
+            font-weight: bolder;
+            color: orange;
+        }
+    }
+}

@@ -1,7 +1,31 @@
 var BaselineService = require('../baseline/service'),
+    CandidateService = require('../candidate/service'),
     DiffService = require('../diff/service'),
     ImageService = require('../image/service'),
-    config = require('config');
+    config = require('config'),
+    async = require('async');
+
+function saveComparisons(name, diffImage, submittedImage, callback) {
+
+    async.waterfall([
+        function saveCandidate(candidateCallback) {
+            CandidateService.save({
+                name: name,
+                data: submittedImage
+            }, function (err, result) {
+                candidateCallback(err, result, err);
+            });
+        },
+        function saveDiff(result, err, diffCallback) {
+            DiffService.save({
+                name: name,
+                data: diffImage,
+                candidate: result._id
+            }, diffCallback);
+        }
+    ], callback);
+
+};
 
 module.exports = {
 
@@ -12,10 +36,7 @@ module.exports = {
                 ImageService.compareImages(result.data, imageData, function (resultJson, diffImage) {
                     var acceptableThreshold = resultJson.misMatchPercentage < config.comparison.threshold;
                     if (!acceptableThreshold) {
-                        DiffService.save({
-                            name: name,
-                            data: diffImage
-                        }, function (err, result) {
+                        saveComparisons(name, diffImage, imageData, function (err, diffResult) {
                             callback({
                                 passes: acceptableThreshold,
                                 difference: resultJson.misMatchPercentage,

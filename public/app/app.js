@@ -1,5 +1,7 @@
 var app = angular.module('Scholar', [
-  'baseline'
+    'baseline',
+    'snapshot',
+    'error'
 ]);
 
 app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
@@ -7,6 +9,9 @@ app.config(['$locationProvider', '$routeProvider', function ($locationProvider, 
         .when('/', {
             redirectTo: '/baseline'
         })
+        .otherwise({
+            redirectTo: '/error'
+        });
 
     $locationProvider.html5Mode(false);
 }]);

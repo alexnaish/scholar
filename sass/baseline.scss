@@ -1,6 +1,5 @@
-.snapshot {
-    float: left;
-    width: 33%;
+.baseline {
+    @include columns(1);
     padding: 10px;
     min-height: 20px;
     position: relative;
@@ -14,13 +13,15 @@
             color: grey;
         }
     }
+    .image:after {
+        opacity: 0;
+    }
     .image {
         img {
             width: 100%;
             height: auto;
         }
         &:after {
-            opacity: 0;
             transition: all 0.3s ease;
             content: "";
             display: block;
@@ -57,6 +58,12 @@
         &:hover {
             background-color: rgba(10, 10, 10, 1);
             color: white;
+        }
+    }
+    .actions {
+        li {
+            display: inline-block;
+            font-size: 14px;
         }
     }
 }

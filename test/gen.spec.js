@@ -109,5 +109,29 @@ describe('testing ', function () {
             });
         });
     });
+    it('user can successfully navigate to rivaya.com', function () {
+
+        browser.driver.get('http://rivaya.com/');
+        browser.sleep(2000);
+
+        browser.takeScreenshot().then(function (png) {
+            submitScreenshot('rivaya', png, function (result) {
+                console.log('result', result);
+                expect(result.passes).toBe(true);
+            });
+        });
+    });
+    it('user can successfully navigate to aeser.co.uk', function () {
+
+        browser.driver.get('http://aeser.co.uk/');
+        browser.sleep(2000);
+
+        browser.takeScreenshot().then(function (png) {
+            submitScreenshot('aeser', png, function (result) {
+                console.log('result', result);
+                expect(result.passes).toBe(true);
+            });
+        });
+    });
 
 });

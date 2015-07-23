@@ -4,9 +4,9 @@ var screenshotSchema = require('../screenshot/model').schema,
 
 
 var schema = _.extend({}, screenshotSchema);
-//schema.candidate = {
-//    type: String,
-//    required: true
-//};
+schema.candidate = {
+    type: String,
+    required: true
+};
 
 module.exports = mongoose.model('Diff', mongoose.Schema(schema));

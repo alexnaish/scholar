@@ -24,4 +24,16 @@ a {
 }
 .content {
     padding-top: 70px;
+    .title {
+        font-size: 48px;
+        margin: 20px;
+    }
+}
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
 }

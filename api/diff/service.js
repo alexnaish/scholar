@@ -11,7 +11,7 @@ module.exports = {
         var errorCode = 200;
         DiffModel.find({
             name: name
-        }, 'name dateCreated', {
+        }, 'name dateCreated candidate', {
             lean: true,
             sort: {
                 dateCreated: -1
