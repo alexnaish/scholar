@@ -2,8 +2,8 @@
 Visual Regression Engine
 
 ## Dashboard
-http://s30.postimg.org/6lu7luj00/dashboard.jpg
+http://s30.postimg.org/luk4zmcof/dashboard.png
 
 ## Comparison Page
-http://s30.postimg.org/xie6u61tc/comparison.jpg
+http://s30.postimg.org/kr00nns1b/comparison.png
 
