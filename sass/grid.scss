@@ -1,5 +1,6 @@
-$DESKTOP_GRID_COLUMNS: 6;
-$TABLET_GRID_COLUMNS: 4;
+$LARGE_GRID_COLUMNS: 6;
+$MEDIUM_GRID_COLUMNS: 4;
+$SMALL_GRID_COLUMNS: 3;
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -30,20 +31,24 @@ $TABLET_GRID_COLUMNS: 4;
 }
 @mixin columns($number) {
     float: left;
-    @media screen and (max-width: 320px) {
+    @media screen and (max-width: 400px) {
         min-width: 100%;
         width: 100%;
     }
-    @media screen and (max-width: 480px) {
+    @media screen and (min-width: 401px) and (max-width: 600px) {
         min-width: 50%;
         width: 50%;
     }
-    @media screen and (min-width: 481px) and (max-width: 1440px) {
-        min-width: percentage($number / $TABLET_GRID_COLUMNS);
-        width: percentage($number / $TABLET_GRID_COLUMNS);
+    @media screen and (min-width: 601px) and (max-width: 900px) {
+        min-width: percentage($number / $SMALL_GRID_COLUMNS);
+        width: percentage($number / $SMALL_GRID_COLUMNS);
+    }
+    @media screen and (min-width: 901px) and (max-width: 1440px) {
+        min-width: percentage($number / $MEDIUM_GRID_COLUMNS);
+        width: percentage($number / $MEDIUM_GRID_COLUMNS);
     }
     @media screen and (min-width: 1441px) {
-        min-width: percentage($number / $DESKTOP_GRID_COLUMNS);
-        width: percentage($number / $DESKTOP_GRID_COLUMNS);
+        min-width: percentage($number / $LARGE_GRID_COLUMNS);
+        width: percentage($number / $LARGE_GRID_COLUMNS);
     }
 }

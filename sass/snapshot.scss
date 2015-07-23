@@ -46,15 +46,24 @@
         opacity: 1;
         color: white;
         padding: 1vh 1vw;
+        line-height: 20px;
         .name {
-            font-size: 2vw;
+            font-size: 20px;
+            font-weight: 500;
         }
         .date {
-            font-size: 1.2vw;
+            font-size: 14px;
+            font-weight: 300;
         }
         &:hover {
             background-color: rgba(10, 10, 10, 1);
             color: white;
+        }
+    }
+    .actions {
+        li {
+            display: inline-block;
+            font-size: 14px;
         }
     }
 }
