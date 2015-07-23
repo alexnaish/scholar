@@ -3,6 +3,12 @@ Visual Regression Engine
 
 ## Screenshots
 
-![Default Dashboard](http://s30.postimg.org/4u18qxzn1/dashboard.png)
+<p align="center">
+  <h2>Dashboard</h2>
+  <img src="http://s30.postimg.org/luk4zmcof/dashboard.png"/>
+</p>
 
-![Comparing a Baseline to a Candidate](http://s30.postimg.org/p04qptval/comparison.png)
+<p align="center">
+  <h2>Comparison</h2>
+  <img src="http://s30.postimg.org/kr00nns1b/comparison.png"/>
+</p>
