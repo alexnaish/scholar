@@ -8,11 +8,11 @@
     -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
     -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-    .top-title,
-    .easter-egg {
+    overflow: hidden;
+    .top-title, .easter-egg {
         position: relative;
         float: left;
-        width: 220px;
+        width: auto;
         height: 60px;
         float: none;
         font-size: 20px;

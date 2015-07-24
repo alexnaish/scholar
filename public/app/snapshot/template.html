@@ -16,7 +16,7 @@
             <h2 class="name">Diff</h2>
         </div>
     </div>
-    <div class="snapshot" ng-class="{'hidden': isBaselinedCandidate(snapshot.candidate) === false}">
+    <div class="snapshot" ng-class="{'hidden': isHidden(snapshot.candidate)}">
         <div class=" image ">
             <img ng-src="/api/candidate/{{snapshot.name}}/{{snapshot.candidate}}/raw " alt="{{snapshot.name}} Candidate ">
         </div>
@@ -25,16 +25,16 @@
         </div>
     </div>
 
-    <div class="action ">
-        <a class="promote " ng-click="promoteCandidate(snapshot.candidate) ">Baseline This Candidate</a>
+    <div class="action">
+        <a class="promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
     </div>
 
 </div>
 
 
-<div ng-show="!snapshots.length " class="row ">
-    <div class="error ">
-        <div class="face ">:)</div>
-        <div class="message ">No differences. Either every snapshot passes <span class="highlight ">acceptance thresholds</span>, you recently <span class="highlight ">baselined a candidate</span> or you <span class="highlight ">haven't sent any</span>.</div>
+<div ng-show="!snapshots.length" class="row ">
+    <div class="error">
+        <div class="face">:)</div>
+        <div class="message">No differences. Either every snapshot passes <span class="highlight ">the acceptance threshold</span>, you recently <span class="highlight ">baselined a candidate</span> or you <span class="highlight ">haven't sent any</span>.</div>
     </div>
 </div>

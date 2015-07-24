@@ -11,6 +11,9 @@
         .info {
             background-color: rgba(10, 10, 10, 0);
             color: grey;
+            li {
+                opacity: 0;
+            }
         }
     }
     .image:after {
@@ -58,14 +61,24 @@
         &:hover {
             background-color: rgba(10, 10, 10, 1);
             color: white;
+            li {
+                opacity: 1;
+            }
         }
     }
     .actions {
         li {
+            transition: opacity 0.3s ease;
             display: inline-block;
             font-size: 14px;
             &:last-child {
                 float: right;
+            }
+            a {
+                color: darken(orange, 10);
+                &:hover {
+                    color: lighten(orange, 20);
+                }
             }
         }
     }
