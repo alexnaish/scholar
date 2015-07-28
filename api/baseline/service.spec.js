@@ -70,7 +70,7 @@ describe('Baseline Service', function () {
         });
     });
 
-    it('save', function (done) {
+    it('save removes baseline with the same name and then saves the new payload', function (done) {
         var removeStub = sandbox.stub(BaselineModel, 'remove').yields(null);
         var saveStub = sandbox.stub(BaselineModel.prototype, 'save').yields(null);
         var payload = {
