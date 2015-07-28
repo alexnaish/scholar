@@ -6,3 +6,4 @@ languages:
   Python: false
 exclude_paths:
  - "**/*.spec.js"
+ - "test/**/*"

@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     istanbul = require('gulp-istanbul');
 
 gulp.task('mocha', function () {
-    process.env.NODE_ENV = 'development';
     gulp.src(['./api/**/*.js', '!./api/**/*.spec.js', '!./api/index.js'])
         .pipe(istanbul()) // Covering files
         .pipe(istanbul.hookRequire()) // Force `require` to return covered files
