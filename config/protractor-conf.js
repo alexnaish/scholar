@@ -8,7 +8,7 @@ exports.config = {
     baseUrl: 'http://localhost:8000',
     framework: 'jasmine2',
     restartBrowserBetweenTests: false,
-    specs: [__dirname + '/../**/*.spec.js'],
+    specs: [__dirname + '/../test/e2e/**/*.spec.js'],
     jasmineNodeOpts: {
         defaultTimeoutInterval: 15000,
         isVerbose: true,

@@ -6,7 +6,7 @@ describe('testing ', function () {
         var deferred = protractor.promise.defer();
 
         function makeRequest(id, png) {
-            browser.request.post('http://localhost:8000/api/screenshot/' + id, {
+            browser.request.post('http://localhost:8080/api/screenshot/' + id, {
                 form: {
                     imageData: png
                 }

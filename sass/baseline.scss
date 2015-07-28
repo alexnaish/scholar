@@ -4,6 +4,7 @@
     min-height: 20px;
     position: relative;
     border: 1px solid lightgrey;
+    flex-grow: 1;
     &:hover {
         .image:after {
             opacity: 0;
