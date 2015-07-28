@@ -1,5 +1,6 @@
 <h1 class="title">{{name}}</h1>
 <div class="row" ng-repeat="snapshot in snapshots">
+    <div class="date">Date Taken: {{snapshot.dateCreated}}</div>
     <div class="snapshot" ng-class="{'hidden': baselined}">
         <div class="image">
             <img ng-src="/api/baseline/{{snapshot.name}}/raw" alt="{{snapshot.name}} Baseline">
@@ -27,7 +28,8 @@
     </div>
 
     <div class="action">
-        <a class="promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
+        <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
+        <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
     </div>
 
 </div>
