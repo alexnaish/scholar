@@ -1,7 +1,7 @@
 .baseline {
     @include columns(1);
     padding: 10px;
-    min-height: 20px;
+    min-height: 200px;
     position: relative;
     border: 1px solid lightgrey;
     flex-grow: 1;
