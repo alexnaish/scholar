@@ -23,5 +23,5 @@ Setup
 1. Run `npm install`.
 1. On a locally running mongodb server, create the "scholar" database with user/password "scholar/kernel" (configurable with "api/config/default.js" as required).
 1. To start the application run `npm start`.
-1. To run a sample of protractor tests set up to use the application run `npm run e2e`. The first time this will run all the tests should pass as the images are being baselined. On subsequent runs the should pass/fail depending on whether the website has changed since the baseline was taken.
+1. To run a sample of protractor tests set up to use the application run `npm run e2e`. The first time this runs all the tests should pass as the images are being baselined. On subsequent runs they should pass/fail depending on whether the website has changed since the baseline was taken.
 1. To view the application and the submitted screenshots go to `localhost:8000`.
