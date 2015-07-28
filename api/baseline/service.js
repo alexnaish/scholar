@@ -27,20 +27,18 @@ module.exports = {
 
     },
     findOne: function (name, fields, callback) {
-
-        var errorCode = 200;
-
+        var statusCode = 200;
         BaselineModel.findOne({
             name: name
         }, fields, {
             lean: true
         }, function (err, result) {
             if (!result) {
-                errorCode = 404;
+                statusCode = 404;
             } else {
                 addRawUrl(result);
             }
-            callback(errorCode, result);
+            callback(statusCode, result);
         });
     },
     save: function (payload, callback) {
