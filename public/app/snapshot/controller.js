@@ -10,9 +10,13 @@ component.controller("SnapshotController", ['$scope', 'SnapshotService', '$route
     $scope.promoteCandidate = function (candidateId) {
         $scope.baselined = true;
         $scope.baselinedCandidate = candidateId;
-        $timeout(function () {
-            //            $location.path("/baseline");
-        }, 1000);
+
+        SnapshotService.promoteCandidate($scope.name, candidateId).then(function (data) {
+            $timeout(function () {
+                $location.url("/baseline?refresh=" + $scope.name);
+            }, 1000);
+        });
+
     };
 
     $scope.isHidden = function (candidateId) {
