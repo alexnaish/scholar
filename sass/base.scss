@@ -14,14 +14,17 @@ html {
         background-color: #ececec;
     }
 }
+
 a {
     color: #CCC;
     transition: all 0.3s ease;
     text-decoration: none;
+    cursor: pointer;
     &:hover {
         color: white;
     }
 }
+
 .content {
     padding-top: 70px;
     .title {
@@ -30,6 +33,7 @@ a {
         border-bottom: 1px solid lightgrey;
     }
 }
+
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],

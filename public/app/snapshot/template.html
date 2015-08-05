@@ -1,5 +1,6 @@
 <h1 class="title">{{name}}</h1>
 <div class="row" ng-repeat="snapshot in snapshots">
+    <div class="date">Date Taken: {{snapshot.dateCreated}}</div>
     <div class="snapshot" ng-class="{'hidden': baselined}">
         <div class="image">
             <img ng-src="/api/baseline/{{snapshot.name}}/raw" alt="{{snapshot.name}} Baseline">
@@ -14,19 +15,21 @@
         </div>
         <div class="info">
             <h2 class="name">Diff</h2>
+            <a href="/api/diff/{{snapshot.name}}/{{snapshot._id}}/raw" target="_blank">View in Tab</a>
         </div>
     </div>
     <div class="snapshot" ng-class="{'hidden': isHidden(snapshot.candidate)}">
-        <div class=" image ">
-            <img ng-src="/api/candidate/{{snapshot.name}}/{{snapshot.candidate}}/raw " alt="{{snapshot.name}} Candidate ">
+        <div class="image">
+            <img ng-src="/api/candidate/{{snapshot.name}}/{{snapshot.candidate}}/raw" alt="{{snapshot.name}} Candidate ">
         </div>
-        <div class="info ">
+        <div class="info">
             <h2 class="name ">Candidate</h2>
         </div>
     </div>
 
     <div class="action">
-        <a class="promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
+        <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
+        <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
     </div>
 
 </div>

@@ -5,7 +5,7 @@ var config = require('config'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     router = require('./router'),
-    port = process.env.PORT || 8000;
+    port = process.env.PORT || 8080;
 
 module.exports = app;
 

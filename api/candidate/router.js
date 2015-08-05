@@ -6,9 +6,7 @@ module.exports = {
 
     apply: function (app) {
 
-        var path = '/candidate/:name';
-
-        app.route(config.app.apiPath + path + '/:id/raw')
+        app.route(config.app.apiPath + '/candidate/:name/:id/raw')
             .get(api.renderRawImage);
 
     }

@@ -6,19 +6,25 @@ $SMALL_GRID_COLUMNS: 3;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 .grid {
     width: 100%;
     margin: 0 auto;
     height: 100%;
     &:after {
         /* Or @extend clearfix */
+
         content: "";
         display: table;
         clear: both;
     }
 }
+
 .row {
     float: left;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     & > * {
         float: left;
     }
@@ -26,24 +32,22 @@ $SMALL_GRID_COLUMNS: 3;
         padding-right: 0;
     }
 }
-.row {
-    width: 100%;
-}
+
 @mixin columns($number) {
     float: left;
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 480px) {
         min-width: 100%;
         width: 100%;
     }
-    @media screen and (min-width: 401px) and (max-width: 600px) {
+    @media screen and (min-width: 481px) and (max-width: 680px) {
         min-width: 50%;
         width: 50%;
     }
-    @media screen and (min-width: 601px) and (max-width: 900px) {
+    @media screen and (min-width: 681px) and (max-width: 1000px) {
         min-width: percentage($number / $SMALL_GRID_COLUMNS);
         width: percentage($number / $SMALL_GRID_COLUMNS);
     }
-    @media screen and (min-width: 901px) and (max-width: 1440px) {
+    @media screen and (min-width: 1001px) and (max-width: 1440px) {
         min-width: percentage($number / $MEDIUM_GRID_COLUMNS);
         width: percentage($number / $MEDIUM_GRID_COLUMNS);
     }
