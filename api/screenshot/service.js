@@ -13,10 +13,12 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
                 name: name,
                 data: submittedImage
             }, function (err, result) {
-                candidateCallback(err, result, err);
+                candidateCallback(err, result);
             });
         },
-        function saveDiff(result, err, diffCallback) {
+        function saveDiff(result, diffCallback) {
+            console.log('my result id', result._id);
+            console.log('my result name', result.name);
             DiffService.save({
                 name: name,
                 data: diffImage,
