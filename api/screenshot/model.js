@@ -13,7 +13,6 @@ var screenshotSchema = {
     }
 };
 
-
 module.exports = {
     schema: screenshotSchema
-}
+};

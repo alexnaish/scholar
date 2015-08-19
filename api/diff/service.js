@@ -1,7 +1,7 @@
 var DiffModel = require('./model'),
     config = require('config');
 
-function addRawUrl(result) {
+function _modify(result) {
     result.raw = config.app.apiPath + '/diff/' + result.name + '/' + result._id + '/raw';
 }
 
@@ -11,7 +11,9 @@ module.exports = {
         var errorCode = 200;
         DiffModel.find({
             name: name
-        }, 'name dateCreated candidate', {
+        },
+        'name dateCreated candidate',
+        {
             lean: true,
             sort: {
                 dateCreated: -1
@@ -21,7 +23,7 @@ module.exports = {
                 errorCode = 500;
             } else {
                 for (var i = 0; i < results.length; i++) {
-                    addRawUrl(results[i]);
+                    _modify(results[i]);
                 }
             }
             callback(errorCode, results);
@@ -31,14 +33,13 @@ module.exports = {
     findOne: function (name, id, fields, callback) {
         var errorCode = 200;
         DiffModel.findOne({
+            _id: id,
             name: name
         }, fields, {
             lean: true
         }, function (err, result) {
             if (!result) {
                 errorCode = 404;
-            } else {
-                addRawUrl(result);
             }
             callback(errorCode, result);
         });

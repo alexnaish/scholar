@@ -12,20 +12,22 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
             CandidateService.save({
                 name: name,
                 data: submittedImage
-            }, function (err, result) {
+            }, function(err, result){
                 candidateCallback(err, result);
             });
         },
         function saveDiff(result, diffCallback) {
-            console.log('my result id', result._id);
-            console.log('my result name', result.name);
             DiffService.save({
                 name: name,
                 data: diffImage,
                 candidate: result._id
-            }, diffCallback);
+            }, function(err, result){
+                diffCallback();
+            });
         }
-    ], callback);
+    ], function(){
+        callback();
+    });
 
 };
 
@@ -62,11 +64,11 @@ module.exports = {
 
             if (result) {
                 ImageService.compareImages(result.data, imageData, function (resultJson, diffImage) {
-                    var acceptableThreshold = resultJson.misMatchPercentage < config.comparison.threshold;
-                    if (!acceptableThreshold) {
-                        saveComparisons(name, diffImage, imageData, function (err, diffResult) {
+                    var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
+                    if (!acceptable) {
+                        saveComparisons(name, diffImage, imageData, function () {
                             callback({
-                                passes: acceptableThreshold,
+                                passes: acceptable,
                                 difference: resultJson.misMatchPercentage,
                                 isSameDimensions: resultJson.isSameDimensions,
                                 diffUrl: config.app.apiPath + '/diff/' + name + '/' + result._id + '/raw'
@@ -74,12 +76,11 @@ module.exports = {
                         });
                     } else {
                         callback({
-                            passes: acceptableThreshold,
+                            passes: acceptable,
                             difference: resultJson.misMatchPercentage,
                             isSameDimensions: resultJson.isSameDimensions
                         });
                     }
-
                 });
             } else {
                 BaselineService.save({
@@ -112,7 +113,7 @@ module.exports = {
                     }
                 });
             }
-        })
+        });
 
     }
 
