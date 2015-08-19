@@ -14,7 +14,7 @@ gulp.task('mocha', function () {
                     reporter: 'spec'
                 }))
                 .pipe(istanbul.writeReports({
-                    reporters: ['html', 'text', 'text-summary']
+                    reporters: ['html', 'text', 'text-summary', 'lcov']
                 }))
                 .pipe(istanbul.enforceThresholds({
                     thresholds: {

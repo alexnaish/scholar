@@ -4,9 +4,14 @@ services:
 before_script:
   - sleep 10
   - mongo scholar --eval 'db.addUser("scholar", "kernel");'
+after_script:
+  - codeclimate-test-reporter < coverage/lcov.info
 node_js:
   - "0.12"
   - "0.11"
   - "0.10"
 notifications:
   email: false
+addons:
+  code_climate:
+    repo_token: 08756d6c738fbf3a7fd2cd981ec5e244e4584ff46ca19474255d3feb36700bf6
