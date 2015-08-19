@@ -1,5 +1,4 @@
 var DiffService = require('./service'),
-    config = require('config'),
     ImageService = require('../image/service');
 
 module.exports = {

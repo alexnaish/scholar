@@ -1,5 +1,4 @@
-var config = require('config'),
-    screenshot = require('../screenshot/router'),
+var screenshot = require('../screenshot/router'),
     baseline = require('../baseline/router'),
     candidate = require('../candidate/router'),
     diff = require('../diff/router');

@@ -29,7 +29,7 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
         callback();
     });
 
-};
+}
 
 function clearCandidatesAndDiffs(name, callback) {
     async.parallel({
@@ -55,7 +55,7 @@ function clearCandidatesAndDiffs(name, callback) {
             }
             callback(statusCode, {});
         });
-};
+}
 
 module.exports = {
 

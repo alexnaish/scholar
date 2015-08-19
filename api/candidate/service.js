@@ -1,5 +1,4 @@
-var config = require('config'),
-    CandidateModel = require('./model');
+var CandidateModel = require('./model');
 
 module.exports = {
 
