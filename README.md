@@ -1,6 +1,10 @@
 # scholar - Visual Regression Engine
 
-Screenshots 
+[![Code Climate](https://codeclimate.com/github/alexnaish/scholar/badges/gpa.svg)](https://codeclimate.com/github/alexnaish/scholar)
+
+[![Build Status](https://travis-ci.org/alexnaish/scholar.svg)](https://travis-ci.org/alexnaish/scholar)
+
+Screenshots
 -----
 ### Dashboard
 http://s30.postimg.org/luk4zmcof/dashboard.png
@@ -9,7 +13,7 @@ http://s30.postimg.org/luk4zmcof/dashboard.png
 http://s30.postimg.org/kr00nns1b/comparison.png
 
 
-Intro 
+Intro
 -----
 
 Needed a nice tool to allow easy Visual regression testing of HTML/CSS/JS modules. No more asserting class names, run your tests, post the base64 screenshots and get immediate feedback within your tests as to whether the difference is acceptable or not.
