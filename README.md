@@ -9,11 +9,11 @@ Screenshots
 -----
 ### Dashboard
 
-[[ http://s30.postimg.org/mk2xbzd7z/dashboard.png | height = 300px ]]
+![Dashboard](http://s30.postimg.org/mk2xbzd7z/dashboard.png)
 
 ### Comparison Page
 
-[![comparison](http://s30.postimg.org/rhghx3f73/comparison.png)](http://s30.postimg.org/rhghx3f73/comparison.png)
+![comparison](http://s30.postimg.org/rhghx3f73/comparison.png)
 
 
 
