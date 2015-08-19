@@ -1,6 +1,6 @@
 <h1 class="title">{{name}}</h1>
 <div class="row" ng-repeat="snapshot in snapshots">
-    <div class="date">Date Taken: {{snapshot.dateCreated}}</div>
+    <div class="taken">Date Taken: {{snapshot.dateCreated}}</div>
     <div class="snapshot" ng-class="{'hidden': baselined}">
         <div class="image">
             <img ng-src="/api/baseline/{{snapshot.name}}/raw" alt="{{snapshot.name}} Baseline">
