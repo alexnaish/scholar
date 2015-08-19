@@ -241,14 +241,6 @@ _this.resemble = function (fileData) {
         return false;
     }
 
-    function errorPixel(px, offset, data1, data2) {
-        var data = errorPixelTransformer(data1, data2);
-        px[offset] = data.r;
-        px[offset + 1] = data.g;
-        px[offset + 2] = data.b;
-        px[offset + 3] = data.a;
-    }
-
     function setPixel(pixelArray, index, colour) {
         pixelArray[index] = colour.red;
         pixelArray[index + 1] = colour.green;
@@ -256,23 +248,28 @@ _this.resemble = function (fileData) {
         pixelArray[index + 3] = colour.alpha * pixelTransparency;
     }
 
-    function copyPixel(px, offset, data) {
-        var colour = {
-            red: data.r,
-            green: data.g,
-            blue: data.b,
-            alpha: data.a,
+    function createColourObject(red, blue, green, alpha) {
+        return {
+            red: red,
+            green: green,
+            blue: blue,
+            alpha: alpha
         };
+    }
+
+    function errorPixel(px, offset, data1, data2) {
+        var data = errorPixelTransformer(data1, data2);
+        var colour = createColourObject(data.r, data.g, data.b, data.a);
+        setPixel(px, offset, colour);
+    }
+
+    function copyPixel(px, offset, data) {
+        var colour = createColourObject(data.r, data.g, data.b, data.a * pixelTransparency);
         setPixel(px, offset, colour);
     }
 
     function copyGrayScalePixel(px, offset, data) {
-        var colour = {
-            red: data.brightness,
-            green: data.brightness,
-            blue: data.brightness,
-            alpha: data.brightness,
-        };
+        var colour = createColourObject(data.brightness, data.brightness, data.brightness, data.a * pixelTransparency);
         setPixel(px, offset, colour);
     }
 
