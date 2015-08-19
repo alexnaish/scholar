@@ -3,19 +3,17 @@
 [![Code Climate](https://codeclimate.com/github/alexnaish/scholar/badges/gpa.svg)](https://codeclimate.com/github/alexnaish/scholar)
 [![Build Status](https://travis-ci.org/alexnaish/scholar.svg)](https://travis-ci.org/alexnaish/scholar)
 [![Test Coverage](https://codeclimate.com/github/alexnaish/scholar/badges/coverage.svg)](https://codeclimate.com/github/alexnaish/scholar/coverage)
-[![GitHub issues](https://img.shields.io/github/issues/alexnaish/scholar.svg)](https://github.com/alexnaish/scholar/issues)
+
 
 Screenshots
 -----
 ### Dashboard
 
-![Dashboard](http://s30.postimg.org/mk2xbzd7z/dashboard.png)
+http://s30.postimg.org/mk2xbzd7z/dashboard.png
 
 ### Comparison Page
 
-![comparison](http://s30.postimg.org/rhghx3f73/comparison.png)
-
-
+http://s30.postimg.org/rhghx3f73/comparison.png
 
 Intro
 -----
