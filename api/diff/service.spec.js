@@ -1,3 +1,5 @@
+var sinon = require('sinon');
+
 describe('Diff Service', function () {
 
     var sandbox;
