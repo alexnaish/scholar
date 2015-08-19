@@ -8,12 +8,6 @@
     position: relative;
     border: 1px solid lightgrey;
     transition: all 0.3s ease;
-    user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    &:active {
-        flex-grow: 1.5;
-    }
     &.hidden {
         opacity: 0
     }
@@ -27,6 +21,7 @@
         }
     }
     .image {
+        -webkit-user-select: none;
         img {
             width: 100%;
             height: auto;
@@ -48,7 +43,7 @@
     .info {
         transition: all 0.3s ease;
         background-color: rgba(10, 10, 10, .7);
-        min-height: 60px;
+        min-height: 40px;
         height: auto;
         width: 100%;
         z-index: 200;
@@ -58,14 +53,10 @@
         opacity: 1;
         color: white;
         padding: 0.7vh 0.7vw;
-        line-height: 20px;
         .name {
             font-size: 20px;
             font-weight: 500;
-        }
-        .date {
-            font-size: 14px;
-            font-weight: 300;
+            line-height: 40px;
         }
         &:hover {
             background-color: rgba(10, 10, 10, 1);
@@ -78,7 +69,10 @@
 .taken {
     width: 100%;
     font-size: 20px;
-    padding: 20px 20px 10px
+    padding: 20px 20px 10px;
+    .highlight {
+        font-weight: 300;
+    }
 }
 
 .action {
@@ -86,7 +80,7 @@
     width: 100%;
     .button {
         padding: 20px;
-        font-size: 24px;
+        font-size: 18px;
         background-color: #25313e;
         text-align: center;
         float: left;

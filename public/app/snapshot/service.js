@@ -13,6 +13,16 @@ component.service("SnapshotService", ['$http', function ($http) {
                         throw httpError.status + " : " + httpError.data;
                     });
         },
+        deleteSnapshot: function (diffId) {
+            return $http.delete('/api/screenshot/' + name + '/promote/' + candidateId)
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (httpError) {
+                        throw httpError.status + " : " + httpError.data;
+                    });
+        },
         promoteCandidate: function (name, candidateId) {
             return $http.post('/api/screenshot/' + name + '/promote/' + candidateId)
                 .then(

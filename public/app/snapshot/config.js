@@ -1,4 +1,4 @@
-var component = angular.module('snapshot.config', ['ngRoute']);
+var component = angular.module('snapshot.config', ['ngRoute', 'toastr']);
 
 component.config(function ($routeProvider) {
     $routeProvider

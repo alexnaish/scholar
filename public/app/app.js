@@ -1,7 +1,8 @@
 var app = angular.module('Scholar', [
     'baseline',
     'snapshot',
-    'error'
+    'error',
+    'ngAnimate'
 ]);
 
 app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
