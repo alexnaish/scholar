@@ -9,7 +9,7 @@ Screenshots
 -----
 ### Dashboard
 
-[![dashboard](http://s30.postimg.org/mk2xbzd7z/dashboard.png)](http://s30.postimg.org/mk2xbzd7z/dashboard.png)
+[[ http://s30.postimg.org/mk2xbzd7z/dashboard.png | height = 300px ]]
 
 ### Comparison Page
 
