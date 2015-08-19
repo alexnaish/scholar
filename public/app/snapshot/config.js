@@ -6,5 +6,5 @@ component.config(function ($routeProvider) {
             templateUrl: 'app/snapshot/template.html',
             controller: 'SnapshotController',
             resolve: {}
-        })
+        });
 });

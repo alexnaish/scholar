@@ -6,5 +6,5 @@ component.config(function ($routeProvider) {
             templateUrl: 'app/baseline/template.html',
             controller: 'BaselineController',
             resolve: {}
-        })
+        });
 });

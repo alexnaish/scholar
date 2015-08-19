@@ -11,7 +11,7 @@ component.controller("SnapshotController", ['$scope', 'SnapshotService', '$route
         $scope.baselined = true;
         $scope.baselinedCandidate = candidateId;
 
-        SnapshotService.promoteCandidate($scope.name, candidateId).then(function (data) {
+        SnapshotService.promoteCandidate($scope.name, candidateId).then(function () {
             $timeout(function () {
                 $location.url("/baseline?refresh=" + $scope.name);
             }, 1000);

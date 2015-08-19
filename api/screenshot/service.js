@@ -21,7 +21,7 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
                 name: name,
                 data: diffImage,
                 candidate: result._id
-            }, function(err, result){
+            }, function(){
                 diffCallback();
             });
         }
@@ -36,14 +36,14 @@ function clearCandidatesAndDiffs(name, callback) {
             candidateError: function clearCandidates(candidateCallback) {
                 CandidateService.remove({
                     name: name
-                }, function (err, result) {
+                }, function (err) {
                     candidateCallback(null, err);
                 });
             },
             diffError: function saveDiff(diffCallback) {
                 DiffService.remove({
                     name: name
-                }, function (err, result) {
+                }, function (err) {
                     diffCallback(null, err);
                 });
             }
@@ -105,7 +105,7 @@ module.exports = {
                 return callback(404, {});
             } else {
                 delete result._id;
-                BaselineService.save(result, function (err, baselineResult) {
+                BaselineService.save(result, function (err) {
                     if (err) {
                         return callback(500, {});
                     } else {
