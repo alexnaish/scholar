@@ -127,10 +127,6 @@ _this.resemble = function (fileData) {
         }
     }
 
-    function isNumber(n) {
-        return !isNaN(parseFloat(n));
-    }
-
     function isPixelBrightnessSimilar(d1, d2) {
         var alpha = isColorSimilar(d1.a, d2.a, 'alpha');
         var brightness = isColorSimilar(d1.brightness, d2.brightness, 'minBrightness');
@@ -253,21 +249,34 @@ _this.resemble = function (fileData) {
         px[offset + 3] = data.a;
     }
 
+    function setPixel(pixelArray, index, colour) {
+        pixelArray[index] = colour.red;
+        pixelArray[index + 1] = colour.green;
+        pixelArray[index + 2] = colour.blue;
+        pixelArray[index + 3] = colour.alpha * pixelTransparency;
+    }
+
     function copyPixel(px, offset, data) {
-        px[offset] = data.r; //r
-        px[offset + 1] = data.g; //g
-        px[offset + 2] = data.b; //b
-        px[offset + 3] = data.a * pixelTransparency; //a
+        var colour = {
+            red: data.r,
+            green: data.g,
+            blue: data.b,
+            alpha: data.a,
+        };
+        setPixel(px, offset, colour);
     }
 
     function copyGrayScalePixel(px, offset, data) {
-        px[offset] = data.brightness; //r
-        px[offset + 1] = data.brightness; //g
-        px[offset + 2] = data.brightness; //b
-        px[offset + 3] = data.a * pixelTransparency; //a
+        var colour = {
+            red: data.brightness,
+            green: data.brightness,
+            blue: data.brightness,
+            alpha: data.brightness,
+        };
+        setPixel(px, offset, colour);
     }
 
-    function getPixelInfo(data, offset, cacheSet) {
+    function getPixelInfo(data, offset) {
         var r;
         var g;
         var b;
@@ -402,7 +411,7 @@ _this.resemble = function (fileData) {
         data.misMatchPercentage = (mismatchCount / (height * width) * 100).toFixed(2);
         data.analysisTime = Date.now() - time;
 
-        data.getDiffImage = function (text) {
+        data.getDiffImage = function () {
             return imgd;
         };
     }
