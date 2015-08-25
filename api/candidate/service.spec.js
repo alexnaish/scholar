@@ -63,7 +63,6 @@ describe('Candidate Service', function () {
         }, function (err, result) {
 
             expect(removeStub.calledOnce).to.be.true;
-            console.log(result);
             expect(result.status).to.equal('some result');
             done();
         });

@@ -12,7 +12,7 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
             CandidateService.save({
                 name: name,
                 data: submittedImage
-            }, function(err, result){
+            }, function (err, result) {
                 candidateCallback(err, result);
             });
         },
@@ -21,11 +21,11 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
                 name: name,
                 data: diffImage,
                 candidate: result._id
-            }, function(){
+            }, function () {
                 diffCallback();
             });
         }
-    ], function(){
+    ], function () {
         callback();
     });
 
@@ -33,21 +33,21 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
 
 function clearCandidatesAndDiffs(name, callback) {
     async.parallel({
-            candidateError: function clearCandidates(candidateCallback) {
-                CandidateService.remove({
-                    name: name
-                }, function (err) {
-                    candidateCallback(null, err);
-                });
-            },
-            diffError: function saveDiff(diffCallback) {
-                DiffService.remove({
-                    name: name
-                }, function (err) {
-                    diffCallback(null, err);
-                });
-            }
+        candidateError: function clearCandidates(candidateCallback) {
+            CandidateService.remove({
+                name: name
+            }, function (err) {
+                candidateCallback(null, err);
+            });
         },
+        diffError: function saveDiff(diffCallback) {
+            DiffService.remove({
+                name: name
+            }, function (err) {
+                diffCallback(null, err);
+            });
+        }
+    },
         function (err, results) {
             var statusCode = 201;
             if (results.candidateError || results.diffError) {
@@ -76,9 +76,7 @@ module.exports = {
                         });
                     } else {
                         callback({
-                            passes: acceptable,
-                            difference: resultJson.misMatchPercentage,
-                            isSameDimensions: resultJson.isSameDimensions
+                            passes: true
                         });
                     }
                 });
@@ -115,6 +113,9 @@ module.exports = {
             }
         });
 
+    },
+    deleteSnapshot: function (diffId, callback) {
+        callback(204, {});
     }
 
 };

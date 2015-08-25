@@ -1,7 +1,6 @@
 var config = require('config'),
     api = require('./api');
 
-
 module.exports = {
 
     apply: function (app) {

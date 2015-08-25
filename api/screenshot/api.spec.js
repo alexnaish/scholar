@@ -12,4 +12,8 @@ describe('Screenshot API', function () {
         done();
     });
 
+    it('DEL /api/screenshot/:name/:diffId should delete diff and its candidate', function (done) {
+        done();
+    });
+
 });

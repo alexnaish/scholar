@@ -1,15 +1,15 @@
 <div class="row">
-    <div ng-repeat="baseline in baselines" class="baseline fade">
+    <div ng-repeat="baseline in baselines track by $index" class="baseline">
         <div class="image">
-            <img ng-src="{{images[baseline.name]}}" alt="{{baseline.name}}">
+            <img ng-src="{{::images[baseline.name]}}" alt="{{::baseline.name}}">
         </div>
         <div class="info">
-            <h2 class="name">{{baseline.name}}</h2>
-            <small class="date">{{baseline.dateCreated}}</small>
+            <h2 class="name">{{::baseline.name}}</h2>
+            <small class="date">{{::baseline.dateCreated}}</small>
             <ul class="actions">
-                <li><a href="#/snapshot/{{baseline.name}}">View Candidates</a>
+                <li><a href="#/snapshot/{{::baseline.name}}">View Candidates</a>
                 </li>
-                <li><a href="{{baseline.raw}}" target="_blank">View in Tab</a>
+                <li><a href="{{::baseline.raw}}" target="_blank">View in Tab</a>
                 </li>
             </ul>
         </div>

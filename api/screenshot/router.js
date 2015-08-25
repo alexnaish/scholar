@@ -4,11 +4,17 @@ var config = require('config'),
 module.exports = {
 
     apply: function (app) {
-        app.route(config.app.apiPath + '/screenshot/:name')
+
+        var basePath = '/screenshot/:name';
+
+        app.route(config.app.apiPath + basePath)
             .post(api.submitNewScreenshot);
 
-        app.route(config.app.apiPath + '/screenshot/:name/promote/:candidateId')
+        app.route(config.app.apiPath + basePath + '/promote/:candidateId')
             .post(api.promoteScreenshot);
+
+        app.route(config.app.apiPath + basePath + '/:candidateId')
+            .delete(api.deleteScreenshot);
 
     }
 
