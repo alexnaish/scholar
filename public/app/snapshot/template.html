@@ -7,7 +7,7 @@
                 <img ng-src="/api/baseline/{{::snapshot.name}}/raw" alt="{{::snapshot.name}} Baseline">
             </div>
             <div class="info">
-                <h2 class="name">Baseline</h2>
+                <h2 class="name"><a ng-href="/api/baseline/{{::snapshot.name}}/raw" target="_blank">Baseline</a></h2>
             </div>
         </div>
         <div class="snapshot" ng-class="{'hidden': baselined}">
