@@ -20,8 +20,7 @@
     "express": "~4.13.1",
     "node-resemble-js": "0.0.4",
     "pngjs": "~0.4.0",
-    "protractor": "^2.1.0",
-    "moment": "~2.10.6"
+    "protractor": "^2.1.0"
   },
   "devDependencies": {
     "chai": "^2.3.0",
