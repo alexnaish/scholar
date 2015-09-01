@@ -1,9 +1,7 @@
 var DiffModel = require('./model'),
-    moment = require('moment'),
     config = require('config');
 
 function _modify(result) {
-    result.dateCreated = moment(result.dateCreated).format('DD-MM-YYYY HH:MM:SS');
     result.raw = config.app.apiPath + '/diff/' + result.name + '/' + result._id + '/raw';
 }
 

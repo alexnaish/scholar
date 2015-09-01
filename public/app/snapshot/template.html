@@ -1,39 +1,42 @@
-<h1 class="title">{{name}}</h1>
-<div class="row fade" ng-repeat="snapshot in snapshots track by $index">
-    <div class="taken">Date Taken: <span class="highlight">{{snapshot.dateCreated}}</span></div>
-    <div class="snapshot" ng-class="{'hidden': baselined}">
-        <div class="image">
-            <img ng-src="/api/baseline/{{snapshot.name}}/raw" alt="{{snapshot.name}} Baseline">
+<h1 class="title">{{::name}}</h1>
+<div class="row fade snapshots" ng-repeat="snapshot in snapshots track by $index">
+    <div class="taken">Date Taken: <span class="highlight">{{snapshot.dateCreated | date:"dd/MM/yyyy 'at' h:mma"}}</span></div>
+    <div>
+        <div class="snapshot" ng-class="{'hidden': baselined}">
+            <div class="image">
+                <img ng-src="/api/baseline/{{::snapshot.name}}/raw" alt="{{::snapshot.name}} Baseline">
+            </div>
+            <div class="info">
+                <h2 class="name"><a ng-href="/api/baseline/{{::snapshot.name}}/raw" target="_blank">Baseline</a></h2>
+            </div>
         </div>
-        <div class="info">
-            <h2 class="name">Baseline</h2>
+        <div class="snapshot" ng-class="{'hidden': baselined}">
+            <div class="image">
+                <img ng-src="/api/diff/{{::snapshot.name}}/{{::snapshot._id}}/raw" alt="{{::snapshot.name}} Diff">
+            </div>
+            <div class="info">
+                <h2 class="name"><a ng-href="/api/diff/{{::snapshot.name}}/{{::snapshot._id}}/raw" target="_blank">Diff</a></h2>
+            </div>
         </div>
-    </div>
-    <div class="snapshot" ng-class="{'hidden': baselined}">
-        <div class="image">
-            <img ng-src="/api/diff/{{snapshot.name}}/{{snapshot._id}}/raw" alt="{{snapshot.name}} Diff">
+        <div class="snapshot" ng-class="{'hidden': isHidden(snapshot.candidate)}">
+            <div class="image">
+                <img ng-src="/api/candidate/{{::snapshot.name}}/{{::snapshot.candidate}}/raw" alt="{{::snapshot.name}} Candidate ">
+            </div>
+            <div class="info">
+                <h2 class="name"><a ng-href="/api/candidate/{{::snapshot.name}}/{{::snapshot.candidate}}/raw" target="_blank">Candidate</a></h2>
+            </div>
         </div>
-        <div class="info">
-            <h2 class="name">Diff</h2>
+        <div class="action">
+            <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
+            <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
         </div>
-    </div>
-    <div class="snapshot" ng-class="{'hidden': isHidden(snapshot.candidate)}">
-        <div class="image">
-            <img ng-src="/api/candidate/{{snapshot.name}}/{{snapshot.candidate}}/raw" alt="{{snapshot.name}} Candidate ">
-        </div>
-        <div class="info">
-            <h2 class="name ">Candidate</h2>
-        </div>
-    </div>
-    <div class="action">
-        <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
-        <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
     </div>
 </div>
 
 <div ng-show="!snapshots.length" class="row ">
     <div class="error">
         <div class="face">:)</div>
-        <div class="message">No differences. Either every snapshot passes <span class="highlight ">the acceptance threshold</span>, you recently <span class="highlight ">baselined a candidate</span> or you <span class="highlight ">haven't sent any</span>.</div>
+        <div class="message">No differences. Either every snapshot passes <span class="highlight ">the acceptance threshold</span>, you recently
+            <span class="highlight ">baselined a candidate</span> or you <span class="highlight ">haven't sent any</span>.</div>
     </div>
 </div>
