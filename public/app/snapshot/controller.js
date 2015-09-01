@@ -25,7 +25,9 @@ component.controller("SnapshotController", ['$scope', 'SnapshotService', '$route
     $scope.removeSnapshot = function (diffId) {
         console.log('should send a del request which will clear down the candidate too', diffId);
         SnapshotService.deleteSnapshot($scope.name, diffId).then(function(){
-            _.remove($scope.snapshots, '_id', diffId);
+            _.remove($scope.snapshots, {
+                _id: diffId
+            });
             toastr.info('Successfully removed candidate.', {
                 timeOut: 5 * 1000,
                 progressBar: true
