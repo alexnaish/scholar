@@ -21,6 +21,7 @@ exports.config = {
     onPrepare: function () {
 
         browser.request = request;
+        //So it works on non-angular pages
         browser.ignoreSynchronization = true;
 
     }
