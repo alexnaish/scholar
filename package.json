@@ -11,14 +11,15 @@
   },
   "author": "Alex Naish",
   "dependencies": {
-    "lodash": "^3.9.3",
-    "mongoose": "^4.0.0",
-    "morgan": "^1.5.3",
     "async": "~1.4.0",
     "body-parser": "~1.13.2",
     "config": "~1.14.0",
     "express": "~4.13.1",
+    "lodash": "^3.9.3",
+    "mongoose": "^4.0.0",
+    "morgan": "^1.5.3",
     "node-resemble-js": "0.0.4",
+    "pm2": "^0.14.7",
     "pngjs": "~0.4.0",
     "protractor": "^2.1.0"
   },
