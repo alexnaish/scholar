@@ -33,18 +33,42 @@ describe('testing ', function () {
         });
     });
 
-    it('user can successfully navigate to alexnaish.co.uk', function () {
+    [
+        {
+            element: '.hero'
+        },
+        {
+            element: '.tile'
+        }
+    ].forEach(function (scenario) {
+        fit('user can successfully navigate to alexnaish.co.uk and target element: ' + scenario.element, function () {
 
-        browser.driver.get('http://www.alexnaish.co.uk/');
-        browser.sleep(2000);
+            browser.driver.get('http://www.alexnaish.co.uk/');
+            browser.sleep(1000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('alex', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
+            var myElement = element(by.css(scenario.element));
+
+            myElement.getSize().then(function (size) {
+                browser.driver.manage().window().setSize(size.width, size.height);
+                myElement.getLocation().then(function(location){
+                    browser.executeScript('$("body").scrollTop('+location.y+');$("body").scrollLeft('+location.x+');');
+                    browser.sleep(5000);
+                });
             });
+
+
+
+
+            // browser.takeScreenshot().then(function (png) {
+            //     submitScreenshot('alex', png, function (result) {
+            //         console.log('result', result);
+            //         expect(result.passes).toBe(true);
+            //     });
+            // });
         });
     });
+
+
 
     it('user can successfully navigate to google.co.uk', function () {
 

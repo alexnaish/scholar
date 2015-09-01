@@ -21,6 +21,7 @@ exports.config = {
     onPrepare: function () {
 
         browser.request = request;
+        browser.ignoreSynchronization = true;
 
     }
 };
