@@ -1,6 +1,12 @@
 <h1 class="title">{{::name}}</h1>
-<div class="row fade snapshots" ng-repeat="snapshot in snapshots track by $index">
-    <div class="taken">Date Taken: <span class="highlight">{{snapshot.dateCreated | date:"dd/MM/yyyy 'at' h:mma"}}</span></div>
+<div class="row fade snapshots" ng-repeat="snapshot in snapshots track by snapshot._id">
+    <div class="taken">
+        Date Taken: <span class="highlight">{{snapshot.dateCreated | date:"dd/MM/yyyy 'at' h:mma"}}</span>
+        <div class="action">
+            <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
+            <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
+        </div>
+    </div>
     <div>
         <div class="snapshot" ng-class="{'hidden': baselined}">
             <div class="image">
@@ -26,10 +32,7 @@
                 <h2 class="name"><a ng-href="/api/candidate/{{::snapshot.name}}/{{::snapshot.candidate}}/raw" target="_blank">Candidate</a></h2>
             </div>
         </div>
-        <div class="action">
-            <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
-            <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
-        </div>
+        
     </div>
 </div>
 
