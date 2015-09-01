@@ -13,7 +13,7 @@ module.exports = {
         app.route(config.app.apiPath + basePath + '/promote/:candidateId')
             .post(api.promoteScreenshot);
 
-        app.route(config.app.apiPath + basePath + '/:candidateId')
+        app.route(config.app.apiPath + basePath + '/:diffId')
             .delete(api.deleteScreenshot);
 
     }
