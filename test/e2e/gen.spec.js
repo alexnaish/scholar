@@ -20,7 +20,7 @@ describe('testing ', function () {
 
     };
 
-    it('user can successfully navigate to nowtv.com', function () {
+    xit('user can successfully navigate to nowtv.com', function () {
 
         browser.driver.get('http://www.nowtv.com/');
         browser.sleep(2000);
