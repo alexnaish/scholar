@@ -25,61 +25,45 @@ describe('testing ', function () {
         browser.driver.get('http://www.nowtv.com/');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('test', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('test', function (result) {
+            expect(result.passes).toBe(true);
         });
+
     });
 
-    [
-        {
-            element: '.hero'
-        },
-        {
-            element: '.tile'
-        }
-    ].forEach(function (scenario) {
-        fit('user can successfully navigate to alexnaish.co.uk and target element: ' + scenario.element, function () {
+    fdescribe('alexnaish.co.uk', function () {
 
-            browser.driver.get('http://www.alexnaish.co.uk/');
-            browser.sleep(1000);
+        beforeEach(function () {
+            browser.driver.manage().window().maximize();
+            browser.executeScript('window.scrollTo(0,0)');
+        });
 
-            var myElement = element(by.css(scenario.element));
+        [
+            {
+                id: 'alex'
+            }
+        ].forEach(function (scenario) {
+            it('user can successfully navigate to alexnaish.co.uk and target element: ' + scenario.element, function () {
 
-            myElement.getSize().then(function (size) {
-                browser.driver.manage().window().setSize(size.width, size.height);
-                myElement.getLocation().then(function(location){
-                    browser.executeScript('$("body").scrollTop('+location.y+');$("body").scrollLeft('+location.x+');');
-                    browser.sleep(5000);
+                browser.driver.get('http://www.alexnaish.co.uk/');
+                browser.sleep(1000);
+
+                browser.submitScreenshot(scenario.id, function (result) {
+                    console.log('result', result);
+                    expect(result.passes).toBe(true);
                 });
             });
 
-
-
-
-            // browser.takeScreenshot().then(function (png) {
-            //     submitScreenshot('alex', png, function (result) {
-            //         console.log('result', result);
-            //         expect(result.passes).toBe(true);
-            //     });
-            // });
         });
     });
-
-
 
     it('user can successfully navigate to google.co.uk', function () {
 
         browser.driver.get('http://www.google.co.uk/');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('google', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('google', function (result) {
+            expect(result.passes).toBe(true);
         });
     });
 
@@ -88,11 +72,8 @@ describe('testing ', function () {
         browser.driver.get('http://www.cloud9trader.com/');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('cloud9', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('cloud9', function (result) {
+            expect(result.passes).toBe(true);
         });
     });
 
@@ -101,11 +82,8 @@ describe('testing ', function () {
         browser.driver.get('https://www.linkedin.com/nhome/');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('linkedin', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('linkedin', function (result) {
+            expect(result.passes).toBe(true);
         });
     });
 
@@ -114,11 +92,8 @@ describe('testing ', function () {
         browser.driver.get('http://www.twitch.tv');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('twitch', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('twitch', function (result) {
+            expect(result.passes).toBe(true);
         });
     });
     it('user can successfully navigate to yahoo.com', function () {
@@ -126,11 +101,8 @@ describe('testing ', function () {
         browser.driver.get('https://uk.yahoo.com/');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('yahoo', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('yahoo', function (result) {
+            expect(result.passes).toBe(true);
         });
     });
     it('user can successfully navigate to rivaya.com', function () {
@@ -138,11 +110,8 @@ describe('testing ', function () {
         browser.driver.get('http://rivaya.com/');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('rivaya', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('rivaya', function (result) {
+            expect(result.passes).toBe(true);
         });
     });
     it('user can successfully navigate to aeser.co.uk', function () {
@@ -150,11 +119,8 @@ describe('testing ', function () {
         browser.driver.get('http://aeser.co.uk/');
         browser.sleep(2000);
 
-        browser.takeScreenshot().then(function (png) {
-            submitScreenshot('aeser', png, function (result) {
-                console.log('result', result);
-                expect(result.passes).toBe(true);
-            });
+        browser.submitScreenshot('aeser', function (result) {
+            expect(result.passes).toBe(true);
         });
     });
 
