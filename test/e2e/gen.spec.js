@@ -1,25 +1,5 @@
 describe('testing ', function () {
 
-    var myScreenshot;
-
-    function submitScreenshot(id, png, callback) {
-        var deferred = protractor.promise.defer();
-
-        function makeRequest(id, png) {
-            browser.request.post('http://localhost:8080/api/screenshot/' + id, {
-                form: {
-                    imageData: png
-                }
-            }, function (err, httpResponse, body) {
-                deferred.fulfill(JSON.parse(body));
-            });
-            return deferred;
-        };
-
-        browser.controlFlow().await(makeRequest(id, png)).then(callback);
-
-    };
-
     xit('user can successfully navigate to nowtv.com', function () {
 
         browser.driver.get('http://www.nowtv.com/');
@@ -31,31 +11,17 @@ describe('testing ', function () {
 
     });
 
-    fdescribe('alexnaish.co.uk', function () {
+    it('user can successfully navigate to alexnaish.co.uk', function () {
 
-        beforeEach(function () {
-            browser.driver.manage().window().maximize();
-            browser.executeScript('window.scrollTo(0,0)');
-        });
+        browser.driver.get('http://www.alexnaish.co.uk/');
+        browser.sleep(1000);
 
-        [
-            {
-                id: 'alex'
-            }
-        ].forEach(function (scenario) {
-            it('user can successfully navigate to alexnaish.co.uk and target element: ' + scenario.element, function () {
-
-                browser.driver.get('http://www.alexnaish.co.uk/');
-                browser.sleep(1000);
-
-                browser.submitScreenshot(scenario.id, function (result) {
-                    console.log('result', result);
-                    expect(result.passes).toBe(true);
-                });
-            });
-
+        browser.submitScreenshot('alex', function (result) {
+            console.log('result', result);
+            expect(result.passes).toBe(true);
         });
     });
+
 
     it('user can successfully navigate to google.co.uk', function () {
 
