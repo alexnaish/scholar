@@ -22,11 +22,11 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
                 data: diffImage,
                 candidate: result._id
             }, function (err, diffResult) {
-                diffCallback(err, result);
+                diffCallback(err, diffResult);
             });
         }
-    ], function (err, result) {
-        callback(diffResult);
+    ], function (err, diffResult) {
+        callback(err, diffResult);
     });
 
 }
@@ -66,7 +66,7 @@ module.exports = {
                 ImageService.compareImages(result.data, imageData, function (resultJson, diffImage) {
                     var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
                     if (!acceptable) {
-                        saveComparisons(name, diffImage, imageData, function (diffResult) {
+                        saveComparisons(name, diffImage, imageData, function (err, diffResult) {
                             callback({
                                 passes: acceptable,
                                 difference: resultJson.misMatchPercentage,
