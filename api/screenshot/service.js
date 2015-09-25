@@ -21,12 +21,12 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
                 name: name,
                 data: diffImage,
                 candidate: result._id
-            }, function () {
-                diffCallback();
+            }, function (err, diffResult) {
+                diffCallback(err, result);
             });
         }
-    ], function () {
-        callback();
+    ], function (err, result) {
+        callback(diffResult);
     });
 
 }
@@ -66,12 +66,12 @@ module.exports = {
                 ImageService.compareImages(result.data, imageData, function (resultJson, diffImage) {
                     var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
                     if (!acceptable) {
-                        saveComparisons(name, diffImage, imageData, function () {
+                        saveComparisons(name, diffImage, imageData, function (diffResult) {
                             callback({
                                 passes: acceptable,
                                 difference: resultJson.misMatchPercentage,
                                 isSameDimensions: resultJson.isSameDimensions,
-                                diffUrl: config.app.apiPath + '/diff/' + name + '/' + result._id + '/raw'
+                                diffUrl: config.app.apiPath + '/diff/' + name + '/' + diffResult._id + '/raw'
                             });
                         });
                     } else {
