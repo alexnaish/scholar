@@ -115,7 +115,13 @@ module.exports = {
 
     },
     deleteSnapshot: function (diffId, callback) {
-        callback(204, {});
+        DiffService.findOne(diffId, function (err, result) {
+            if(result){
+                callback(204, {});
+            } else {
+                callback(404, {});
+            }            
+        });
     }
 
 };

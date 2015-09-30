@@ -9,7 +9,9 @@ module.exports = {
     },
 
     deleteScreenshot: function (req, res) {
-        res.status(204).end();
+        service.deleteSnapshot(req.params.diffId, function (statusCode, data) {
+            res.status(statusCode).json(data);
+        });
     },
 
     promoteScreenshot: function (req, res) {
