@@ -45,7 +45,9 @@ module.exports = {
         });
     },
     save: function (payload, callback) {
-        new DiffModel(payload).save(callback);
+        new DiffModel(payload).save(function(err, result){
+            callback(err, result.toObject());
+        });
     },
     remove: function (query, callback) {
         DiffModel.remove(query, callback);

@@ -26,7 +26,6 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
             });
         }
     ], function (err, diffResult) {
-        console.log('inside saveComp cb', err, Object.keys(diffResult));
         callback(err, diffResult);
     });
 
@@ -68,6 +67,7 @@ module.exports = {
                     var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
                     if (!acceptable) {
                         saveComparisons(name, diffImage, imageData, function (err, diffResult) {
+                            console.log('inside saveComparisons cb')
                             callback({
                                 passes: acceptable,
                                 difference: resultJson.misMatchPercentage,
