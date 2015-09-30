@@ -20,7 +20,7 @@ describe('Candidate Service', function () {
             _id: 'someId',
             name: 'test'
         });
-        CandidateService.findOne('test', 'someId', '', function (statusCode, result) {
+        CandidateService.findOne('someId', '', function (statusCode, result) {
             expect(findStub.calledOnce).to.be.true;
             expect(statusCode).to.equal(200);
             expect(result).to.not.equal(null);
@@ -32,7 +32,7 @@ describe('Candidate Service', function () {
 
     it('findOne returns a 404 if no result is found', function (done) {
         var findStub = sandbox.stub(CandidateModel, 'findOne').yields(null, null);
-        CandidateService.findOne('test', 'someId', '', function (statusCode, result) {
+        CandidateService.findOne('someId', '', function (statusCode, result) {
             expect(findStub.calledOnce).to.be.true;
             expect(statusCode).to.equal(404);
             expect(result).to.equal(null);
