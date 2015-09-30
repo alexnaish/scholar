@@ -1,4 +1,4 @@
-var resemble = require('../lib/resemble.js');
+var resemble = require('../lib/resemble');
 
 resemble.setErrorRgbColour(255, 0, 0);
 resemble.setErrorOpacity(0.4);
