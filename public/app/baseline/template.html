@@ -1,5 +1,8 @@
+<div class="search">
+    <input class="input" type="text" ng-model="nameFilter" placeholder="Search">
+</div>
 <div class="row">
-    <div ng-repeat="baseline in baselines track by $index" class="baseline">
+    <div ng-repeat="baseline in baselines | filter:{ name: nameFilter } track by baseline._id" class="baseline">
         <div class="image">
             <img ng-src="{{::images[baseline.name]}}" alt="{{::baseline.name}}">
         </div>
