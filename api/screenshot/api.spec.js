@@ -1,5 +1,7 @@
 var helpers = require('../../test/setup/functions'),
     app = require('../index'),
+    BaselineModel = require('../baseline/model'),
+    CandidateModel = require('../candidate/model'),
     DiffModel = require('../diff/model'),
     expect = require('chai').expect,
     request = require('supertest')(app);
@@ -8,8 +10,12 @@ var helpers = require('../../test/setup/functions'),
 describe('Screenshot API', function () {
 
     after(function (done) {
-        helpers.removeAssets(DiffModel, {}, function () {
-            done();
+        helpers.removeAssets(BaselineModel, {}, function () {
+            helpers.removeAssets(CandidateModel, {}, function () {
+                helpers.removeAssets(DiffModel, {}, function () {
+                    done();
+                });
+            });
         });
     });
 
