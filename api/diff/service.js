@@ -30,11 +30,10 @@ module.exports = {
         });
 
     },
-    findOne: function (name, id, fields, callback) {
+    findOne: function (id, fields, callback) {
         var errorCode = 200;
         DiffModel.findOne({
-            _id: id,
-            name: name
+            _id: id
         }, fields, {
             lean: true
         }, function (err, result) {
@@ -45,7 +44,10 @@ module.exports = {
         });
     },
     save: function (payload, callback) {
-        new DiffModel(payload).save(callback);
+        new DiffModel(payload).save(function(err, result){
+            if(result && result.toObject) result = result.toObject();
+            callback(err, result);
+        });
     },
     remove: function (query, callback) {
         DiffModel.remove(query, callback);

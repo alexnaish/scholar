@@ -3,8 +3,7 @@ var CandidateService = require('./service'),
 
 module.exports = {
     renderRawImage: function (req, res) {
-        CandidateService.findOne(req.params.name, req.params.id, 'data', function (err, result) {
-
+        CandidateService.findOne(req.params.id, 'data', function (err, result) {
             if (!result) {
                 res.status(404).send();
             } else {

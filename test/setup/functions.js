@@ -13,13 +13,15 @@ module.exports = {
         //Calculate function calls required
         dataArray.forEach(function (item) {
             asyncTasks.push(function (callback) {
-                new model(item).save(callback);
+                new model(item).save(function(err, result){
+                    callback(err, result);
+                });
             });
         });
 
         //Perform the async.parallel call
-        async.parallel(asyncTasks, function () {
-            finalCallback();
+        async.parallel(asyncTasks, function (err, results) {
+            finalCallback(results);
         });
 
 

@@ -8,14 +8,16 @@ module.exports = {
         });
     },
 
-    deleteScreenshot: function (req, res) {
-        res.status(204).end();
-    },
-
     promoteScreenshot: function (req, res) {
         service.promoteCandidateToBaseline(req.params.name, req.params.candidateId, function (errorCode, data) {
             res.status(errorCode).json(data);
         });
-    }
+    },
+
+    deleteScreenshot: function (req, res) {
+        service.deleteSnapshot(req.params.diffId, function (statusCode, data) {
+            res.status(statusCode).json(data);
+        });
+    }   
 
 };

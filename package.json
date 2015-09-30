@@ -18,13 +18,13 @@
     "lodash": "^3.9.3",
     "mongoose": "^4.0.0",
     "morgan": "^1.5.3",
-    "node-resemble-js": "0.0.4",
     "pm2": "^0.14.7",
     "pngjs": "~0.4.0",
     "protractor": "^2.1.0"
   },
   "devDependencies": {
     "chai": "^2.3.0",
+    "codeclimate-test-reporter": "~0.1.0",
     "gulp": "^3.9.0",
     "gulp-istanbul": "~0.9.0",
     "gulp-mocha": "^2.1.0",
@@ -33,6 +33,6 @@
     "request": "^2.59.0",
     "should": "^7.0.2",
     "sinon": "^1.14.1",
-    "codeclimate-test-reporter": "~0.1.0"
+    "supertest": "^1.1.0"
   }
 }

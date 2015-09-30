@@ -21,12 +21,12 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
                 name: name,
                 data: diffImage,
                 candidate: result._id
-            }, function () {
-                diffCallback();
+            }, function (err, diffResult) {
+                diffCallback(err, diffResult);
             });
         }
-    ], function () {
-        callback();
+    ], function (err, diffResult) {
+        callback(err, diffResult);
     });
 
 }
@@ -66,12 +66,13 @@ module.exports = {
                 ImageService.compareImages(result.data, imageData, function (resultJson, diffImage) {
                     var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
                     if (!acceptable) {
-                        saveComparisons(name, diffImage, imageData, function () {
+                        saveComparisons(name, diffImage, imageData, function (err, diffResult) {
+                            console.log('inside saveComparisons cb')
                             callback({
                                 passes: acceptable,
                                 difference: resultJson.misMatchPercentage,
                                 isSameDimensions: resultJson.isSameDimensions,
-                                diffUrl: config.app.apiPath + '/diff/' + name + '/' + result._id + '/raw'
+                                diffUrl: config.app.apiPath + '/diff/' + name + '/' + diffResult._id + '/raw'
                             });
                         });
                     } else {
@@ -99,7 +100,6 @@ module.exports = {
 
         CandidateService.findOne(name, candidateId, function (err, result) {
             if (!result) {
-                console.log('cant find candidate');
                 return callback(404, {});
             } else {
                 delete result._id;
@@ -115,7 +115,13 @@ module.exports = {
 
     },
     deleteSnapshot: function (diffId, callback) {
-        callback(204, {});
+        DiffService.findOne(diffId, function (err, result) {
+            if(result){
+                callback(204, {});
+            } else {
+                callback(404, {});
+            }            
+        });
     }
 
 };
