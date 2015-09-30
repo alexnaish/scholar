@@ -31,9 +31,8 @@ app.use(morgan('dev', {
 app.disable('x-powered-by');
 
 process.on('uncaughtException', function(error){
-    console.error('Some uncaught Error!!!', error);
-})
-
+    console.error('Uncaught Error: ', error);
+});
 
 router.apply(app);
 app.get('/api/config', function (req, res) {
