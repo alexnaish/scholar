@@ -26,6 +26,7 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
             });
         }
     ], function (err, diffResult) {
+        console.log('inside saveComp cb', err, Object.keys(diffResult));
         callback(err, diffResult);
     });
 
@@ -99,7 +100,6 @@ module.exports = {
 
         CandidateService.findOne(name, candidateId, function (err, result) {
             if (!result) {
-                console.log('cant find candidate');
                 return callback(404, {});
             } else {
                 delete result._id;
