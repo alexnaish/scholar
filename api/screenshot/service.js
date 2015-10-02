@@ -98,7 +98,7 @@ module.exports = {
     },
     promoteCandidateToBaseline: function (name, candidateId, callback) {
 
-        CandidateService.findOne(name, candidateId, function (err, result) {
+        CandidateService.findOne(candidateId, function (err, result) {
             if (!result) {
                 return callback(404, {});
             } else {
@@ -120,7 +120,7 @@ module.exports = {
                 callback(204, {});
             } else {
                 callback(404, {});
-            }            
+            }
         });
     }
 
