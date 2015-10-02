@@ -18,7 +18,7 @@ gulp.task('mocha', function () {
                 }))
                 .pipe(istanbul.enforceThresholds({
                     thresholds: {
-                        global: 85
+                        global: 80
                     }
                 }))
                 .once('end', function () {
