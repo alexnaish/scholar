@@ -67,7 +67,6 @@ module.exports = {
                     var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
                     if (!acceptable) {
                         saveComparisons(name, diffImage, imageData, function (err, diffResult) {
-                            console.log('inside saveComparisons cb')
                             callback({
                                 passes: acceptable,
                                 difference: resultJson.misMatchPercentage,
