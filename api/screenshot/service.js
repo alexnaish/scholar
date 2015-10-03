@@ -57,6 +57,33 @@ function clearCandidatesAndDiffs(name, callback) {
         });
 }
 
+function deleteComparison(diffId, candidateId, callback) {
+
+    async.parallel({
+        diffError: function deleteDiff(diffCallback) {
+            DiffService.remove({
+                _id: diffId,
+            }, function (err) {
+                diffCallback(null, err);
+            });
+        },
+        candidateError: function deleteCandidate(candidateCallback) {
+            CandidateService.remove({
+                _id: candidateId
+            }, function (err) {
+                candidateCallback(null, err);
+            });
+        }
+    }, function (err, results) {
+         var statusCode = 200;
+            if (results.candidateError || results.diffError) {
+                statusCode = 500;
+            }
+            callback(statusCode, {});
+    });
+
+}
+
 module.exports = {
 
     saveAndCompare: function (name, imageData, callback) {
@@ -116,7 +143,7 @@ module.exports = {
     deleteSnapshot: function (diffId, callback) {
         DiffService.findOne(diffId, function (err, result) {
             if(result){
-                callback(204, {});
+                deleteComparison(diffId, result.candidate, callback);
             } else {
                 callback(404, {});
             }

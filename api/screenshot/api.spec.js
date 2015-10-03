@@ -29,7 +29,9 @@ describe('Screenshot API', function () {
     }
 
     function insertAssets(callback) {
-        helpers.insertAssets(CandidateModel, [sample], function (results) {
+        var tempCandidate = _.clone(sample);
+        tempCandidate.data = sample.data+'aDifferentEnding';
+        helpers.insertAssets(CandidateModel, [tempCandidate], function (results) {
             candidate = results[0];
             var tempDiff = _.clone(sample);
             tempDiff.candidate = candidate._id;
@@ -79,7 +81,7 @@ describe('Screenshot API', function () {
             });
     });
 
-    it('POST /api/screenshot/:name compare against baseline image if existing id and saves a comparison and diff if different', function (done) {
+    it('POST /api/screenshot/:name compares against baseline image if existing id and saves a comparison and diff if different', function (done) {
 
         var payload = {
             imageData: largeSampleBase64
@@ -99,7 +101,7 @@ describe('Screenshot API', function () {
             });
     });
 
-    it('POST /api/screenshot/:name compare against baseline image if existing id and DOESNT saves a comparison and diff if the images are alike', function (done) {
+    it('POST /api/screenshot/:name compares against baseline image if existing id and DOESNT save a comparison / diff if the images are alike', function (done) {
 
         var payload = {
             imageData: smallSampleBase64
@@ -147,14 +149,44 @@ describe('Screenshot API', function () {
 
                     DiffModel.find({ name: imageName }, function (err, results) {
                         expect(results.length).to.equal(0);
+
+                        BaselineModel.find({name: imageName}, function(err, results){
+                            expect(results.length).to.equal(1);
+                            expect(results[0].data).to.equal(candidate.data);
+                            done();
+                        });
+                    });
+                });
+            });
+    });
+
+    it('DEL /api/screenshot/:name/:diffId should delete diff and its candidate and return a 204', function (done) {
+        request.del('/api/screenshot/' + imageName + '/' + diff._id)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                expect(err).to.equal(null);
+                expect(res).to.not.equal(null);
+
+                DiffModel.findOne({_id: diff._id}, function(err, result){
+                    expect(result).to.equal(null);
+                    CandidateModel.findOne({_id: diff.candidate}, function(err, result){
+                        expect(result).to.equal(null);
                         done();
                     });
                 });
             });
     });
 
-    it('DEL /api/screenshot/:name/:diffId should delete diff and its candidate', function (done) {
-        done();
+    it('DEL /api/screenshot/:name/:diffId should 404 if no diff found', function (done) {
+        request.del('/api/screenshot/' + imageName + '/aMadeUpDiffId')
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .end(function (err, res) {
+                expect(err).to.equal(null);
+                expect(res).to.not.equal(null);
+                done();
+            });
     });
 
 });
