@@ -97,7 +97,18 @@ describe('Screenshot API', function () {
                 expect(res.body.isSameDimensions).to.equal(false);
                 expect(res.body).to.have.property('difference');
                 expect(res.body).to.have.property('diffUrl');
-                done();
+                CandidateModel.find({ name: imageName }, function (err, results) {
+                    expect(results.length).to.equal(2);
+
+                    DiffModel.find({ name: imageName }, function (err, results) {
+                        expect(results.length).to.equal(2);
+
+                        BaselineModel.find({name: imageName}, function(err, results){
+                            expect(results.length).to.equal(1);
+                            done();
+                        });
+                    });
+                });
             });
     });
 
@@ -114,7 +125,18 @@ describe('Screenshot API', function () {
             .end(function (err, res) {
                 expect(err).to.equal(null);
                 expect(res.body.passes).to.equal(true);
-                done();
+                CandidateModel.find({ name: imageName }, function (err, results) {
+                    expect(results.length).to.equal(1);
+
+                    DiffModel.find({ name: imageName }, function (err, results) {
+                        expect(results.length).to.equal(1);
+
+                        BaselineModel.find({name: imageName}, function(err, results){
+                            expect(results.length).to.equal(1);
+                            done();
+                        });
+                    });
+                });
             });
     });
 
