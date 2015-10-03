@@ -11,7 +11,7 @@ module.exports = {
             .post(api.submitNewScreenshot);
 
         app.route(config.app.apiPath + basePath + '/promote/:candidateId')
-            .post(api.promoteScreenshot);
+            .put(api.promoteScreenshot);
 
         app.route(config.app.apiPath + basePath + '/:diffId')
             .delete(api.deleteScreenshot);
