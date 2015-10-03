@@ -24,7 +24,7 @@ component.service("SnapshotService", ['$http', function ($http) {
                     });
         },
         promoteCandidate: function (name, candidateId) {
-            return $http.post('/api/screenshot/' + name + '/promote/' + candidateId)
+            return $http.put('/api/screenshot/' + name + '/promote/' + candidateId)
                 .then(
                     function (response) {
                         return response.data;
