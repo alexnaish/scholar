@@ -7,7 +7,6 @@ resemble.setLargeImageThreshold(2400);
 module.exports = {
 
     compareImages: function (image1, image2, callback) {
-
         var bufferA = new Buffer(image1, 'base64');
         var bufferB = new Buffer(image2, 'base64');
 
