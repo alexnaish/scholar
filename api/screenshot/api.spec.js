@@ -1,5 +1,7 @@
 var helpers = require('../../test/setup/functions'),
     app = require('../index'),
+    smallSampleBase64 = require('../../test/setup/samples/1by1'),
+    largeSampleBase64 = require('../../test/setup/samples/twitchBaseline'),
     BaselineModel = require('../baseline/model'),
     CandidateModel = require('../candidate/model'),
     DiffModel = require('../diff/model'),
@@ -11,9 +13,9 @@ describe('Screenshot API', function () {
 
     var imageName = 'sample-image';
     var sample = {
-            name: imageName,
-            data: 'somekindofbase64image'
-        };
+        name: imageName,
+        data: smallSampleBase64
+    };
     var candidate, diff, baseline;
 
     function removeAllAssets(callback) {
@@ -42,15 +44,15 @@ describe('Screenshot API', function () {
     }
 
     beforeEach(function (done) {
-        removeAllAssets(function(){
-            insertAssets(function(){
+        removeAllAssets(function () {
+            insertAssets(function () {
                 done();
             });
         });
     });
 
     afterEach(function (done) {
-        removeAllAssets(function(){
+        removeAllAssets(function () {
             done();
         });
     });
@@ -69,12 +71,49 @@ describe('Screenshot API', function () {
             .end(function (err, res) {
                 expect(err).to.equal(null);
                 expect(res).to.not.equal(null);
+                BaselineModel.findOne({ name: testName }, function (err, result) {
+                    expect(result).to.not.equal(null);
+                    expect(result.data).to.equal(payload.imageData);
+                    done();
+                });
+            });
+    });
+
+    it('POST /api/screenshot/:name compare against baseline image if existing id and saves a comparison and diff if different', function (done) {
+
+        var payload = {
+            imageData: largeSampleBase64
+        };
+
+        request.post('/api/screenshot/' + imageName)
+            .send(payload)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                expect(err).to.equal(null);
+                expect(res.body.passes).to.equal(false);
+                expect(res.body.isSameDimensions).to.equal(false);
+                expect(res.body).to.have.property('difference');
+                expect(res.body).to.have.property('diffUrl');
                 done();
             });
     });
 
-    it('POST /api/screenshot/:name compare against baseline image if existing id', function (done) {
-        done();
+    it('POST /api/screenshot/:name compare against baseline image if existing id and DOESNT saves a comparison and diff if the images are alike', function (done) {
+
+        var payload = {
+            imageData: smallSampleBase64
+        };
+
+        request.post('/api/screenshot/' + imageName)
+            .send(payload)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                expect(err).to.equal(null);
+                expect(res.body.passes).to.equal(true);
+                done();
+            });
     });
 
     it('PUT /api/screenshot/:name/promote/:id should 404 if no candidate found', function (done) {
@@ -103,10 +142,10 @@ describe('Screenshot API', function () {
                 expect(err).to.equal(null);
                 expect(res).to.not.equal(null);
 
-                CandidateModel.find({name: imageName}, function(err, results){
+                CandidateModel.find({ name: imageName }, function (err, results) {
                     expect(results.length).to.equal(0);
 
-                    DiffModel.find({name: imageName}, function(err, results){
+                    DiffModel.find({ name: imageName }, function (err, results) {
                         expect(results.length).to.equal(0);
                         done();
                     });
