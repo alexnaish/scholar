@@ -18,6 +18,6 @@ module.exports = {
         service.deleteSnapshot(req.params.diffId, function (statusCode, data) {
             res.status(statusCode).json(data);
         });
-    }   
+    }
 
 };
