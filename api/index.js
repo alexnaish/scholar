@@ -23,6 +23,11 @@ app.use(bodyParser.json({
     limit: '10mb'
 }));
 
+app.use(bodyParser.urlencoded({
+    limit: '10mb',
+    extended: false
+}));
+
 app.use(morgan('dev', {
     skip: function (req) {
         return req.url === '/favicon.ico';
