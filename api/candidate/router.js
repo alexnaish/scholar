@@ -5,6 +5,9 @@ module.exports = {
 
     apply: function (app) {
 
+        app.route(config.app.apiPath + '/candidate')
+            .get(api.findOutStanding);
+
         app.route(config.app.apiPath + '/candidate/:name/:id/raw')
             .get(api.renderRawImage);
 

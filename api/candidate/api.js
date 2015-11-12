@@ -10,6 +10,16 @@ module.exports = {
                 ImageService.generateImage(res, result.data);
             }
         });
+    },
+    findOutStanding: function(req, res) {
+        CandidateService.findDistinct(function (err, results) {
+            if (err) {
+                console.log('candidate erorr: ', err);
+                res.status(500).send({error: err.message || "Database error!"});
+            } else {
+                res.status(200).json(results);
+            }
+        });
     }
 
 };

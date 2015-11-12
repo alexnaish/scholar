@@ -7,13 +7,16 @@ module.exports = {
         CandidateModel.findOne({
             _id: id
         }, fields, {
-            lean: true
-        }, function (err, result) {
-            if (!result) {
-                errorCode = 404;
-            }
-            callback(errorCode, result);
-        });
+                lean: true
+            }, function (err, result) {
+                if (!result) {
+                    errorCode = 404;
+                }
+                callback(errorCode, result);
+            });
+    },
+    findDistinct: function (callback) {
+        CandidateModel.distinct('name', callback);
     },
     save: function (payload, callback) {
         new CandidateModel(payload).save(callback);
