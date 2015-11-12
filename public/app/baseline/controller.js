@@ -16,4 +16,10 @@ component.controller("BaselineController", ['$scope', 'BaselineService', '$route
 
     });
 
+    $scope.filterByOutstanding = function (){
+        BaselineService.getOutstandingCandidates().then(function(data){
+            console.log('These are outstanding: ', data);
+        });
+    };
+
 }]);

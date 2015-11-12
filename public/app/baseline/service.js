@@ -13,8 +13,8 @@ component.service("BaselineService", ['$http', function ($http) {
                         throw httpError.status + " : " + httpError.data;
                     });
         },
-        getSpecificBaseline: function (name) {
-            return $http.get('/api/baseline/' + name)
+        getOutstandingCandidates: function () {
+            return $http.get('/api/candidate')
                 .then(
                     function (response) {
                         return response.data;

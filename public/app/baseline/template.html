@@ -1,5 +1,7 @@
 <div class="search">
     <input class="input" type="text" ng-model="nameFilter" placeholder="Search">
+    <a class="button" ng-click="filterByOutstanding()">Filter By Outstanding</a>
+    <a class="button" ng-click="showAll()">Show All</a>
 </div>
 <div class="row">
     <div ng-repeat="baseline in baselines | filter:{ name: nameFilter } track by baseline._id" class="baseline">
