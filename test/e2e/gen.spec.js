@@ -17,7 +17,6 @@ describe('testing ', function () {
         browser.sleep(1000);
 
         browser.submitScreenshot('alex', function (result) {
-            console.log('result', result);
             expect(result.passes).toBe(true);
         });
     });

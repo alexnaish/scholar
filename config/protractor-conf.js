@@ -30,7 +30,13 @@ exports.config = {
                                 imageData: png
                             }
                         }, function (err, httpResponse, body) {
-                            deferred.fulfill(JSON.parse(body));
+                            try {
+                                deferred.fulfill(JSON.parse(body));
+                            } catch(e) {
+                                console.log('Error returned:', err);
+                                deferred.fulfill(body);
+                            }
+
                         });
                     });
 
@@ -39,7 +45,7 @@ exports.config = {
 
                 browser.controlFlow().await(makeRequest(id)).then(callback);
             };
-        
+
         //So it works on non-angular pages
         browser.ignoreSynchronization = true;
 
