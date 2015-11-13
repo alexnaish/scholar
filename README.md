@@ -28,6 +28,20 @@ Setup
 1. Clone the repository and then run `cd scholar`.
 1. Run `npm install`.
 1. On a locally running mongodb server, create the "scholar" database with user/password "scholar/kernel" (configurable with "api/config/default.js" as required).
-1. To start the application run `npm start`.
-1. To run a sample of protractor tests set up to use the application run `npm run e2e`. The first time this runs all the tests should pass as the images are being baselined. On subsequent runs they should pass/fail depending on whether the website has changed since the baseline was taken.
-1. To view the application and the submitted screenshots go to `localhost:8000`.
+1. To start the application run `npm start` or if you have `pm2` installed, run `pm2 start api/index.js --name scholar --watch`.
+1. To view the application and the submitted screenshots go to `localhost:8080`.
+1. The first time any tests run all they should pass as the images are being baselined. On subsequent runs they should pass/fail depending on whether the website has changed since the baseline was taken.
+
+Example Test Setup
+-------
+
+###Protractor
+
+1. To run a sample of tests using protractor, run `npm run protractor`. This will load up Google Chrome and will take snapshots of the entire page to send to scholar. The screenshots are taken by protractor's inbuilt screenshot tool and the helper function to submit the images is stored inside config/protractor-conf.js.
+
+
+###PhantomJS
+
+1. To run a sample of tests set up to run with PhantomJs `npm run phantom`. Configuration is stored within config/phantom-conf.js.
+2. This will download the yosemite version of PhantomJs locally and will then run a few example specs listed within the config file.
+3. This solution will also build a test report XML file that is in a ready to use format for use within Jenkins for pretty output graphs!
