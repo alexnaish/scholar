@@ -8,13 +8,14 @@
     "start": "node api/index.js",
     "test": "gulp test",
     "protractor": "protractor config/protractor-conf.js",
-    "phantom": "./test/phantom/install.sh && ./phantomjs test/phantom/runSpecs.js && node test/phantom/testImages.js"
+    "phantom": "./test/phantom/install.sh && ./phantomjs --ssl-protocol=any test/phantom/runSpecs.js && node test/phantom/testImages.js && rm -rf test_out/images/*"
   },
   "author": "Alex Naish",
   "dependencies": {
     "async": "~1.4.0",
     "body-parser": "~1.13.2",
     "config": "~1.14.0",
+    "env-variable": "0.0.3",
     "express": "~4.13.1",
     "lodash": "^3.9.3",
     "mongoose": "^4.0.0",
@@ -22,6 +23,7 @@
     "pm2": "^0.14.7",
     "pngjs": "~0.4.0",
     "protractor": "^2.1.0",
+    "system": "1.0.4",
     "xmlbuilder": "^4.1.0"
   },
   "devDependencies": {

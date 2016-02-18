@@ -1,4 +1,4 @@
-var config = require('../../config/phantom-conf'); 
+var config = require('../../config/phantom-conf');
 var scenarios = config.specs;
 var baseUrl = config.baseUrl;
 var page = require('webpage').create();
@@ -11,8 +11,15 @@ page.onConsoleMessage = function (msg, lineNum, sourceId) {
 
 var scenarioFns = scenarios.map(function (scenario) {
     return function (callback) {
-        var url = baseUrl + scenario.path;
+        var url = (scenario.url || baseUrl) + scenario.path;
         console.log('Processing: ', scenario.image);
+        if(config.cookies) {
+          config.cookies.forEach(function(cookie){
+              phantom.addCookie(cookie);
+          });
+
+        }
+
         page.open(url, function (status) {
             page.viewportSize = scenario.windowSize || {
                     width: 1280,

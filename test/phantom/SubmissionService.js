@@ -1,10 +1,10 @@
-var config = require('../../config/phantom-conf');
+var scholarUrl = require('../../config/phantom-conf').scholarUrl;
 var request = require('request');
 
 module.exports = {
 
     submit: function (id, imageData, callback) {
-        request.post(config.scholarUrl + '/api/screenshot/' + id, {
+        request.post(scholarUrl + '/api/screenshot/' + id, {
             form: {
                 imageData: imageData
             }
@@ -13,7 +13,7 @@ module.exports = {
                 callback(err, JSON.parse(body));
             } catch (e) {
                 console.error('Error thrown!', err.code);
-                callback(err, body);        
+                callback(err, body);
             }
         });
     }

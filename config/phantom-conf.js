@@ -1,3 +1,7 @@
+var broadbandSpecs = require('../specs/broadband-specs');
+var checkoutSpecs = require('../specs/checkout-specs');
+var system = require('system');
+var env = system.env;
 /*
 
 Possible Spec Options:
@@ -10,24 +14,48 @@ setup: function that will be evaluated within the browser to allow events to hap
         $('.faq-question-2').click();
     }
 setupTimeout: Milliseconds to allow page to stabilise after running a setup function (Defaults to 0). Example = 2000
-windowSize: JS Object with width and height properties. Example = {width: 1280, height: 720}
+windowSize: JS Object with width and height properties. Example = {width: 1280, height: 720},
+cookie: JS Object containing name, value and domiain. Example = {
+	'name': 'ark',
+	'value': 'ark',
+	'domain': '.nowtv.com'
+}
 
 */
 
+var specsToRun;
+
+if(env && env.suite) {
+	var resolution = env.res || 'all'
+		specsToRun = require('../specs/'+ env.suite + '-specs')[resolution];
+		console.log('Running ' + resolution + ' tests for ' + env.suite);
+} else {
+	  specsToRun = broadbandSpecs.all.concat(checkoutSpecs.all)
+		console.log('Running all specs!');
+}
+
+
 module.exports = {
 
-	baseUrl: 'http://alexnaish.co.uk',
+	baseUrl: 'http://localhost.nowtv.com:9999',
 	scholarUrl: 'http://localhost:8080',
-	specs: [
+	cookies: [
 		{
-			image: 'main-title',
-			selector: 'h1',
-			path: '/'
-		}, {
-			image: 'about',
-			selector: '#about',
-			path: '/'
+			'name': 'ark',
+			'value': 'ark',
+			'domain': '.nowtv.com'
+		},
+		{
+			'name': 'uuid',
+			'value': 'f41f4ed3-3d4f-4a39-b8bb-4493a95d44cb',
+			'domain': '.nowtv.com'
+		},
+		{
+			'name': 'skyUMV',
+			'value': 'some-kind-of-dummy-umv',
+			'domain': '.nowtv.com'
 		}
-	]
+	],
+	specs: specsToRun
 
 };

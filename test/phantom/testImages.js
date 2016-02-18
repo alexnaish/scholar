@@ -29,7 +29,7 @@ images.forEach(function (name) {
             });
         });
     }
-    
+
 });
 
 async.parallel(imageComparisionFns, function (err) {
@@ -40,7 +40,7 @@ async.parallel(imageComparisionFns, function (err) {
         junitXml.createTotalAttrs(images.length, testsFailed);
         fs.writeFileSync('test_out/visual-results.xml', junitXml.end());
         if (testsFailed) {
-            console.log(testsFailed, ' tests failed!');
+            console.log(testsFailed, 'tests failed!');
             // process.exit(testsFailed);
         }
     }
