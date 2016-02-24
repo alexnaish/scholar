@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/alexnaish/scholar.png?label=ready&title=Ready)](https://waffle.io/alexnaish/scholar)
 # scholar - Visual Regression Engine
 
 [![Code Climate](https://codeclimate.com/github/alexnaish/scholar/badges/gpa.svg)](https://codeclimate.com/github/alexnaish/scholar)
