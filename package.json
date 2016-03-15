@@ -5,7 +5,7 @@
   "main": "api/index.js",
   "scripts": {
     "postinstall": "node_modules/protractor/bin/webdriver-manager update",
-    "start": "node api/index.js",
+    "start": "node api/server.js",
     "test": "gulp test",
     "protractor": "protractor config/protractor-conf.js",
     "phantom": "./test/phantom/install.sh && ./phantomjs --ssl-protocol=any test/phantom/runSpecs.js && node test/phantom/testImages.js && rm -rf test_out/images/*"

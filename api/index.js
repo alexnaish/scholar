@@ -4,8 +4,7 @@ var config = require('config'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
-    router = require('./router'),
-    port = process.env.PORT || 8080;
+    router = require('./router');
 
 module.exports = app;
 
@@ -46,12 +45,4 @@ app.get('/api/config', function (req, res) {
 app.get('*', function (req, res) {
     res.status(404).send('Scholar Fallback 404');
     res.end();
-});
-
-app.listen(port, function (error) {
-    if (error) {
-        console.error('Unable to bind to port: ', port, error);
-    } else {
-        console.log('listening on port: ', port);
-    }
 });
