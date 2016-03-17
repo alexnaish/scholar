@@ -7,3 +7,4 @@ languages:
 exclude_paths:
  - "**/*.spec.js"
  - "test/**/*"
+ - "api/lib/**"
