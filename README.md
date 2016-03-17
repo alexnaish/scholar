@@ -46,6 +46,5 @@ Example Test Setup
 ###PhantomJS
 
 1. Checkout the 'phantom-only' branch and run `npm i`.
-1. To run a sample of tests set up to run with PhantomJs `npm run phantom`. Configuration and test definitions are stored within config/phantom-conf.js.
-2. This will download phantomJs locally and will then run a few example specs listed within the config file.
-3. This solution will also build a test report XML file that is in a ready to use format for use within Jenkins for pretty output graphs!
+1. To run a sample of tests set up to run with PhantomJs `npm test`.
+1. The README has been fully updated and specifies how to configure your setup!
