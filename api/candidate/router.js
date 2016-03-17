@@ -1,16 +1,20 @@
-var config = require('config'),
-    api = require('./api');
+var config = require('config');
+var api = require('./api');
+var express = require('express');
 
 module.exports = {
 
-    apply: function (app) {
+  apply: function(app) {
 
-        app.route(config.app.apiPath + '/candidate')
-            .get(api.findOutStanding);
+    var candidateRouter = express.Router();
 
-        app.route(config.app.apiPath + '/candidate/:name/:id/raw')
-            .get(api.renderRawImage);
+    candidateRouter.route('/')
+      .get(api.findOutStanding);
 
-    }
+    candidateRouter.route('/:name/:id/raw')
+      .get(api.renderRawImage);
+
+    app.use(config.app.apiPath + '/candidate', candidateRouter);
+  }
 
 };
