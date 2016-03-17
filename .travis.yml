@@ -7,8 +7,8 @@ before_script:
 after_script:
   - codeclimate-test-reporter < coverage/lcov.info
 node_js:
-  - "0.12"
-  - "0.11"
+  - "5"
+  - "4"
   - "0.10"
 notifications:
   email: false
