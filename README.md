@@ -28,11 +28,11 @@ Setup
 
 1. Clone the repository and then run `cd scholar`.
 1. Run `npm install`.
-1. On a locally running mongodb server, create the "scholar" database with user/password "scholar/kernel" (configurable with "api/config/default.js" as required). 
+1. On a locally running mongodb server, create the "scholar" database with user/password "scholar/kernel" (configurable with "api/config/default.js" as required).
 	1. On Mongo 2.6 and up you can do this by in your terminal running: `mongo scholar --eval "db.createUser({ user: 'scholar', pwd: 'kernel', roles: ['readWrite', 'dbAdmin'] } )"`
-	1. Or if that gives errors around the command: `mongo scholar --eval "db.addUser({ user: 'scholar', pwd: 'kernel', roles: ['readWrite', 'dbAdmin'] } )"` 
-1. To start the application run `npm start` or if you have `pm2` installed, run `pm2 start api/index.js --name scholar`.
-1. To view the application and the submitted screenshots go to `http://localhost:8080`.
+	1. Or if that gives errors around the command: `mongo scholar --eval "db.addUser({ user: 'scholar', pwd: 'kernel', roles: ['readWrite', 'dbAdmin'] } )"`
+1. To start the application run `npm start` or if you have `pm2` globally installed, run `pm2 start api/server.js --name scholar`.
+1. To view the application and the submitted screenshots go to `http://localhost:8080`. There won't be anything to view the first time you load the application!
 1. The first time any tests run all they should pass as the images are being baselined. On subsequent runs they should pass/fail depending on whether the website has changed since the baseline was taken.
 
 Example Test Setup
@@ -40,11 +40,12 @@ Example Test Setup
 
 ###Protractor
 
+1. Checkout the 'protractor' branch and run `npm i`.
 1. To run a sample of tests using protractor, run `npm run protractor`. This will load up Google Chrome and will take snapshots of the entire page to send to scholar. The screenshots are taken by protractor's inbuilt screenshot tool and the helper function to submit the images is stored inside config/protractor-conf.js. The example tests are stored within 'test/e2e/gen.spec.js'.
-
 
 ###PhantomJS
 
+1. Checkout the 'phantom-only' branch and run `npm i`.
 1. To run a sample of tests set up to run with PhantomJs `npm run phantom`. Configuration and test definitions are stored within config/phantom-conf.js.
-2. This will download the yosemite version of PhantomJs locally and will then run a few example specs listed within the config file.
+2. This will download phantomJs locally and will then run a few example specs listed within the config file.
 3. This solution will also build a test report XML file that is in a ready to use format for use within Jenkins for pretty output graphs!
