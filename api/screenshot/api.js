@@ -8,7 +8,7 @@ module.exports = {
         });
     },
 
-    promoteScreenshot: function (req, res) {
+    promoteScreenshot: function (req, res) {       
         service.promoteCandidateToBaseline(req.params.name, req.params.candidateId, function (errorCode, data) {
             res.status(errorCode).json(data);
         });

@@ -16,10 +16,10 @@ describe('Image Service', function () {
     });
 
     it('compareImages', function (done) {
-        
+
         var data = require('../../test/setup/samples/1by1');
 
-        ImageService.compareImages(data, data, function (diffData) {      
+        ImageService.compareImages(data, data, function (diffData) {
             expect(diffData).to.have.property('isSameDimensions');
             expect(diffData).to.have.property('dimensionDifference');
             expect(diffData).to.have.property('misMatchPercentage');

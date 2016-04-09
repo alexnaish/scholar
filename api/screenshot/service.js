@@ -123,15 +123,14 @@ module.exports = {
 
     },
     promoteCandidateToBaseline: function (name, candidateId, callback) {
-
-        CandidateService.findOne(candidateId, function (err, result) {
+        CandidateService.findOne(candidateId, {}, function (err, result) {
             if (!result) {
                 return callback(404, {});
             } else {
                 delete result._id;
-                BaselineService.save(result, function (err) {
+                BaselineService.save(result, function (err, insertedDoc) {
                     if (err) {
-                        return callback(500, {});
+                        return callback(500, {error: err.message});
                     } else {
                         clearCandidatesAndDiffs(name, callback);
                     }

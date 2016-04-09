@@ -37,7 +37,7 @@ describe('Screenshot API', function () {
             tempDiff.candidate = candidate._id;
             helpers.insertAssets(DiffModel, [tempDiff], function (results) {
                 diff = results[0];
-                helpers.insertAssets(BaselineModel, [sample], function () {
+                helpers.insertAssets(BaselineModel, [sample], function (results) {
                     baseline = results[0];
                     callback();
                 });
@@ -158,22 +158,18 @@ describe('Screenshot API', function () {
     });
 
     it('PUT /api/screenshot/:name/promote/:id should promote a candidate to baseline and return a 201', function (done) {
-
         request.put('/api/screenshot/' + imageName + '/promote/' + candidate._id)
             .expect('Content-Type', /json/)
             .expect(201)
             .end(function (err, res) {
                 expect(err).to.equal(null);
                 expect(res).to.not.equal(null);
-
                 CandidateModel.find({ name: imageName }, function (err, results) {
-                    expect(results.length).to.equal(0);
-
+                    expect(results.length).to.equal(0, 'candidate count not 0!');
                     DiffModel.find({ name: imageName }, function (err, results) {
-                        expect(results.length).to.equal(0);
-
+                        expect(results.length).to.equal(0, 'diff count not 0!');
                         BaselineModel.find({name: imageName}, function(err, results){
-                            expect(results.length).to.equal(1);
+                            expect(results.length).to.equal(1, 'baseline count not 1!');
                             expect(results[0].data).to.equal(candidate.data);
                             done();
                         });

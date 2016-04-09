@@ -27,11 +27,14 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(morgan('dev', {
-    skip: function (req) {
-        return req.url === '/favicon.ico';
-    }
-}));
+if(process.env.NODE_ENV !== 'test') {
+  app.use(morgan('dev', {
+      skip: function (req) {
+          return req.url === '/favicon.ico';
+      }
+  }));
+}
+
 app.disable('x-powered-by');
 
 process.on('uncaughtException', function(error){

@@ -7,6 +7,7 @@ var templateCache = require('gulp-angular-templatecache');
 var istanbul = require('gulp-istanbul');
 
 gulp.task('mocha', function() {
+  process.env.NODE_ENV = 'test';
   gulp.src(['./api/**/*.js', '!./api/**/*.spec.js', '!./api/index.js', '!./api/lib/**/*.js'])
     .pipe(istanbul()) // Covering files
     .pipe(istanbul.hookRequire()) // Force `require` to return covered files
@@ -57,9 +58,10 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./app/tmp/'));
 });
 
-gulp.task('watch', ['build-css', 'js'], function() {
+gulp.task('watch', ['build-css', 'build-js'], function() {
   gulp.watch(['./app/sass/**/*.scss'], ['build-css']);
   gulp.watch(['./app/js/**/*.js'], ['build-js']);
+  gulp.watch(['./api/**/*.js'], ['mocha']);
 });
 
 gulp.task('default', ['watch']);

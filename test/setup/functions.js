@@ -28,8 +28,8 @@ module.exports = {
     },
 
     removeAssets: function (model, query, finalCallback) {
-        model.remove(query, function () {
-            finalCallback();
+        model.remove(query, function (err, resp) {
+            finalCallback(resp.result.n);
         });
     }
 

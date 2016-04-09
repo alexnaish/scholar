@@ -1,36 +1,36 @@
 {
   "name": "scholar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Image Comparison Tool For Visual Regression Testing",
   "main": "api/index.js",
   "scripts": {
     "start": "node api/server.js",
+    "watch": "gulp",
     "test": "gulp test"
   },
   "author": "Alex Naish",
   "dependencies": {
-    "async": "~1.4.0",
-    "body-parser": "~1.13.2",
-    "config": "~1.14.0",
+    "async": "^1.5.2",
+    "body-parser": "~1.15.0",
+    "config": "~1.20.0",
     "express": "~4.13.1",
-    "lodash": "^3.9.3",
+    "lodash": "^4.9.0",
     "mongoose": "^4.0.0",
     "morgan": "^1.5.3",
-    "request": "^2.59.0",
-    "pngjs": "~0.4.0"
+    "pngjs": "~0.4.0",
+    "request": "^2.59.0"
   },
   "devDependencies": {
-    "chai": "^2.3.0",
-    "codeclimate-test-reporter": "~0.1.0",
+    "chai": "^3.5.0",
+    "codeclimate-test-reporter": "^0.3.0",
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-concat": "^2.6.0",
-    "gulp-istanbul": "~0.9.0",
+    "gulp-istanbul": "~0.10.3",
     "gulp-mocha": "^2.1.0",
     "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.5.3",
-    "should": "^7.0.2",
-    "sinon": "^1.14.1",
+    "sinon": "^1.17.3",
     "supertest": "^1.1.0"
   }
 }
