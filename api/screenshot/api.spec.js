@@ -59,7 +59,7 @@ describe('Screenshot API', function () {
         });
     });
 
-    it('POST /api/screenshot/:name save baseline image if new id', function (done) {
+    it('POST /api/screenshot/:name should save baseline image if new id', function (done) {
 
         var testName = 'test-image-name';
         var payload = {
@@ -76,6 +76,35 @@ describe('Screenshot API', function () {
                 BaselineModel.findOne({ name: testName }, function (err, result) {
                     expect(result).to.not.equal(null);
                     expect(result.data).to.equal(payload.imageData);
+                    done();
+                });
+            });
+    });
+
+    it('POST /api/screenshot/:name should save image metadata if submitted', function (done) {
+
+        var testName = 'test-image-name-metadata';
+        var testBrowser = 'Chrome';
+        var testResolution = '1280x720';
+        var payload = {
+            imageData: 'someMagicBase64Value'
+        };
+
+        request.post('/api/screenshot/' + testName)
+            .send(payload)
+            .set({
+              'X-Scholar-Meta-Browser': testBrowser,
+              'X-Scholar-Meta-Resolution': testResolution
+            })
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                expect(err).to.equal(null);
+                expect(res).to.not.equal(null);
+                BaselineModel.findOne({ name: testName }, function (err, result) {
+                    expect(result).to.not.equal(null);
+                    expect(result.meta.browser).to.equal(testBrowser);
+                    expect(result.meta.resolution).to.equal(testResolution);
                     done();
                 });
             });

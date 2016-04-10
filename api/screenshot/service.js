@@ -5,13 +5,14 @@ var BaselineService = require('../baseline/service'),
     config = require('config'),
     async = require('async');
 
-function saveComparisons(name, diffImage, submittedImage, callback) {
+function saveComparisons(name, diffImage, submittedImageData, callback) {
 
     async.waterfall([
         function saveCandidate(candidateCallback) {
             CandidateService.save({
                 name: name,
-                data: submittedImage
+                data: submittedImageData.imageData,
+                meta: submittedImageData.meta
             }, function (err, result) {
                 candidateCallback(err, result);
             });
@@ -20,6 +21,7 @@ function saveComparisons(name, diffImage, submittedImage, callback) {
             DiffService.save({
                 name: name,
                 data: diffImage,
+                meta: submittedImageData.meta,
                 candidate: result._id
             }, function (err, diffResult) {
                 diffCallback(err, diffResult);
@@ -86,14 +88,14 @@ function deleteComparison(diffId, candidateId, callback) {
 
 module.exports = {
 
-    saveAndCompare: function (name, imageData, callback) {
+    saveAndCompare: function (name, data, callback) {
         BaselineService.findOne(name, '', function (err, result) {
 
             if (result) {
-                ImageService.compareImages(result.data, imageData, function (resultJson, diffImage) {
+                ImageService.compareImages(result.data, data.imageData, function (resultJson, diffImage) {
                     var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
                     if (!acceptable) {
-                        saveComparisons(name, diffImage, imageData, function (err, diffResult) {
+                        saveComparisons(name, diffImage, data, function (err, diffResult) {
                             callback({
                                 passes: acceptable,
                                 difference: resultJson.misMatchPercentage,
@@ -110,7 +112,8 @@ module.exports = {
             } else {
                 BaselineService.save({
                     name: name,
-                    data: imageData
+                    data: data.imageData,
+                    meta: data.meta
                 }, function (err) {
                     var noError = (err === null);
                     callback({
@@ -147,6 +150,18 @@ module.exports = {
                 callback(404, {});
             }
         });
-    }
+    },
+    extractMetadata: function(headersObject) {
+        headersObject = headersObject || {};
+        var metaObject = {};
+        var headerMap = {
+          'x-scholar-meta-browser': 'browser',
+          'x-scholar-meta-resolution': 'resolution'
+        };
 
+        for (var key in headerMap) {
+          metaObject[headerMap[key]] = headersObject[key];
+        }
+        return metaObject;
+    }
 };

@@ -6,40 +6,62 @@ var SnapshotService = require('./service');
 var expect = require('chai').expect;
 
 
-describe('Screenshot Service', function () {
+describe('Screenshot Service', function() {
 
-    var sandbox;
+  var sandbox;
 
-    beforeEach(function () {
-        sandbox = sinon.sandbox.create();
+  beforeEach(function() {
+    sandbox = sinon.sandbox.create();
+  });
+
+  afterEach(function() {
+    sandbox.restore();
+  });
+
+  it('saveAndCompare', function(done) {
+    done();
+  });
+
+  it('promoteCandidateToBaseline', function(done) {
+    done();
+  });
+
+  it('deleteSnapshot returns a 404 and a blank object if diff doesnt exist', function(done) {
+
+    var findStub = sandbox.stub(DiffService, 'findOne').yields(null, null);
+
+    SnapshotService.deleteSnapshot('someDiffId', function(statusCode, data) {
+      expect(findStub.called).to.equal(true);
+      expect(statusCode).to.equal(404);
+      expect(data).to.be.empty;
+      done();
     });
 
-    afterEach(function () {
-        sandbox.restore();
-    });
+  });
 
-    it('saveAndCompare', function (done) {
-        done();
-    });
+  it('extractMetadata should return a mapped metadata object from the headers passed in', function() {
+    var browser = 'Chrome';
+    var resolution = '1280x720';
 
-    it('promoteCandidateToBaseline', function (done) {
-        done();
-    });
+    var headers = {
+      'content-type': 'application/json',
+      'x-scholar-meta-browser': browser,
+      'x-scholar-meta-resolution': resolution,
+      'connection': 'close'
+    }
 
-    it('deleteSnapshot returns a 404 and a blank object if diff doesnt exist', function (done) {
+    var metadata = SnapshotService.extractMetadata(headers);
+    expect(metadata.browser).to.equal(browser);
+    expect(metadata.resolution).to.equal(resolution);
+  });
 
-        var findStub = sandbox.stub(DiffService, 'findOne').yields(null, null);
+  it('extractMetadata should set metadata to undefined if no headers passed in', function() {
+    var headers = null;
 
-        SnapshotService.deleteSnapshot('someDiffId', function(statusCode, data){
-            expect(findStub.called).to.equal(true);
-            expect(statusCode).to.equal(404);
-            expect(data).to.be.empty;
-            done();
-        });
-
-    });
-
-
+    var metadata = SnapshotService.extractMetadata(headers);
+    expect(metadata.browser).to.equal(undefined);
+    expect(metadata.resolution).to.equal(undefined);
+  });
 
 
 });

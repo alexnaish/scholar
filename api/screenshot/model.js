@@ -10,6 +10,20 @@ var screenshotSchema = {
     dateCreated: {
         type: Date,
         default: Date.now
+    },
+    meta: {
+      browser: {
+        type: String
+      },
+      resolution: {
+        type: String
+      },
+      lastUpdated: {
+        type: Date
+      },
+      lastUpdatedBy: {
+        type: String
+      }
     }
 };
 
