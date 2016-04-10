@@ -9,7 +9,7 @@ module.exports = {
 
     find: function (callback) {
         var errorCode = 200;
-        BaselineModel.find({}, 'name dateCreated', {
+        BaselineModel.find({}, 'name meta dateCreated', {
             lean: true,
             sort: {
                 dateCreated: -1

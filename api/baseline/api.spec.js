@@ -1,6 +1,7 @@
 var helpers = require('../../test/setup/functions'),
     app = require('../index'),
     BaselineModel = require('./model'),
+    _ = require('lodash'),
     expect = require('chai').expect,
     request = require('supertest')(app);
 
@@ -9,6 +10,10 @@ describe('Baseline API', function () {
     var assets = [
         {
             name: 'test-run-1',
+            meta: {
+              browser: 'test-browser',
+              resolution: '1337x420'
+            },
             data: 'somekindofbase64image'
         },
         {
@@ -44,6 +49,13 @@ describe('Baseline API', function () {
                 expect(err).to.equal(null);
                 expect(res).to.not.equal(null);
                 expect(res.body.length).to.equal(insertedAssets.length);
+
+                var specificBaseline = _.find(res.body, function(b) { return b.name === 'test-run-1'; });
+
+                expect(specificBaseline).to.have.property('name');
+                expect(specificBaseline).to.have.property('dateCreated');
+                expect(specificBaseline).to.have.property('meta');
+                expect(specificBaseline).to.have.property('raw');
                 done();
             });
     });
@@ -71,7 +83,7 @@ describe('Baseline API', function () {
                 done();
             });
     });
-    
+
     it('/api/baseline/:name/raw should 404 if no baseline found', function (done) {
         request.get('/api/baseline/thisDoesntExist/raw')
             .expect(404)
