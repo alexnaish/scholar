@@ -1,0 +1,26 @@
+<div class="search">
+  <input class="input" type="text" ng-model="nameFilter" placeholder="Search">
+  <a class="button" ng-click="list.showOutstanding()">Filter By Outstanding</a>
+  <a class="button" ng-click="list.showAll()">Show All</a>
+</div>
+
+<ul class="baseline-list">
+  <div class="baseline-item" ng-repeat="baseline in list.baselines | filter:{ name: list.nameFilter } | filter: list.filterByOutstanding track by baseline._id">
+    <div class="baseline">
+      <img class="image" ng-src={{::list.images[baseline.name]}}></img>
+      <div class="info">
+        <h2 class="name">{{:: baseline.name }}</h2>
+        <ul class="meta">
+          <li>Created: {{:: baseline.dateCreated | date:"dd/MM/yyyy 'at' h:mma" }}</li>
+          <li>Browser: {{:: baseline.meta.browser || "N/A"}}</li>
+          <li>Resolution: {{:: baseline.meta.resolution || "N/A"}}</li>
+        </ul>
+        <div class="actions">
+          <a href="#/snapshot/{{:: baseline.name }}">View Candidates</a>
+          <a href="{{:: baseline.raw}}">View On Screen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ul>

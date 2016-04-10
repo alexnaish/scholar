@@ -2,9 +2,9 @@
 @import 'base';
 @import 'inputs';
 @import 'header';
-@import 'grid';
-@import 'snapshot';
 @import 'error';
-@import 'baseline';
 @import 'transitions';
 @import 'notifications';
+
+@import 'modules/baseline';
+@import 'modules/snapshot';
