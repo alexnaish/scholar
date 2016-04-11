@@ -19,6 +19,8 @@ input[type="text"] {
     }
 }
 .button {
+    display: inline-block;
+    text-rendering: optimizeLegibility;
     margin: 0 5px;
     padding: 10px;
     font-size: 18px;
