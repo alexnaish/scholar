@@ -1,7 +1,8 @@
-var screenshot = require('../screenshot/router'),
-    baseline = require('../baseline/router'),
-    candidate = require('../candidate/router'),
-    diff = require('../diff/router');
+var screenshot = require('../screenshot/router');
+var baseline = require('../baseline/router');
+var candidate = require('../candidate/router');
+var diff = require('../diff/router');
+var user = require('../user/router');
 
 module.exports = {
 
@@ -11,6 +12,7 @@ module.exports = {
         baseline.apply(app);
         candidate.apply(app);
         diff.apply(app);
+        user.apply(app);
 
     }
 };
