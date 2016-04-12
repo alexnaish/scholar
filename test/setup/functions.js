@@ -21,6 +21,10 @@ module.exports = {
 
         //Perform the async.parallel call
         async.parallel(asyncTasks, function (err, results) {
+            if(err) {
+              console.error('Insert Assets Error!', err);
+              throw err;
+            }
             finalCallback(results);
         });
 
