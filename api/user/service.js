@@ -5,16 +5,17 @@ var config = require('config');
 var crypto = require('crypto');
 var encryptionCost = config.encryption.cost;
 
-function generatePassword(suppliedPassword, callback) {
-	bcrypt.genSalt(encryptionCost, function (err, salt) {
-		if (err) return callback(err);
-		bcrypt.hash(suppliedPassword, salt, callback);
-	});
-};
-
-function passwordMatches(suppliedPassword, storedPassword, callback) {
-	bcrypt.compare(suppliedPassword, storedPassword, callback);
-};
+// TODO Use this when implementing Create / Update
+// function generatePassword(suppliedPassword, callback) {
+// 	bcrypt.genSalt(encryptionCost, function (err, salt) {
+// 		if (err) return callback(err);
+// 		bcrypt.hash(suppliedPassword, salt, callback);
+// 	});
+// };
+//
+// function passwordMatches(suppliedPassword, storedPassword, callback) {
+// 	bcrypt.compare(suppliedPassword, storedPassword, callback);
+// };
 
 
 module.exports = {
