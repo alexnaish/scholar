@@ -11,9 +11,11 @@
   "author": "Alex Naish",
   "dependencies": {
     "async": "^1.5.2",
+    "bcrypt": "^0.8.5",
     "body-parser": "~1.15.0",
     "config": "~1.20.0",
     "express": "~4.13.1",
+    "jdenticon": "^1.3.2",
     "lodash": "^4.9.0",
     "mongoose": "^4.0.0",
     "morgan": "^1.5.3",
