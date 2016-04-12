@@ -46,6 +46,7 @@ app.get('/api/config', function (req, res) {
     res.json(config);
 });
 app.get('*', function (req, res) {
-    res.status(404).send('Scholar Fallback 404');
-    res.end();
+    res.status(404).json({
+        error: 'Scholar API 404 Fallback'
+    });
 });
