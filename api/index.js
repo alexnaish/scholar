@@ -17,11 +17,9 @@ db.once('open', function () {
 mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@" + config.mongo.host + "/" + config.mongo.db);
 
 app.use(express.static(__dirname + '/../public'));
-
 app.use(bodyParser.json({
     limit: '10mb'
 }));
-
 app.use(bodyParser.urlencoded({
     limit: '10mb',
     extended: false
@@ -49,4 +47,8 @@ app.get('*', function (req, res) {
     res.status(404).json({
         error: 'Scholar API 404 Fallback'
     });
+});
+app.use(function(err, req, res, next) {
+  console.error('Error:', err);
+  res.status(500).json({error: 'Internal Server Error'});
 });

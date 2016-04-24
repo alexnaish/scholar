@@ -1,9 +1,7 @@
 module.exports = {
     app: {
-        apiPath: '/api'
-    },
-    encryption: {
-        cost: 12
+        apiPath: '/api',
+        secret: 'SomeSecr3t'
     },
     mongo: {
         host: "localhost",
