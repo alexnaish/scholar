@@ -52,6 +52,9 @@ $transitionTime: 0.25s;
     margin-bottom: 10px;
     transition: color $transitionTime, font-weight $transitionTime;
     text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .meta {
     width: 100%;
