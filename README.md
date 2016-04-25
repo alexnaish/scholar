@@ -38,13 +38,4 @@ Setup
 Example Test Setup
 -------
 
-###Protractor
-
-1. Checkout the 'protractor' branch and run `npm i`.
-1. To run a sample of tests using protractor, run `npm run protractor`. This will load up Google Chrome and will take snapshots of the entire page to send to scholar. The screenshots are taken by protractor's inbuilt screenshot tool and the helper function to submit the images is stored inside config/protractor-conf.js. The example tests are stored within 'test/e2e/gen.spec.js'.
-
-###PhantomJS
-
-1. Checkout the 'phantom-only' branch and run `npm i`.
-1. To run a sample of tests set up to run with PhantomJs `npm test`.
-1. The README has been fully updated and specifies how to configure your setup!
+Go over to [Scholar Runner](https://github.com/alexnaish/scholar-runner) and take a look! It's actively being developed right now and as such, may change in future however as of now the outside usage of it should remain stable. Feature requests, pull requests and suggestions are more than welcome! 
