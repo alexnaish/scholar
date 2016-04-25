@@ -19,15 +19,14 @@ describe('Users API', function () {
 		firstName: 'first2',
 		lastName: 'last2',
 		email: 'test2@mail.com',
-		password: 'test3test3'
+		password: '$2a$10$m/woUV57PjN/w/Af0P3RLOiGJ3Q91j3BYhSSMg4q5enrXduWl5EIO'
 	}, {
 		username: 'test-3',
 		firstName: 'first3',
 		lastName: 'last3',
 		email: 'test3@mail.com',
 		password: 'test4test4'
-	},
-	{
+	}, {
 		username: 'update-me',
 		firstName: 'update',
 		lastName: 'please',
@@ -331,7 +330,7 @@ describe('Users API', function () {
 			});
 			var updatedLastName = 'ThisShouldUpdate';
 			specificUser.lastName = updatedLastName;
-			request.put('/api/user/'+specificUser._id)
+			request.put('/api/user/' + specificUser._id)
 				.send(specificUser)
 				.expect('Content-Type', /json/)
 				.expect(200)
@@ -348,7 +347,7 @@ describe('Users API', function () {
 			var specificUser = _.find(insertedAssets, {
 				username: 'update-me'
 			});
-			request.put('/api/user/'+specificUser._id)
+			request.put('/api/user/' + specificUser._id)
 				.send({})
 				.expect('Content-Type', /json/)
 				.expect(400)
@@ -385,7 +384,7 @@ describe('Users API', function () {
 				message: 'who cares'
 			}, null);
 
-			request.put('/api/user/'+specificUser._id)
+			request.put('/api/user/' + specificUser._id)
 				.send(specificUser)
 				.expect('Content-Type', /json/)
 				.expect(500)
@@ -459,7 +458,7 @@ describe('Users API', function () {
 				message: 'who cares'
 			}, null);
 
-			request.delete('/api/user/'+specificUser._id)
+			request.delete('/api/user/' + specificUser._id)
 				.expect('Content-Type', /json/)
 				.expect(500)
 				.end(function (err, res) {
@@ -474,29 +473,58 @@ describe('Users API', function () {
 
 	describe('GENERATE TOKEN', function () {
 
-		xit('/user/token should generate a JWT token for a valid login', function(done){
+		it('/user/token should generate a JWT token for a valid login', function (done) {
 			var specificUser = _.find(insertedAssets, {
 				username: 'test-2'
 			});
-
-				//TODO INSERT A USER USING USERSERVICE.CREATE SO IT ENCRYPTS THE PASSWORD FOR STORAGE.......
-
-
 			request.post('/api/user/token')
 				.send({
 					username: specificUser.username,
-					password: specificUser.password
+					password: 'test'
 				})
 				.expect('Content-Type', /json/)
 				.expect(201)
 				.end(function (err, res) {
 					expect(err).to.equal(null);
 					expect(res.body).to.have.property('token');
-					console.log("res.body", res.body);
+					var components = res.body.token.split('.');
+					expect(components.length).to.equal(3);
 					done();
 				});
+		});
 
+		it('/user/token should return a 401 and error message if invalid details supplied', function (done) {
 
+			request.post('/api/user/token')
+				.send({
+					username: 'madeupuser',
+					password: 'test'
+				})
+				.expect('Content-Type', /json/)
+				.expect(401)
+				.end(function (err, res) {
+					expect(err).to.equal(null);
+					expect(res.body).to.have.property('error', 'Unable to login');
+					done();
+				});
+		});
+
+		it('/user/token should return a standard 500 if an error occurs', function (done) {
+			sinon.stub(UserService, 'checkLogin').yields({message: 'some error'}, null);
+
+			request.post('/api/user/token')
+				.send({
+					username: 'someValue',
+					password: 'test'
+				})
+				.expect('Content-Type', /json/)
+				.expect(500)
+				.end(function (err, res) {
+					expect(err).to.equal(null);
+					expect(res.body).to.have.property('error', 'Internal Server Error');
+					UserService.checkLogin.restore();
+					done();
+				});
 		});
 
 

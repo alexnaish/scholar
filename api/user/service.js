@@ -71,6 +71,7 @@ module.exports = {
 	},
 	create: function (payload, callback) {
 		bcrypt.hash(payload.password, null, null, function (err, hash) {
+			if(err) callback(err);
 			payload.password = hash;
 			new UserModel(payload).save(function (err, insertedUser) {
 				if (err) return callback(err);
@@ -138,6 +139,6 @@ module.exports = {
 		});
 	},
 	generateToken: function(payload, callback) {
-		jwt.sign({ user: payload }, config.app.secret, {expiresIn: 4 * 60 * 60}, callback);
+		jwt.sign({ user: payload }, config.app.secret, {expiresIn: '6h'}, callback);
 	}
 };

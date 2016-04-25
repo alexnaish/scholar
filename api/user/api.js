@@ -27,7 +27,7 @@ module.exports = {
 		});
 	},
 	register: function (req, res, next) {
-		var validity = UserService.valid(req.body);
+		var validity = UserService.valid(req.body, true);
 		if (!validity.valid) {
 			return res.status(400).json({
 				error: validity.reason
