@@ -98,11 +98,12 @@ module.exports = {
 				upsert: false,
 				runValidators: true,
 				passRawResult: true
-			}, function(err, updatedUser, rawRes) {
-				if(rawRes.value) {
-					delete rawRes.value.password;
+			}, function(err, updatedUser) {
+				if(updatedUser) {
+					updatedUser = updatedUser.toObject();
+					delete updatedUser.password;
 				}
-				callback(err, rawRes.value);
+				callback(err, updatedUser);
 			});
 		}
 	},
