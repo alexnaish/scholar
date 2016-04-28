@@ -82,6 +82,7 @@ module.exports = {
 		});
 	},
 	update: function (userId, payload, callback) {
+		delete payload._id;
 		if (payload.password) {
 			bcrypt.hash(payload.password, null, null, function (err, hash) {
 				payload.password = hash;
