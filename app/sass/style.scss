@@ -6,6 +6,8 @@
 @import 'transitions';
 @import 'notifications';
 
+@import 'modules/loader';
+@import 'modules/table';
 @import 'modules/snapshot';
 @import 'modules/baseline';
 @import 'modules/comparison';
