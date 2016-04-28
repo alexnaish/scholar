@@ -146,14 +146,12 @@ describe('Users API', function () {
 				username: 'test-3'
 			});
 			request.get('/api/user/' + specificUser._id + '/avatar')
+				.expect('Content-Type', /image\/svg/)
 				.expect(200)
 				.end(function (err, res) {
 					expect(err).to.equal(null);
 					expect(res).to.not.equal(null);
 					expect(res.headers).to.have.property('cache-control', 'public, max-age=31557600');
-					expect(res.text).to.include('<svg');
-					expect(res.text).to.include('viewBox="0 0 200 200"');
-					expect(res.text).to.include('</svg>');
 					done();
 				});
 		});

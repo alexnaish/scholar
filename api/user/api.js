@@ -105,6 +105,7 @@ module.exports = {
 				return res.sendStatus(404);
 			}
 			res.set('Cache-Control', 'public, max-age=31557600');
+			res.set('Content-Type', 'image/svg+xml');
 			res.status(200).send(resp);
 		});
 	}
