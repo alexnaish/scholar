@@ -1,0 +1,36 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.profile-image {
+    width: 100px;
+    margin: 0 auto;
+}
+
+.profile-info {
+    margin-top: 20px;
+    text-align: center;
+
+    .profile-title {
+        font-size: 36px;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    //DESKTOP STYLES HERE
+    .profile {
+        flex-direction: row;
+    }
+
+    .profile-image {
+        width: auto;
+    }
+
+    .profile-info {
+        margin-left: 40px;
+        flex: 1;
+        text-align: left;
+    }
+}

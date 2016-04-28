@@ -1,0 +1,22 @@
+<div class="container">
+    <h1 class="title">Users List</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in list.users track by user._id">
+                <td data-label="User ID"><a href="/#/user/{{::user._id}}">{{::user._id}}</a></td>
+                <td data-label="First Name">{{::user.firstName}}</td>
+                <td data-label="Last Name">{{::user.lastName}}</td>
+                <td data-label="Email">{{::user.email}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
