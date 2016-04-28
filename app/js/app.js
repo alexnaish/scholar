@@ -20,6 +20,7 @@
 })(angular.module('Scholar', [
     'baseline',
     'snapshot',
+    'loader',
     'error',
     'ngAnimate'
 ]));
