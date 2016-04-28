@@ -28,9 +28,14 @@ a {
 .content {
     padding-top: 70px;
     .title {
-        font-size: 48px;
+        font-size: 40px;
         margin: 20px;
         border-bottom: 1px solid lightgrey;
+    }
+    .container {
+        margin: 0 auto;
+        padding: 0 20px;
+        max-width: 1440px;
     }
 }
 
