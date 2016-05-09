@@ -62,7 +62,7 @@ gulp.task('watch', ['build-css', 'build-js'], function() {
   gulp.watch(['./app/sass/**/*.scss'], ['build-css']);
   gulp.watch(['./app/js/**/*.js'], ['build-js']);
   gulp.watch(['./app/**/*.html'], ['build-js']);
-  gulp.watch(['./api/**/*.js'], ['mocha']);
+  gulp.watch(['./api/**/*.spec.js'], ['mocha']);
 });
 
 gulp.task('default', ['watch']);

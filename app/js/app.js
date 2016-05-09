@@ -22,6 +22,5 @@
     'snapshot',
     'user',
     'loader',
-    'error',
-    'ngAnimate'
+    'error'
 ]));

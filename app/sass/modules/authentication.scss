@@ -1,0 +1,97 @@
+.authentication {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.auth-panel {
+    position: relative;
+    display: flex;
+    flex: 1;
+    form {
+        height: 0;
+        padding: 60px;
+        pointer-events: none;
+        background: #FFF;
+        border: 1px solid lightgrey;
+        border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+        border-top: 4px solid orange;
+        opacity: 0;
+    }
+    .switch {
+        display: block;
+        position: absolute;
+        text-align: center;
+        top: 60px;
+        .message {
+            padding-bottom: 15px;
+        }
+
+        button {
+            width: 180px;
+        }
+    }
+    &.active {
+        .switch {
+            display: none;
+        }
+        form {
+            height: auto;
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+@media screen and (min-width: 721px) {
+    .auth-panel {
+
+        form {
+            transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+        }
+
+        &.login {
+            justify-content: flex-end;
+            form {
+                transform: translateX(80px);
+            }
+            .switch {
+                right: 140px;
+                transform: translateX(50%);
+            }
+        }
+
+        &.register {
+            form {
+                transform: translateX(-80px);
+            }
+            .switch {
+                left: 140px;
+                transform: translateX(-50%);
+            }
+        }
+
+        &.active form {
+            transform: translateX(0);
+        }
+    }
+}
+@media screen and (max-width: 720px) {
+    .auth-panel {
+        flex-basis: 100%;
+        form {
+            min-height: 0;
+            transition: transform 0s;
+        }
+        .switch {
+            left: 0%;
+            width: 100%;
+        }
+        &.active {
+            order: 0;
+            justify-content: center;
+        }
+        &:not(.active) {
+            order: 1;
+        }
+    }
+}

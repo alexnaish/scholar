@@ -1,0 +1,51 @@
+
+<div class="container">
+    <div class="authentication">
+        <div class="auth-panel login" ng-class="{'active': auth.isActive('login')}">
+            <form name="loginForm" novalidate ng-submit="auth.submitLogin()">
+                <h3>Login</h3>
+                <span ng-if="auth.error" class="validation">{{auth.error}}</span>
+                <input placeholder="Username" type="text" ng-model="auth.loginData.username" required>
+                <input placeholder="Password" type="password" ng-model="auth.loginData.password" required>
+                <button type="submit" ng-disabled="loginForm.$invalid || auth.submissionDisabled">Login</button>
+            </form>
+            <div class="switch">
+                <div class="message">Already have an account?</div>
+                <button ng-click='auth.switchTo("login")'>Login</button>
+            </div>
+        </div>
+        <div class="auth-panel register" ng-class="{'active': auth.isActive('register')}">
+                <form name="registerForm" autocomplete="off" novalidate ng-submit="auth.submitRegistration()">
+                <h3>Register</h3>
+                <span ng-if="auth.error" class="validation">{{auth.error}}</span>
+                <input name="username" ng-model="auth.registerData.username" placeholder="Username" type="text" ng-minlength="6" ng-maxlength="32" ng-pattern="/[a-zA-Z0-9_-]+$/" required>
+                <div ng-if="registerForm.username.$dirty" ng-messages="registerForm.username.$error">
+                    <div class="validation" ng-message="required">Please enter a username</div>
+                    <div class="validation" ng-message="minlength">Please enter a longer username</div>
+                    <div class="validation" ng-message="maxlength">Please enter a shorter username</div>
+                    <div class="validation" ng-message="pattern">Please use only alphanumerics and _</div>
+                </div>
+                <input name="firstName" ng-model="auth.registerData.firstName" placeholder="First Name" type="text" required>
+                <input name="lastName" ng-model="auth.registerData.lastName" placeholder="Last Name" type="text" required>
+                <input name="email" ng-model="auth.registerData.email" placeholder="Email" type="email" required>
+                <div ng-if="registerForm.email.$dirty" ng-messages="registerForm.email.$error">
+                    <div class="validation" ng-message="required">Please enter an email</div>
+                    <div class="validation" ng-message="email">Please enter a valid email</div>
+                </div>
+                <input name="password" ng-model="auth.registerData.password" placeholder="Password" type="password" ng-minlength="8" required>
+                <div ng-if="registerForm.password.$dirty" ng-messages="registerForm.password.$error">
+                    <div class="validation" ng-message="required">Please enter a password</div>
+                    <div class="validation" ng-message="minlength">Please enter a longer password</div>
+                </div>
+                <input name="password2" ng-model="auth.registerData.password2" placeholder="Confirm Password" type="password" required>
+                <div class="validation">Passwords must match</div>
+                <button type="submit" ng-disabled="registerForm.$invalid || auth.submissionDisabled">Register</button>
+            </form>
+            <div class="switch">
+                <div class="message">Don't have an account?</div>
+                <button ng-click='auth.switchTo("register")'>Register</button>
+            </div>
+        </div>
+    </div>
+
+</div>

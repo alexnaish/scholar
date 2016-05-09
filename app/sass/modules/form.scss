@@ -1,0 +1,119 @@
+$minWidth: 200px;
+$maxWidth: 205px;
+$width: 100%;
+
+
+form {
+
+    .validation {
+        height: auto;
+        padding: 10px 15px;
+        line-height: 16px;
+        color: #B22;
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+        min-width: $minWidth;
+        max-width: $maxWidth;
+        background: #ffb3b3;
+        box-sizing: border-box;
+        border-left: 5px solid #B22;
+        transition: background 0.2s ease, color 0.2s ease;
+
+        &:hover {
+            background: #ff8080;
+            color: white;
+        }
+    }
+
+    h3 {
+        font-weight: bolder;
+        font-size: 24px;
+        padding-bottom: 15px;
+        color: #555;
+    }
+
+}
+
+
+input {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    display: block;
+    width: $width;
+    min-width: $minWidth;
+    font-size: 14px;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 10px;
+    margin: 0 5px 10px 0;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s,border 0.3s;
+
+    &.ng-invalid.ng-dirty {
+        border: 1px solid #ff8080;
+        &:focus {
+            box-shadow: 0 0 2px 1px #ff8080;
+        }
+    }
+
+    &:focus {
+        outline: none;
+        border: solid 1px #C0C0C0;
+        box-shadow: 0 0 2px 1px #CDCDCD;
+    }
+}
+button {
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    overflow: hidden;
+    background: rgba(10,10,10,0.05);
+    padding: 10px;
+    width: $width;
+    min-width: $minWidth;
+    z-index: 1;
+    line-height: 1.5;
+    border: solid 1px #C9C9C9;
+    color: #555555;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s linear;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 2px 1px #CDCDCD;
+    }
+
+    &:disabled {
+        color: C9C9C9;
+        cursor: not-allowed;
+    }
+
+    &:after {
+        position: absolute;
+        left: 0%;
+        top: 100%;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        content: '';
+        background: rgba(10,10,10,0.1);
+        transition: top 0.2s ease;
+    }
+    &:not(:disabled):hover:after {
+        top: 0%;
+    }
+}
+
+
+
+.button {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #25313e;
+    text-align: center;
+    border: 1px solid darkgrey;
+}

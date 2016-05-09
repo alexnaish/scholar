@@ -16,7 +16,7 @@ var validation = {
 		return !!(typeof value == 'string' && value.match(/^[a-zA-Z0-9_-]{6,32}$/));
 	},
 	password: function (value) {
-		return !!(typeof value == 'string' && value.match(/^[a-zA-Z0-9_-]{8,64}$/));
+		return !!(typeof value == 'string' && value.length > 7);
 	},
 	email: function (value) {
 		return !!(typeof value == 'string' && value.match(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/));
@@ -130,7 +130,7 @@ module.exports = {
 	checkLogin: function(suppliedUsername, suppliedPassword, callback) {
 		UserModel.findOne({
 			username: suppliedUsername
-		}, function(err, result){
+		}, null, { lean: true }, function(err, result){
 			if (err || !result) return callback(err);
 			bcrypt.compare(suppliedPassword, result.password, function(err, matches) {
 				if(err) return callback(err);
@@ -141,6 +141,7 @@ module.exports = {
 		});
 	},
 	generateToken: function(payload, callback) {
+		delete payload.password;
 		jwt.sign({ user: payload }, config.app.secret, {expiresIn: '6h'}, callback);
 	}
 };

@@ -1,6 +1,5 @@
 @import 'reset';
 @import 'base';
-@import 'inputs';
 @import 'header';
 @import 'error';
 @import 'transitions';
@@ -8,7 +7,9 @@
 
 @import 'modules/loader';
 @import 'modules/table';
+@import 'modules/form';
 @import 'modules/snapshot';
 @import 'modules/baseline';
 @import 'modules/comparison';
 @import 'modules/profile';
+@import 'modules/authentication';

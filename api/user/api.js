@@ -85,7 +85,7 @@ module.exports = {
 		UserService.checkLogin(req.body.username, req.body.password, function(err, userRecord) {
 			if(err) return next(err);
 			if(!userRecord) {
-				return res.status(401).json({error: 'Unable to login'});
+				return res.status(401).json({error: 'Incorrect credentials'});
 			}
 			UserService.generateToken(userRecord, function(generatedToken){
 				res.status(201).json({

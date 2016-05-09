@@ -1,4 +1,18 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700);
+
+*, *:before, *:after {
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: rgba(40, 40, 40, 0.3);
+}
+
+::-moz-selection {
+    background: rgba(40, 40, 40, 0.3);
+}
+
 html {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -8,7 +22,7 @@ html {
     width: 100vw;
     height: 100vh;
     -webkit-font-smoothing: antialiased;
-    color: #222;
+    color: #333;
     body {
         overflow-x: hidden;
         background-color: #ececec;
@@ -25,6 +39,10 @@ a {
     }
 }
 
+.hidden {
+    display: none !important;
+}
+
 .content {
     padding-top: 70px;
     .title {
@@ -34,15 +52,21 @@ a {
     }
     .container {
         margin: 0 auto;
-        padding: 0 20px;
         max-width: 1280px;
+        @media screen and (min-width: 400px) {
+            padding: 0 20px;
+        }
     }
 }
 
 .search {
   padding: 10px;
-  display: inline-block;
-  position: relative;
+  width: 100%;
+  input {
+      width: 20%;
+      max-width: 240px;
+      display: inline-block;
+  }
 }
 
 [ng-cloak],

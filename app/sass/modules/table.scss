@@ -15,7 +15,7 @@
         }
     }
     tr, td {
-        transition: ease 0.2s background-color;
+        transition: background-color 0.2s ease;
     }
     tr {
         background-color: white;

@@ -1,5 +1,6 @@
 angular.module('user', [
   'user.controller',
   'user.service',
-  'user.config'
+  'user.config',
+  'authentication'
 ]);

@@ -502,7 +502,7 @@ describe('Users API', function () {
 				.expect(401)
 				.end(function (err, res) {
 					expect(err).to.equal(null);
-					expect(res.body).to.have.property('error', 'Unable to login');
+					expect(res.body).to.have.property('error', 'Incorrect credentials');
 					done();
 				});
 		});
