@@ -22,5 +22,6 @@
     'snapshot',
     'user',
     'loader',
+    'user-dropdown',
     'error'
 ]));
