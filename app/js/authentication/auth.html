@@ -4,6 +4,7 @@
         <div class="auth-panel login" ng-class="{'active': auth.isActive('login')}">
             <form name="loginForm" novalidate ng-submit="auth.submitLogin()">
                 <h3>Login</h3>
+                <span ng-if="auth.authReason" class="validation">{{auth.authReason}}</span>
                 <span ng-if="auth.error" class="validation">{{auth.error}}</span>
                 <input placeholder="Username" type="text" ng-model="auth.loginData.username" required>
                 <input placeholder="Password" type="password" ng-model="auth.loginData.password" required>

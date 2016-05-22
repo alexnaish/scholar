@@ -6,6 +6,7 @@
 		var query = $location.search();
 		this.loginData = {};
 		this.registerData = {};
+		this.authReason = Authentication.reason;
 
 		this.isActive = function (value) {
 			return value === _activeForm;
@@ -23,6 +24,7 @@
 
 		this.submitLogin = function () {
 			vm.submissionDisabled = true;
+			clearReason();
 			Authentication.login(this.loginData)
 				.then(function (resp) {
 					handleRedirect();
@@ -57,6 +59,11 @@
 			} else {
 				$location.path('/');
 			}
+		}
+
+		function clearReason () {
+			Authentication.clearReason();
+			delete vm.authReason;
 		}
 
 	}]);

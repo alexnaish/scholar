@@ -3,5 +3,6 @@ angular.module('authentication', [
     'authentication.controller',
     'authentication.directive',
     'authentication.service',
-    'ngMessages'
+    'ngMessages',
+    'angular-jwt'
 ]);

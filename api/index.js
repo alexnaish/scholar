@@ -49,6 +49,6 @@ app.get('*', function (req, res) {
     });
 });
 app.use(function(err, req, res, next) {
-  console.error('Error:', err);
+  console.error('Error:', err.stack);
   res.status(500).json({error: 'Internal Server Error'});
 });

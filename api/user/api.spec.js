@@ -4,6 +4,8 @@ var UserModel = require('./model');
 var UserService = require('./service');
 var _ = require('lodash');
 var sinon = require('sinon');
+var jwt = require('jsonwebtoken');
+var config = require('config');
 var expect = require('chai').expect;
 var request = require('supertest')(app);
 
@@ -34,8 +36,9 @@ describe('Users API', function () {
 		password: 'update4update4'
 	}];
 	var insertedAssets;
-
+	var generatedToken;
 	before(function (done) {
+		generatedToken = jwt.sign({}, config.app.secret);
 		helpers.removeAssets(UserModel, {}, function () {
 			helpers.insertAssets(UserModel, assets, function (results) {
 				insertedAssets = results;
@@ -55,6 +58,7 @@ describe('Users API', function () {
 		it('/api/user should return 200 and a list of users with the correct fields', function (done) {
 
 			request.get('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(200)
 				.end(function (err, res) {
@@ -80,6 +84,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.get('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(500)
 				.end(function (err, res) {
@@ -96,6 +101,7 @@ describe('Users API', function () {
 				username: 'test-3'
 			});
 			request.get('/api/user/' + specificUser._id)
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(200)
 				.end(function (err, res) {
@@ -114,6 +120,7 @@ describe('Users API', function () {
 
 		it('/api/user/:id should return a 404 and a standard error message', function (done) {
 			request.get('/api/user/123123123123123123123123')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(404)
 				.end(function (err, res) {
@@ -130,6 +137,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.get('/api/user/123123123123123123123123')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(500)
 				.end(function (err, res) {
@@ -146,6 +154,7 @@ describe('Users API', function () {
 				username: 'test-3'
 			});
 			request.get('/api/user/' + specificUser._id + '/avatar')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /image\/svg/)
 				.expect(200)
 				.end(function (err, res) {
@@ -171,6 +180,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.get('/api/user/123123123123123123123123/avatar')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(500)
 				.end(function (err, res) {
@@ -197,6 +207,7 @@ describe('Users API', function () {
 			};
 
 			request.post('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send(validUser)
 				.expect('Content-Type', /json/)
 				.expect(201)
@@ -221,6 +232,7 @@ describe('Users API', function () {
 
 		it('/api/user should return 400 if payload is missing required data', function (done) {
 			request.post('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send({})
 				.expect('Content-Type', /json/)
 				.expect(400)
@@ -234,6 +246,7 @@ describe('Users API', function () {
 
 		it('/api/user should return 400 if payload fails validation', function (done) {
 			request.post('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send({
 					username: 'some!thing!invalid#here()',
 					password: 'test',
@@ -256,6 +269,7 @@ describe('Users API', function () {
 				username: 'test-1'
 			});
 			request.post('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send(specificUser)
 				.expect('Content-Type', /json/)
 				.expect(409)
@@ -280,6 +294,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.post('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send(validUser)
 				.expect('Content-Type', /json/)
 				.expect(500)
@@ -306,6 +321,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.post('/api/user')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send(validUser)
 				.expect('Content-Type', /json/)
 				.expect(500)
@@ -329,6 +345,7 @@ describe('Users API', function () {
 			var updatedLastName = 'ThisShouldUpdate';
 			specificUser.lastName = updatedLastName;
 			request.put('/api/user/' + specificUser._id)
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send(specificUser)
 				.expect('Content-Type', /json/)
 				.expect(200)
@@ -346,6 +363,7 @@ describe('Users API', function () {
 				username: 'update-me'
 			});
 			request.put('/api/user/' + specificUser._id)
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send({})
 				.expect('Content-Type', /json/)
 				.expect(400)
@@ -362,6 +380,7 @@ describe('Users API', function () {
 				username: 'update-me'
 			});
 			request.put('/api/user/123123123123123123123123')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send(specificUser)
 				.expect('Content-Type', /json/)
 				.expect(404)
@@ -383,6 +402,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.put('/api/user/' + specificUser._id)
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send(specificUser)
 				.expect('Content-Type', /json/)
 				.expect(500)
@@ -405,6 +425,7 @@ describe('Users API', function () {
 				username: 'test-1'
 			});
 			request.delete('/api/user/' + specificUser._id)
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(200)
 				.end(function (err, res) {
@@ -422,6 +443,7 @@ describe('Users API', function () {
 
 		it('/api/user/:id should return a 404 if no user found', function (done) {
 			request.delete('/api/user/123123123123123123123123')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(404)
 				.end(function (err, res) {
@@ -438,6 +460,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.delete('/api/user/123123123123123123123123')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(500)
 				.end(function (err, res) {
@@ -457,6 +480,7 @@ describe('Users API', function () {
 			}, null);
 
 			request.delete('/api/user/' + specificUser._id)
+				.set('Authorization', 'Bearer '+generatedToken)
 				.expect('Content-Type', /json/)
 				.expect(500)
 				.end(function (err, res) {
@@ -476,6 +500,7 @@ describe('Users API', function () {
 				username: 'test-2'
 			});
 			request.post('/api/user/token')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send({
 					username: specificUser.username,
 					password: 'test'
@@ -494,6 +519,7 @@ describe('Users API', function () {
 		it('/user/token should return a 401 and error message if invalid details supplied', function (done) {
 
 			request.post('/api/user/token')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send({
 					username: 'madeupuser',
 					password: 'test'
@@ -511,6 +537,7 @@ describe('Users API', function () {
 			sinon.stub(UserService, 'checkLogin').yields({message: 'some error'}, null);
 
 			request.post('/api/user/token')
+				.set('Authorization', 'Bearer '+generatedToken)
 				.send({
 					username: 'someValue',
 					password: 'test'

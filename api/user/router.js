@@ -1,5 +1,6 @@
 var config = require('config');
 var api = require('./api');
+var middleware = require('./middleware');
 var express = require('express');
 
 module.exports = {
@@ -9,13 +10,14 @@ module.exports = {
 		var userRouter = express.Router();
 
 		userRouter.route('/')
-			.get(api.list)
+			.get(middleware.requireValidToken, api.list)
 			.post(api.register);
 
 		userRouter.route('/token')
 			.post(api.generateToken);
 
 		userRouter.route('/:id')
+			.all(middleware.requireValidToken)
 			.get(api.fetch)
 			.put(api.update)
 			.delete(api.remove);
