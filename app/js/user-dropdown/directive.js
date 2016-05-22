@@ -20,7 +20,6 @@
                 vm.loggedIn = loggedIn;
                 if(loggedIn) {
                     vm.profile = Authentication.getToken().user;
-                    console.log("vm.profile", vm.profile); 
                     if(!vm.profile.avatar) vm.profile.avatar = '/api/user/' + vm.profile._id + '/avatar';
                 } else {
                     delete this.profile;

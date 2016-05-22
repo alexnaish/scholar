@@ -40,7 +40,7 @@ gulp.task('templates', function() {
 gulp.task('build-js', ['templates'], function() {
   return gulp.src(['./app/js/**/*.js'])
     .pipe(concat('bundle.js'))
-    .pipe(uglify().on('error', console.log))
+    .pipe(uglify().on('error', console.log.bind(this)))
     .pipe(gulp.dest('./public/js/'));
 });
 
@@ -62,7 +62,6 @@ gulp.task('watch', ['build-css', 'build-js'], function() {
   gulp.watch(['./app/sass/**/*.scss'], ['build-css']);
   gulp.watch(['./app/js/**/*.js'], ['build-js']);
   gulp.watch(['./app/**/*.html'], ['build-js']);
-  gulp.watch(['./api/**/*.spec.js'], ['mocha']);
 });
 
 gulp.task('default', ['watch']);
