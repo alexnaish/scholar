@@ -5,6 +5,7 @@
       .when('/snapshot/:name', {
         templateUrl: 'app/snapshot/template.html',
         controller: 'SnapshotController',
+        authenticate: true,
         resolve: {}
       });
   }]);
