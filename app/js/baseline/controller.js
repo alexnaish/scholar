@@ -1,6 +1,6 @@
 (function(component) {
 
-  component.controller("BaselineController", ['$scope', 'BaselineService', '$routeParams', function($scope, BaselineService, $routeParams) {
+  component.controller("BaselineController", ['BaselineService', '$routeParams', function(BaselineService, $routeParams) {
 
     var vm = this;
     vm.images = {};
