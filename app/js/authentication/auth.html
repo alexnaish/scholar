@@ -37,9 +37,9 @@
                     <div class="validation" ng-message="required">Please enter a password</div>
                     <div class="validation" ng-message="minlength">Please enter a longer password</div>
                 </div>
-                <input name="password2" ng-model="auth.registerData.password2" placeholder="Confirm Password" type="password" required>
-                <div class="validation">Passwords must match</div>
-                <button type="submit" ng-disabled="registerForm.$invalid || auth.submissionDisabled">Register</button>
+                <input name="password2" ng-model="auth.registerData.password2" ng-model-options="{ debounce: 200 }" ng-change="auth.checkPasswords()" placeholder="Confirm Password" type="password" required>
+                <div class="validation" ng-if="registerForm.password2.$dirty && auth.passwordError">Passwords must match</div>
+                <button type="submit" ng-disabled="registerForm.$invalid || auth.submissionDisabled || auth.passwordError">Register</button>
             </form>
             <div class="switch">
                 <div class="message">Don't have an account?</div>

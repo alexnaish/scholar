@@ -11,6 +11,10 @@
 			return value === _activeForm;
 		};
 
+		this.checkPasswords = function () {
+			vm.passwordError = vm.registerData.password !== vm.registerData.password2;
+		}
+
 		this.switchTo = function (value) {
 			delete vm.error;
 			vm.submissionDisabled = false;
