@@ -53,6 +53,7 @@
 
             .nav-dropdown {
                 height: auto;
+                padding: 20px 0;
                 visibility: visible;
             }
         }
@@ -70,7 +71,6 @@
     top: 100%;
     width: 220px;
     height: 0;
-    padding: 20px 0;
     background: white;
     border: 1px solid lightgrey;
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
