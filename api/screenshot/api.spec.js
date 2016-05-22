@@ -86,6 +86,7 @@ describe('Screenshot API', function () {
         var testName = 'test-image-name-metadata';
         var testBrowser = 'Chrome';
         var testResolution = '1280x720';
+        var testLabels = 'magical, modules';
         var payload = {
             imageData: 'someMagicBase64Value'
         };
@@ -94,7 +95,8 @@ describe('Screenshot API', function () {
             .send(payload)
             .set({
               'X-Scholar-Meta-Browser': testBrowser,
-              'X-Scholar-Meta-Resolution': testResolution
+              'X-Scholar-Meta-Resolution': testResolution,
+              'X-Scholar-Meta-Labels': testLabels
             })
             .expect('Content-Type', /json/)
             .expect(200)
@@ -105,6 +107,7 @@ describe('Screenshot API', function () {
                     expect(result).to.not.equal(null);
                     expect(result.meta.browser).to.equal(testBrowser);
                     expect(result.meta.resolution).to.equal(testResolution);
+                    expect(result.meta.labels).to.include.members(testLabels.split(', '));
                     done();
                 });
             });

@@ -53,6 +53,26 @@ describe('Screenshot Service', function() {
     var metadata = SnapshotService.extractMetadata(headers);
     expect(metadata.browser).to.equal(browser);
     expect(metadata.resolution).to.equal(resolution);
+    expect(metadata).to.have.all.keys(['browser', 'resolution']);
+  });
+
+  it('extractMetadata should transform a the header value if a transform property is set', function() {
+    var browser = 'Chrome';
+    var resolution = '1280x720';
+    var labels = 'some, test, string';
+
+    var headers = {
+      'x-scholar-meta-browser': browser,
+      'x-scholar-meta-resolution': resolution,
+      'x-scholar-meta-labels': labels,
+    }
+
+    var metadata = SnapshotService.extractMetadata(headers);
+    expect(metadata.browser).to.equal(browser);
+    expect(metadata.resolution).to.equal(resolution);
+    expect(metadata.labels).to.not.equal(labels);
+    expect(metadata.labels.length).to.equal(3);
+    expect(metadata.labels).to.include.members(['some', 'test', 'string']);
   });
 
   it('extractMetadata should set metadata to undefined if no headers passed in', function() {

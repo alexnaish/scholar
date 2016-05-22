@@ -18,6 +18,9 @@ var screenshotSchema = {
       resolution: {
         type: String
       },
+      labels: {
+        type: [String]
+      },
       lastUpdated: {
         type: Date
       },
