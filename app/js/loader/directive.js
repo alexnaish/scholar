@@ -10,13 +10,16 @@
         };
     });
 
-    component.controller('LoaderController', ['$rootScope', function ($rootScope) {
+    component.controller('LoaderController', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
 
         var instance = this;
         instance.displayed = true;
 
         $rootScope.$on('$routeChangeStart', function () {
             instance.displayed = true;
+            $timeout(function () {
+                if(instance.displayed) instance.displayed = false;
+            }, 8 * 1000);
         });
         $rootScope.$on('$routeChangeSuccess', function () {
             instance.displayed = false;
