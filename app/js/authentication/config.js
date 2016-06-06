@@ -62,4 +62,4 @@
 
 	}]);
 
-})(angular.module('authentication.config', ['ngRoute']));
+})(angular.module('authentication.config', ['ngRoute', 'angular-jwt']));
