@@ -10,7 +10,6 @@ after_script:
 node_js:
   - "5"
   - "4"
-  - "0.10"
 notifications:
   email: false
 addons:
