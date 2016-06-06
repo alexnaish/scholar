@@ -1,6 +1,5 @@
 var sinon = require('sinon'),
     ImageService = require('./service'),
-    resemble = require('../lib/resemble'),
     expect = require('chai').expect;
 
 describe('Image Service', function () {
