@@ -5,10 +5,10 @@ module.exports = {
 	renderRawImage: function (req, res, next) {
 		CandidateService.findOne(req.params.id, 'data', function (err, result) {
 
-            if(err) {
-                console.error(`CandidateService.renderRawImage failed`)
-                return next(err);
-            }
+			if (err) {
+				console.error(`CandidateService.renderRawImage failed`)
+				return next(err);
+			}
 
 			if (!result) {
 				return res.status(404).send();
