@@ -1,13 +1,15 @@
-var helpers = require('../../test/setup/functions'),
-    app = require('../index'),
-    smallSampleBase64 = require('../../test/setup/samples/1by1'),
-    largeSampleBase64 = require('../../test/setup/samples/twitchBaseline'),
-    BaselineModel = require('../baseline/model'),
-    CandidateModel = require('../candidate/model'),
-    DiffModel = require('../diff/model'),
-    _ = require('lodash'),
-    expect = require('chai').expect,
-    request = require('supertest')(app);
+var helpers = require('../../test/setup/functions');
+var app = require('../index');
+var smallSampleBase64 = require('../../test/setup/samples/1by1');
+var largeSampleBase64 = require('../../test/setup/samples/twitchBaseline');
+var BaselineModel = require('../baseline/model');
+var CandidateModel = require('../candidate/model');
+var DiffModel = require('../diff/model');
+var _ = require('lodash');
+var jwt = require('jsonwebtoken');
+var config = require('config');
+var expect = require('chai').expect;
+var request = require('supertest')(app);
 
 describe('Screenshot API', function () {
 
@@ -17,6 +19,8 @@ describe('Screenshot API', function () {
         data: smallSampleBase64
     };
     var candidate, diff, baseline;
+
+    var generatedToken;
 
     function removeAllAssets(callback) {
         helpers.removeAssets(BaselineModel, {}, function () {
@@ -44,6 +48,10 @@ describe('Screenshot API', function () {
             });
         });
     }
+
+    before(function(){
+        generatedToken = jwt.sign({user: {firstName: 'Screenshot', lastName: 'Test'}}, config.app.secret);
+    })
 
     beforeEach(function (done) {
         removeAllAssets(function () {
@@ -176,10 +184,11 @@ describe('Screenshot API', function () {
 
         var imageName = 'someMadeUpName';
         var candidate = {
-            _id: 'madeUpId'
+            _id: '123123123123123123123123'
         };
 
         request.put('/api/screenshot/' + imageName + '/promote/' + candidate._id)
+            .set('Authorization', 'Bearer '+generatedToken)
             .expect('Content-Type', /json/)
             .expect(404)
             .end(function (err, res) {
@@ -191,6 +200,7 @@ describe('Screenshot API', function () {
 
     it('PUT /api/screenshot/:name/promote/:id should promote a candidate to baseline and return a 201', function (done) {
         request.put('/api/screenshot/' + imageName + '/promote/' + candidate._id)
+            .set('Authorization', 'Bearer '+generatedToken)
             .expect('Content-Type', /json/)
             .expect(201)
             .end(function (err, res) {
@@ -212,6 +222,7 @@ describe('Screenshot API', function () {
 
     it('DEL /api/screenshot/:name/:diffId should delete diff and its candidate and return a 204', function (done) {
         request.del('/api/screenshot/' + imageName + '/' + diff._id)
+            .set('Authorization', 'Bearer '+generatedToken)
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
@@ -230,6 +241,7 @@ describe('Screenshot API', function () {
 
     it('DEL /api/screenshot/:name/:diffId should 404 if no diff found', function (done) {
         request.del('/api/screenshot/' + imageName + '/aMadeUpDiffId')
+            .set('Authorization', 'Bearer '+generatedToken)
             .expect('Content-Type', /json/)
             .expect(404)
             .end(function (err, res) {

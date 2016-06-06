@@ -1,5 +1,6 @@
-var config = require('config'),
-    api = require('./api');
+var config = require('config');
+var api = require('./api');
+var middleware = require('../middleware/auth');
 
 module.exports = {
 
@@ -11,10 +12,10 @@ module.exports = {
             .post(api.submitNewScreenshot);
 
         app.route(config.app.apiPath + basePath + '/promote/:candidateId')
-            .put(api.promoteScreenshot);
+            .put(middleware.requireValidToken, api.promoteScreenshot);
 
         app.route(config.app.apiPath + basePath + '/:diffId')
-            .delete(api.deleteScreenshot);
+            .delete(middleware.requireValidToken, api.deleteScreenshot);
 
     }
 

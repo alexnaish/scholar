@@ -1,6 +1,6 @@
 var config = require('config');
 var api = require('./api');
-var middleware = require('./middleware');
+var middleware = require('../middleware/auth');
 var express = require('express');
 
 module.exports = {

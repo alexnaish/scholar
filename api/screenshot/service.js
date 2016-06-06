@@ -125,24 +125,19 @@ module.exports = {
 		});
 
 	},
-	promoteCandidateToBaseline: function (name, candidateId, callback) {
-		CandidateService.findOne(candidateId, {}, function (err, result) {
-			if (!result) {
-				return callback(404, {});
-			} else {
-				delete result._id;
-				BaselineService.save(result, function (err, insertedDoc) {
-					if (err) {
-						return callback(500, {
-							error: err.message
-						});
-					} else {
-						clearCandidatesAndDiffs(name, callback);
-					}
+	promoteCandidateToBaseline: function (result, user, callback) {
+		delete result._id;
+		result.meta.lastUpdated = new Date();
+		result.meta.lastUpdatedBy = `${user.firstName} ${user.lastName}`;
+		BaselineService.save(result, function (err, insertedDoc) {
+			if (err) {
+				return callback(500, {
+					error: err.message
 				});
+			} else {
+				clearCandidatesAndDiffs(result.name, callback);
 			}
 		});
-
 	},
 	deleteSnapshot: function (diffId, callback) {
 		DiffService.findOne(diffId, function (err, result) {
@@ -175,8 +170,8 @@ module.exports = {
 
 		for (var key in headerMap) {
 			if (headersObject[key]) {
-                var header = headerMap[key];
-                metaObject[header.name] = (header.transform ? header.transform(headersObject[key]) : headersObject[key]);
+				var header = headerMap[key];
+				metaObject[header.name] = (header.transform ? header.transform(headersObject[key]) : headersObject[key]);
 			}
 
 		}
