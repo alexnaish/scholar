@@ -1,10 +1,11 @@
-var config = require('config'),
-    express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    mongoose = require('mongoose'),
-    morgan = require('morgan'),
-    router = require('./router');
+var config = require('config');
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var morgan = require('morgan');
+var helmet = require('helmet');
+var router = require('./router');
 
 module.exports = app;
 
@@ -16,6 +17,7 @@ db.once('open', function () {
 
 mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@" + config.mongo.host + "/" + config.mongo.db);
 
+app.use(helmet());
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json({
     limit: '10mb'
@@ -32,8 +34,6 @@ if(process.env.NODE_ENV !== 'test') {
       }
   }));
 }
-
-app.disable('x-powered-by');
 
 process.on('uncaughtException', function(error){
     console.error('Uncaught Error: ', error);
