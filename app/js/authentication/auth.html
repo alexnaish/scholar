@@ -19,7 +19,7 @@
                 <form name="registerForm" autocomplete="off" novalidate ng-submit="auth.submitRegistration()">
                 <h3>Register</h3>
                 <span ng-if="auth.error" class="validation">{{auth.error}}</span>
-                <input name="username" ng-model="auth.registerData.username" placeholder="Username" type="text" ng-minlength="6" ng-maxlength="32" ng-pattern="/[a-zA-Z0-9_-]+$/" required>
+                <input name="username" ng-model="auth.registerData.username" placeholder="Username" type="text" ng-minlength="6" ng-maxlength="64" ng-pattern="/^[a-zA-Z0-9_\-\.]+$/" required>
                 <div ng-if="registerForm.username.$dirty" ng-messages="registerForm.username.$error">
                     <div class="validation" ng-message="required">Please enter a username</div>
                     <div class="validation" ng-message="minlength">Please enter a longer username</div>

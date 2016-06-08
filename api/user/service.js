@@ -13,7 +13,7 @@ var requiredKeys = _.keys(_.pickBy(UserModel.schema.paths, function (path) {
 
 var validation = {
 	username: function (value) {
-		return !!(typeof value == 'string' && value.match(/^[a-zA-Z0-9_-]{6,32}$/));
+		return !!(typeof value == 'string' && value.match(/^[a-zA-Z0-9_\-\.]{6,64}$/));
 	},
 	password: function (value) {
 		return !!(typeof value == 'string' && value.length > 7);
@@ -50,18 +50,17 @@ module.exports = {
 			};
 		}
 
-		var passesValidation = true;
+		var validationErrors = [];
 		for (var key in dataObject) {
 			if (validation[key] && !validation[key](dataObject[key])) {
-				passesValidation = false;
-				break;
+				validationErrors.push(key);
 			}
 		}
 
-		if (!passesValidation) {
+		if (validationErrors.length > 0) {
 			return {
 				valid: false,
-				reason: 'Must pass validation'
+				reason: `Must pass validation: ${validationErrors.join(', ')}`
 			};
 		}
 		return {

@@ -259,7 +259,7 @@ describe('Users API', function () {
 				.end(function (err, res) {
 					expect(err).to.equal(null);
 					expect(res).to.not.equal(null);
-					expect(res.body).to.have.property('error', 'Must pass validation');
+					expect(res.body.error).to.contain('Must pass validation');
 					done();
 				});
 		});
