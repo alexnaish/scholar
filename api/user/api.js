@@ -34,10 +34,14 @@ module.exports = {
 			});
 		}
 		UserService.findOne({
-			$or: [{ username: req.body.username }, { email: req.body.email }]
-		}, function(err, result) {
-			if(err) return next(err);
-			if(result) {
+			$or: [{
+				username: req.body.username
+			}, {
+				email: req.body.email
+			}]
+		}, function (err, result) {
+			if (err) return next(err);
+			if (result) {
 				return res.status(409).json({
 					error: 'User already exists'
 				});
@@ -55,9 +59,9 @@ module.exports = {
 				error: validity.reason
 			});
 		}
-		UserService.update(req.params.id, req.body, function(err, result) {
-			if(err) return next(err);
-			if(!result) {
+		UserService.update(req.params.id, req.body, function (err, result) {
+			if (err) return next(err);
+			if (!result) {
 				return res.status(404).json({
 					error: 'User not found'
 				});
@@ -68,9 +72,9 @@ module.exports = {
 	remove: function (req, res, next) {
 		UserService.findOne({
 			_id: req.params.id
-		}, function(err, result) {
-			if(err) return next(err);
-			if(!result) {
+		}, function (err, result) {
+			if (err) return next(err);
+			if (!result) {
 				return res.status(404).json({
 					error: 'User not found'
 				});
@@ -82,12 +86,23 @@ module.exports = {
 		});
 	},
 	generateToken: function (req, res, next) {
-		UserService.checkLogin(req.body.username, req.body.password, function(err, userRecord) {
-			if(err) return next(err);
-			if(!userRecord) {
-				return res.status(401).json({error: 'Incorrect credentials'});
+
+		var validationErrors = UserService.validateCredentialsToken(req.hostname, req.body.credentials);
+		if(!req.body.credentials || validationErrors.length > 0) {
+			if(validationErrors.length) console.error(`Invalid credentials: ${validationErrors.join(', ')}`);
+			return res.status(400).json({
+				error: 'Invalid credentials token'
+			});
+		}
+
+		UserService.checkLogin(req.body.credentials, function (err, userRecord) {
+			if (err) return next(err);
+			if (!userRecord) {
+				return res.status(401).json({
+					error: 'Incorrect credentials'
+				});
 			}
-			UserService.generateToken(userRecord, function(generatedToken){
+			UserService.generateAuthToken(userRecord, function (generatedToken) {
 				res.status(201).json({
 					token: generatedToken
 				});

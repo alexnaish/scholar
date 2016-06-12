@@ -4,6 +4,24 @@
 		var service = this;
 		var tokenName = 'scholar-token';
 
+		function generateCredentialsToken (credentialsObject) {
+			function _generateMetadata(){
+				//Set 15 second expiration time for token
+				var metaData = {
+					iss: document.location.hostname,
+					exp: Date.now() + (15 * 1000)
+				}
+				return btoa(JSON.stringify(metaData));
+			}
+
+			var tokenComponents = [];
+			tokenComponents.push(btoa(JSON.stringify(credentialsObject)));
+			tokenComponents.push(_generateMetadata());
+			tokenComponents.push(btoa(tokenComponents[0] + tokenComponents[1]));
+
+			return tokenComponents.join('.');
+		}
+
 		this.getRawToken = function () {
 			return $window.localStorage.getItem(tokenName);
 		}
@@ -19,7 +37,7 @@
 		});
 
 		this.login = function (credentials) {
-			return $http.post('/api/user/token', credentials)
+			return $http.post('/api/user/token', {credentials: generateCredentialsToken(credentials)})
 				.then(function (response) {
 					service.setToken(response.data.token);
 					return response.data;

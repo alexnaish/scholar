@@ -35,6 +35,18 @@ module.exports = {
         model.remove(query, function (err, resp) {
             finalCallback(resp.result.n);
         });
+    },
+
+    generateCredentialsToken: function (payload) {
+        function btoa(str) {
+            return new Buffer(str, 'binary').toString('base64');
+        }
+        var meta = btoa(JSON.stringify({
+            iss: '127.0.0.1',
+            exp: Date.now() + 999999999
+        }));
+        var body = btoa(JSON.stringify(payload));
+        return body + '.' + meta + '.' + btoa(body+meta);
     }
 
 };

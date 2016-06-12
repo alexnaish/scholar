@@ -11,6 +11,15 @@ var requiredKeys = _.keys(_.pickBy(UserModel.schema.paths, function (path) {
 	return path.isRequired;
 }));
 
+function atob(str) {
+	str = str;
+	return new Buffer(str, 'base64').toString('binary');
+}
+
+function decode(tokenComponent) {
+	return JSON.parse(atob(tokenComponent));
+}
+
 var validation = {
 	username: function (value) {
 		return !!(typeof value == 'string' && value.match(/^[a-zA-Z0-9_\-\.]{6,64}$/));
@@ -70,7 +79,7 @@ module.exports = {
 	},
 	create: function (payload, callback) {
 		bcrypt.hash(payload.password, null, null, function (err, hash) {
-			if(err) callback(err);
+			if (err) callback(err);
 			payload.password = hash;
 			new UserModel(payload).save(function (err, insertedUser) {
 				if (err) return callback(err);
@@ -90,6 +99,7 @@ module.exports = {
 		} else {
 			_performUpdate(userId, payload, callback);
 		}
+
 		function _performUpdate(userId, payload, callback) {
 			UserModel.findOneAndUpdate({
 				_id: userId
@@ -98,8 +108,8 @@ module.exports = {
 				upsert: false,
 				runValidators: true,
 				passRawResult: true
-			}, function(err, updatedUser) {
-				if(updatedUser) {
+			}, function (err, updatedUser) {
+				if (updatedUser) {
 					updatedUser = updatedUser.toObject();
 					delete updatedUser.password;
 				}
@@ -126,21 +136,64 @@ module.exports = {
 			callback(err, response);
 		});
 	},
-	checkLogin: function(suppliedUsername, suppliedPassword, callback) {
+	checkLogin: function (credentialsToken, callback) {
+		var decodedPayload = decode(credentialsToken.split('.')[0]);
 		UserModel.findOne({
-			username: suppliedUsername
-		}, null, { lean: true }, function(err, result){
+			username: decodedPayload.username
+		}, null, {
+			lean: true
+		}, function (err, result) {
 			if (err || !result) return callback(err);
-			bcrypt.compare(suppliedPassword, result.password, function(err, matches) {
-				if(err) return callback(err);
+			bcrypt.compare(decodedPayload.password, result.password, function (err, matches) {
+				if (err) return callback(err);
 				callback(err, (matches ? result : null));
 			});
 
 
 		});
 	},
-	generateToken: function(payload, callback) {
+	validateCredentialsToken: function (hostname, credentialsToken) {
+		credentialsToken = credentialsToken || "";
+		var validationErrors = [];
+		//payload . metadata . signature
+		var validationRules = [
+			function length(components) {
+				return components.length === 3;
+			},
+			function structure(components) {
+				decode(components[0])
+				decode(components[1])
+				return true;
+			},
+			function signature(components) {
+				return atob(components[2]) === components[0] + components[1];
+			},
+			function issuer(components) {
+				return decode(components[1]).iss === hostname;
+			},
+			function expired(components) {
+				return decode(components[1]).exp > Date.now();
+			}
+		];
+
+		var tokenComponents = credentialsToken.split('.');
+		validationRules.forEach((func) => {
+			try {
+				if(!func(tokenComponents)) {
+					validationErrors.push(func.name);
+				}
+			} catch (e) {
+				validationErrors.push(func.name);
+			}
+		});
+		return validationErrors;
+	},
+	generateAuthToken: function (payload, callback) {
 		delete payload.password;
-		jwt.sign({ user: payload }, config.app.secret, {expiresIn: '6h'}, callback);
+		jwt.sign({
+			user: payload
+		}, config.app.secret, {
+			expiresIn: '6h'
+		}, callback);
 	}
 };

@@ -24,7 +24,7 @@
                     <div class="validation" ng-message="required">Please enter a username</div>
                     <div class="validation" ng-message="minlength">Please enter a longer username</div>
                     <div class="validation" ng-message="maxlength">Please enter a shorter username</div>
-                    <div class="validation" ng-message="pattern">Please use only alphanumerics and _</div>
+                    <div class="validation" ng-message="pattern">Please use only alphanumerics, ".", "-" or "_"</div>
                 </div>
                 <input name="firstName" ng-model="auth.registerData.firstName" placeholder="First Name" type="text" required>
                 <input name="lastName" ng-model="auth.registerData.lastName" placeholder="Last Name" type="text" required>
