@@ -9,6 +9,9 @@
                 resolve: {
                     baselines: ['BaselineService', function (BaselineService) {
                         return BaselineService.listAllBaselines();
+                    }],
+                    outstandingCandidates: ['BaselineService', function (BaselineService) {
+                        return BaselineService.getOutstandingCandidates();
                     }]
                 }
             })
