@@ -8,12 +8,12 @@ module.exports = {
         var path = '/baseline';
 
         app.route(config.app.apiPath + path)
-            .get(api.find);
+            .get(api.list);
 
         app.route(config.app.apiPath + path + '/:name')
-            .get(api.findOne);
+            .get(api.find);
 
-        app.route(config.app.apiPath + path + '/:name/raw')
+        app.route(config.app.apiPath + path + '/:id/raw')
             .get(api.renderRawImage);
 
     }

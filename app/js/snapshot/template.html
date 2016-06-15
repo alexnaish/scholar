@@ -3,6 +3,7 @@
   <div class="comparison" ng-repeat="snapshot in snapshots track by snapshot._id">
     <div class="taken">
         <div>Date Taken: <span class="highlight">{{snapshot.dateCreated | date:"dd/MM/yyyy 'at' h:mma"}}</span></div>
+        <div>Browser: <span class="highlight">{{snapshot.meta.browser}}</span></div>
         <div class="comparison-actions">
             <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
             <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
@@ -10,11 +11,11 @@
     </div>
 
     <div class="snapshot">
-      <img class="snapshot-image" ng-src="/api/baseline/{{::snapshot.name}}/raw" alt="{{::snapshot.name}} Baseline"></img>
+      <img class="snapshot-image" ng-src="/api/baseline/{{::snapshot.baseline}}/raw" alt="{{::snapshot.name}} Baseline"></img>
       <div class="snapshot-info">
         <h2 class="name">Baseline</h2>
         <div class="snapshot-actions">
-          <a target="_blank" ng-href="/api/baseline/{{::snapshot.name}}/raw">Open in tab</a>
+          <a target="_blank" ng-href="/api/baseline/{{::snapshot.baseline}}/raw">Open in tab</a>
         </div>
       </div>
     </div>

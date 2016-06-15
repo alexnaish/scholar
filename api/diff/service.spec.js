@@ -76,7 +76,8 @@ describe('Diff Service', function () {
         var payload = {
             name: 'test',
             candidate: 'someId',
-            data: 'someBase64'
+            data: 'someBase64',
+            baseline: 'someId'
         };
         var saveStub = sandbox.stub(DiffModel.prototype, 'save').yields(null, payload);
 
@@ -84,6 +85,7 @@ describe('Diff Service', function () {
             expect(err).to.equal(null);
             expect(result).to.have.property('name', 'test');
             expect(result).to.have.property('candidate', 'someId');
+            expect(result).to.have.property('baseline', 'someId');
             expect(result).to.have.property('data', 'someBase64');
             expect(saveStub.calledOnce).to.be.true;
             done();
@@ -96,6 +98,7 @@ describe('Diff Service', function () {
             name: 'test',
             candidate: 'someId',
             data: 'someBase64',
+            baseline: 'someId',
             toObject: toObjectStub
         };
         toObjectStub.returns(payload);
@@ -107,6 +110,7 @@ describe('Diff Service', function () {
             expect(toObjectStub.called).to.be.true;
             expect(result).to.have.property('name', 'test');
             expect(result).to.have.property('candidate', 'someId');
+            expect(result).to.have.property('baseline', 'someId');
             expect(result).to.have.property('data', 'someBase64');
             expect(saveStub.calledOnce).to.be.true;
             done();

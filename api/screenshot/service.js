@@ -5,12 +5,12 @@ var BaselineService = require('../baseline/service'),
 	config = require('config'),
 	async = require('async');
 
-function saveComparisons(name, diffImage, submittedImageData, callback) {
+function saveComparisons(baseline, diffImage, submittedImageData, callback) {
 
 	async.waterfall([
 		function saveCandidate(candidateCallback) {
 			CandidateService.save({
-				name: name,
+				name: baseline.name,
 				data: submittedImageData.imageData,
 				meta: submittedImageData.meta
 			}, function (err, result) {
@@ -19,9 +19,10 @@ function saveComparisons(name, diffImage, submittedImageData, callback) {
 		},
 		function saveDiff(result, diffCallback) {
 			DiffService.save({
-				name: name,
+				name: baseline.name,
 				data: diffImage,
 				meta: submittedImageData.meta,
+				baseline: baseline._id,
 				candidate: result._id
 			}, function (err, diffResult) {
 				diffCallback(err, diffResult);
@@ -33,19 +34,15 @@ function saveComparisons(name, diffImage, submittedImageData, callback) {
 
 }
 
-function clearCandidatesAndDiffs(name, callback) {
+function clearCandidatesAndDiffs(query, callback) {
 	async.parallel({
 			candidateError: function clearCandidates(candidateCallback) {
-				CandidateService.remove({
-					name: name
-				}, function (err) {
+				CandidateService.remove(query, function (err) {
 					candidateCallback(null, err);
 				});
 			},
 			diffError: function saveDiff(diffCallback) {
-				DiffService.remove({
-					name: name
-				}, function (err) {
+				DiffService.remove(query, function (err) {
 					diffCallback(null, err);
 				});
 			}
@@ -89,13 +86,16 @@ function deleteComparison(diffId, candidateId, callback) {
 module.exports = {
 
 	saveAndCompare: function (name, data, callback) {
-		BaselineService.findOne(name, '', function (err, result) {
+		BaselineService.findOne({
+			name: name,
+			'meta.browser': data.meta.browser
+		}, '', function (err, result) {
 
 			if (result) {
 				ImageService.compareImages(result.data, data.imageData, function (resultJson, diffImage) {
 					var acceptable = (resultJson.misMatchPercentage < config.comparison.threshold) && resultJson.isSameDimensions;
 					if (!acceptable) {
-						saveComparisons(name, diffImage, data, function (err, diffResult) {
+						saveComparisons(result, diffImage, data, function (err, diffResult) {
 							callback({
 								passes: acceptable,
 								difference: resultJson.misMatchPercentage,
@@ -135,7 +135,7 @@ module.exports = {
 					error: err.message
 				});
 			} else {
-				clearCandidatesAndDiffs(result.name, callback);
+				clearCandidatesAndDiffs({name: result.name, 'meta.browser': result.meta.browser}, callback);
 			}
 		});
 	},

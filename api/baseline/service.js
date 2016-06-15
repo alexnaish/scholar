@@ -2,35 +2,34 @@ var BaselineModel = require('./model'),
     config = require('config');
 
 function addRawUrl(result) {
-    result.raw = config.app.apiPath + '/baseline/' + result.name + '/raw';
+    result.raw = config.app.apiPath + '/baseline/' + result._id + '/raw';
 }
 
 module.exports = {
 
-    find: function (callback) {
-        var errorCode = 200;
-        BaselineModel.find({}, 'name meta dateCreated', {
-            lean: true,
-            sort: {
-                dateCreated: -1
-            }
-        }, function (err, results) {
-            if (err) {
-                errorCode = 500;
-            } else {
-                for (var i = 0; i < results.length; i++) {
-                    addRawUrl(results[i]);
+    list: function (callback) {
+
+        BaselineModel.aggregate(
+            {
+                $group: {
+                    _id: '$name',
+                    dateCreated: {$first: '$dateCreated'},
+                    lastUpdatedBy: {$first: '$meta.lastUpdatedBy'},
+                    lastUpdated: {$first: '$meta.lastUpdated'},
+                    results: { $push: { _id: '$_id', browser: '$meta.browser', labels: '$meta.labels', resolution: '$meta.resolution' }}
                 }
-            }
-            callback(errorCode, results);
-        });
+            },
+            callback);
 
     },
-    findOne: function (name, fields, callback) {
+    find: function (query, fields, callback) {
+        BaselineModel.find(query, fields, {
+            lean: true
+        }, callback);
+    },
+    findOne: function (query, fields, callback) {
         var statusCode = 200;
-        BaselineModel.findOne({
-            name: name
-        }, fields, {
+        BaselineModel.findOne(query, fields, {
             lean: true
         }, function (err, result) {
             if (!result) {
@@ -43,7 +42,8 @@ module.exports = {
     },
     save: function (payload, callback) {
         BaselineModel.remove({
-            name: payload.name
+            name: payload.name,
+            'meta.browser': payload.meta.browser
         }, function () {
             new BaselineModel(payload).save(callback);
         });

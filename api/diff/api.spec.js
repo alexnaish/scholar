@@ -9,11 +9,13 @@ describe('Diff API ', function () {
     var assets = [{
         name: 'test-run-1',
         candidate: 'someCandidateId',
+        baseline: 'someBaselineId',
         data: 'somekindofbase64image'
     },
     {
         name: 'test-run-2',
         candidate: 'anotherCandidateId',
+        baseline: 'someBaselineId',
         data: 'anotherofbase64image'
     }];
     var insertedAssets;

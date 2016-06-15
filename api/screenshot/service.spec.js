@@ -48,7 +48,7 @@ describe('Screenshot Service', function() {
       'x-scholar-meta-browser': browser,
       'x-scholar-meta-resolution': resolution,
       'connection': 'close'
-    }
+    };
 
     var metadata = SnapshotService.extractMetadata(headers);
     expect(metadata.browser).to.equal(browser);
@@ -64,8 +64,8 @@ describe('Screenshot Service', function() {
     var headers = {
       'x-scholar-meta-browser': browser,
       'x-scholar-meta-resolution': resolution,
-      'x-scholar-meta-labels': labels,
-    }
+      'x-scholar-meta-labels': labels
+    };
 
     var metadata = SnapshotService.extractMetadata(headers);
     expect(metadata.browser).to.equal(browser);

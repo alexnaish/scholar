@@ -1,6 +1,8 @@
 var helpers = require('../../test/setup/functions'),
     app = require('../index'),
     BaselineModel = require('./model'),
+    BaselineService = require('./service'),
+    sinon = require('sinon'),
     _ = require('lodash'),
     expect = require('chai').expect,
     request = require('supertest')(app);
@@ -50,31 +52,74 @@ describe('Baseline API', function () {
                 expect(res).to.not.equal(null);
                 expect(res.body.length).to.equal(insertedAssets.length);
 
-                var specificBaseline = _.find(res.body, function(b) { return b.name === 'test-run-1'; });
-
-                expect(specificBaseline).to.have.property('name');
+                var specificBaseline = _.find(res.body, function(b) { return b._id === 'test-run-1'; });
+                expect(specificBaseline).to.not.equal(undefined);
+                expect(specificBaseline).to.have.property('_id');
                 expect(specificBaseline).to.have.property('dateCreated');
-                expect(specificBaseline).to.have.property('meta');
-                expect(specificBaseline).to.have.property('raw');
+                expect(specificBaseline).to.have.property('lastUpdated');
+                expect(specificBaseline).to.have.property('lastUpdatedBy');
+                expect(specificBaseline).to.have.property('results');
+
+                var firstResult = specificBaseline.results[0];
+                expect(firstResult).to.have.property('browser');
+                expect(firstResult).to.have.property('resolution');
+                expect(firstResult).to.have.property('labels');
                 done();
             });
     });
 
+    it('/api/baseline should return a standard server error if an error occurs', function (done) {
+
+        var serviceStub = sinon.stub(BaselineService, 'list').yields({message: 'error'}, null);
+
+        request.get('/api/baseline')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .end(function (err, res) {
+                expect(err).to.equal(null);
+                expect(res).to.not.equal(null);
+                expect(res.body).to.have.property('error');
+                serviceStub.restore();
+                done();
+            });
+
+    });
+
     it('/api/baseline/:name should list all baselines with the specified name', function (done) {
-        request.get('/api/baseline/test-run-1')
+
+        const insertedAsset = _.find(insertedAssets, {name: 'test-run-1'});
+        request.get(`/api/baseline/${insertedAsset.name}`)
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
                 expect(err).to.equal(null);
                 expect(res).to.not.equal(null);
-                expect(res.body).to.have.property('name', 'test-run-1');
+                expect(res.body).to.have.property('length', 1);
+                expect(res.body[0]).to.have.property('name', 'test-run-1');
+                done();
+            });
+    });
+
+    it('/api/baseline/:name should return a standard server error if an error occurs', function (done) {
+
+        var serviceStub = sinon.stub(BaselineService, 'find').yields({message: 'error'}, null);
+
+        const insertedAsset = _.find(insertedAssets, {name: 'test-run-1'});
+        request.get(`/api/baseline/${insertedAsset.name}`)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .end(function (err, res) {
+                expect(err).to.equal(null);
+                expect(res).to.not.equal(null);
+                expect(res.body).to.have.property('error');
+                serviceStub.restore();
                 done();
             });
     });
 
     it('/api/baseline/:name/raw should render the baselined image', function (done) {
         var firstAsset = insertedAssets[0];
-        request.get('/api/baseline/' + firstAsset.name + '/raw')
+        request.get('/api/baseline/' + firstAsset._id + '/raw')
             .expect('Content-Type', /image/)
             .expect(200)
             .end(function (err, res) {

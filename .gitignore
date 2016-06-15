@@ -18,3 +18,8 @@ node_modules
 test_out
 phantomjs
 tmp
+
+.idea
+*.iml
+*.iws
+*.ipr

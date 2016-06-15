@@ -4,7 +4,13 @@ var screenshotSchema = require('../screenshot/model').schema,
 
 
 var schema = _.extend({}, screenshotSchema);
+
 schema.candidate = {
+    type: String,
+    required: true
+};
+
+schema.baseline = {
     type: String,
     required: true
 };

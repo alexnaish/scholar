@@ -3,19 +3,26 @@ var BaselineService = require('./service'),
 
 module.exports = {
 
-    find: function (req, res) {
-        BaselineService.find(function (errorCode, result) {
-            res.status(errorCode).json(result);
+    list: function (req, res, next) {
+        BaselineService.list(function (err, results) {
+            if(err) {
+                return next(err);
+            }
+
+            res.status(200).json(results);
         });
     },
-    findOne: function (req, res) {
-        BaselineService.findOne(req.params.name, 'name dateCreated', function (errorCode, result) {
-            res.status(errorCode).json(result);
+    find: function (req, res, next) {
+        BaselineService.find({ name: req.params.name }, 'name meta dateCreated', function (err, result) {
+            if(err) {
+                return next(err);
+            }
+            res.status(200).json(result);
         });
     },
 
     renderRawImage: function (req, res) {
-        BaselineService.findOne(req.params.name, 'data', function (err, result) {
+        BaselineService.findOne({ _id: req.params.id }, 'data', function (err, result) {
             if (!result) {
                 res.status(404).send();
             } else {

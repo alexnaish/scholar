@@ -16,46 +16,87 @@ describe('Baseline Service', function () {
     });
 
 
-    it('find returns a 200 and a list of all baselines if successful', function (done) {
-        var findStub = sandbox.stub(BaselineModel, 'find').yields(null, [
+    it('list returns a null error and a list of all baselines if successful', function (done) {
+        var aggregateStub = sandbox.stub(BaselineModel, 'aggregate').yields(null, [
             {
-                name: 'test1'
+                _id: 'test1'
             },
             {
-                name: 'test2'
+                _id: 'test2'
             }
         ]);
-        BaselineService.find(function (statusCode, results) {
-            expect(findStub.calledOnce).to.be.true;
-            expect(statusCode).to.equal(200);
+        BaselineService.list(function (error, results) {
+            expect(aggregateStub.calledOnce).to.be.true;
+            expect(error).to.equal(null);
             expect(results.length).to.equal(2);
             done();
         });
     });
 
-    it('find returns a 500 if theres an error', function (done) {
-        var findStub = sandbox.stub(BaselineModel, 'find').yields({
+    it('list returns the error if an error occurs', function (done) {
+
+        var sampleError = {
             message: 'WOAH'
-        }, null);
-        BaselineService.find(function (statusCode, results) {
-            expect(findStub.calledOnce).to.be.true;
-            expect(statusCode).to.equal(500);
+        };
+
+        var aggregateStub = sandbox.stub(BaselineModel, 'aggregate').yields(sampleError, null);
+
+        BaselineService.list(function (err, results) {
+            expect(aggregateStub.calledOnce).to.be.true;
+            expect(err).to.equal(sampleError);
             expect(results).to.equal(null);
+            done();
+        });
+    });
+
+    it('find returns an array of specific baselines if successful', function (done) {
+
+        var query = {name: 'test'};
+        var fields = '_id name';
+        var findStub = sandbox.stub(BaselineModel, 'find').yields(null, [{
+            _id: 'id',
+            name: 'test'
+        },{
+            _id: 'id2',
+            name: 'test2'
+        }]);
+        BaselineService.find(query, fields, function (err, result) {
+            expect(findStub.calledOnce).to.be.true;
+            expect(findStub.firstCall.args[0]).to.equal(query);
+            expect(findStub.firstCall.args[1]).to.equal(fields);
+            expect(err).to.equal(null);
+            expect(result).to.not.equal(null);
+            expect(result.length).to.equal(2);
+            expect(result[0]).to.have.property('_id', 'id');
+            expect(result[0]).to.have.property('name', 'test');
+            done();
+        });
+    });
+
+    it('find returns an error if an error occurs', function (done) {
+
+        var error = {message: "baseline.find test error"};
+        var findStub = sandbox.stub(BaselineModel, 'find').yields(error, null);
+
+        BaselineService.find('test', '', function (error, result) {
+            expect(findStub.calledOnce).to.be.true;
+            expect(error).to.equal(error);
+            expect(result).to.equal(null);
             done();
         });
     });
 
     it('findOne returns a 200 and a specific baseline if successful', function (done) {
         var findStub = sandbox.stub(BaselineModel, 'findOne').yields(null, {
+            _id: 'id',
             name: 'test'
         });
-        BaselineService.findOne('test', '', function (statusCode, result) {
+        BaselineService.findOne({name: 'test'}, '', function (statusCode, result) {
             expect(findStub.calledOnce).to.be.true;
             expect(statusCode).to.equal(200);
             expect(result).to.not.equal(null);
             expect(result.name).to.equal('test');
-            expect(result.raw).to.not.be.undefined;
-            expect(result.raw).to.contain('/baseline/test/raw');
+            expect(result.raw).to.contain('/baseline/id/raw');
             done();
         });
     });
@@ -75,7 +116,10 @@ describe('Baseline Service', function () {
         var saveStub = sandbox.stub(BaselineModel.prototype, 'save').yields(null);
         var payload = {
             name: 'test',
-            data: 'someBase64'
+            data: 'someBase64',
+            meta: {
+                browser: 'browser'
+            }
         };
 
         BaselineService.save(payload, function () {

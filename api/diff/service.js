@@ -12,7 +12,7 @@ module.exports = {
         DiffModel.find({
             name: name
         },
-        'name dateCreated candidate',
+        'name dateCreated candidate baseline meta',
         {
             lean: true,
             sort: {
