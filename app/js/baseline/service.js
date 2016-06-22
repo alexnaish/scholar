@@ -34,6 +34,17 @@
                     function (httpError) {
                         throw httpError.status + " : " + httpError.data;
                     });
+            },
+
+            deleteScreenshot: function (baseline) {
+                return $http.delete('/api/screenshot/' + baseline.name + '/' + baseline._id)
+                    .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (httpError) {
+                        throw httpError.status + " : " + httpError.data;
+                    });
             }
         };
 

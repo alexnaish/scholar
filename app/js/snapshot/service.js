@@ -14,7 +14,7 @@
             });
       },
       deleteSnapshot: function(name, diffId) {
-        return $http.delete('/api/screenshot/' + name + '/' + diffId)
+        return $http.delete('/api/screenshot/' + name + '/diff/' + diffId)
           .then(
             function(response) {
               return response.data;

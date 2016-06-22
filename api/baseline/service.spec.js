@@ -86,14 +86,14 @@ describe('Baseline Service', function () {
         });
     });
 
-    it('findOne returns a 200 and a specific baseline if successful', function (done) {
+    it('findOne returns a null error and a specific baseline if successful', function (done) {
         var findStub = sandbox.stub(BaselineModel, 'findOne').yields(null, {
             _id: 'id',
             name: 'test'
         });
-        BaselineService.findOne({name: 'test'}, '', function (statusCode, result) {
+        BaselineService.findOne({name: 'test'}, '', function (err, result) {
             expect(findStub.calledOnce).to.be.true;
-            expect(statusCode).to.equal(200);
+            expect(err).to.equal(null);
             expect(result).to.not.equal(null);
             expect(result.name).to.equal('test');
             expect(result.raw).to.contain('/baseline/id/raw');
@@ -101,11 +101,11 @@ describe('Baseline Service', function () {
         });
     });
 
-    it('findOne returns a 404 if no result is found', function (done) {
+    it('findOne returns a null error and a null result if no result is found', function (done) {
         var findStub = sandbox.stub(BaselineModel, 'findOne').yields(null, null);
-        BaselineService.findOne('test', '', function (statusCode, result) {
+        BaselineService.findOne('test', '', function (err, result) {
             expect(findStub.calledOnce).to.be.true;
-            expect(statusCode).to.equal(404);
+            expect(null).to.equal(null);
             expect(result).to.equal(null);
             done();
         });

@@ -2,23 +2,40 @@ var helpers = require('../../test/setup/functions');
 var app = require('../index');
 var smallSampleBase64 = require('../../test/setup/samples/1by1');
 var largeSampleBase64 = require('../../test/setup/samples/twitchBaseline');
+
 var BaselineModel = require('../baseline/model');
 var CandidateModel = require('../candidate/model');
 var DiffModel = require('../diff/model');
+var BaselineService = require('../baseline/service');
+var ScreenshotService = require('./service');
+
 var _ = require('lodash');
 var jwt = require('jsonwebtoken');
 var config = require('config');
+var sinon = require('sinon');
 var expect = require('chai').expect;
 var request = require('supertest')(app);
 
 describe('Screenshot API', function () {
 
     var imageName = 'sample-image';
+    var testBrowser = 'test';
     var sample = {
         name: imageName,
+        meta: {
+            browser: testBrowser
+        },
         data: smallSampleBase64
     };
-    var candidate, diff, baseline;
+    var anotherBrowserSample = {
+        name: imageName,
+        meta: {
+            browser: 'ANOTHER'
+        },
+        data: smallSampleBase64
+    };
+
+    var candidate, diff, baseline, alternateBaseline;
 
     var generatedToken;
     var mockUser = {
@@ -41,8 +58,9 @@ describe('Screenshot API', function () {
         var tempCandidate = _.clone(sample);
         tempCandidate.data = sample.data + 'aDifferentEnding';
 
-        helpers.insertAssets(BaselineModel, [sample], function (results) {
-            baseline = results[0];
+        helpers.insertAssets(BaselineModel, [sample, anotherBrowserSample], function (results) {
+            baseline = _.find(results, {meta: {browser: 'test'}});
+            alternateBaseline = _.find(results, {meta : { browser: 'ANOTHER'}});
 
             helpers.insertAssets(CandidateModel, [tempCandidate], function (results) {
                 candidate = results[0];
@@ -61,7 +79,7 @@ describe('Screenshot API', function () {
         generatedToken = jwt.sign({
             user: mockUser
         }, config.app.secret);
-    })
+    });
 
     beforeEach(function (done) {
         removeAllAssets(function () {
@@ -142,6 +160,9 @@ describe('Screenshot API', function () {
         };
 
         request.post('/api/screenshot/' + imageName)
+            .set({
+                'X-Scholar-Meta-Browser': testBrowser
+            })
             .send(payload)
             .expect('Content-Type', /json/)
             .expect(200)
@@ -162,7 +183,8 @@ describe('Screenshot API', function () {
                         expect(results.length).to.equal(2);
 
                         BaselineModel.find({
-                            name: imageName
+                            name: imageName,
+                            'meta.browser': testBrowser
                         }, function (err, results) {
                             expect(results.length).to.equal(1);
                             done();
@@ -196,7 +218,8 @@ describe('Screenshot API', function () {
                         expect(results.length).to.equal(1);
 
                         BaselineModel.find({
-                            name: imageName
+                            name: imageName,
+                            'meta.browser': testBrowser
                         }, function (err, results) {
                             expect(results.length).to.equal(1);
                             done();
@@ -205,6 +228,150 @@ describe('Screenshot API', function () {
                 });
             });
     });
+
+    describe('DEL /api/screenshot/:name/:id', () => {
+
+
+        it('should response with a standard bad request if the id is invalid', function (done) {
+
+            request.del(`/api/screenshot/${baseline.name}/thisisnotanobjectid`)
+                .set('Authorization', 'Bearer ' + generatedToken)
+                .expect('Content-Type', /json/)
+                .expect(400)
+                .end(function (err, res) {
+                    expect(err).to.equal(null);
+                    expect(res).to.not.equal(null);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+
+        });
+
+        it('should require the user to authenticate', function (done) {
+
+            request.del(`/api/screenshot/${baseline.name}/${baseline._id}`)
+                .expect('Content-Type', /json/)
+                .expect(401)
+                .end(function (err, res) {
+                    expect(err).to.equal(null);
+                    expect(res).to.not.equal(null);
+                    expect(res.body).to.have.property('error');
+                    done();
+                });
+
+        });
+
+        it('should return a 404 with an error message if the baseline cannot be found', function (done) {
+
+            request.del(`/api/screenshot/somepretendname/${baseline._id}`)
+                .set('Authorization', 'Bearer ' + generatedToken)
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end(function (err, res) {
+                    expect(err).to.equal(null);
+                    expect(res).to.not.equal(null);
+                    expect(res.body).to.have.property('error', 'Baseline not found');
+                    done();
+                });
+
+        });
+
+        it('should return a standard server error if an error occurs when searching for the baseline', function (done) {
+
+            var serviceStub = sinon.stub(BaselineService, 'findOne').yields({message: 'error'}, null);
+
+            request.del(`/api/screenshot/${baseline.name}/${baseline._id}`)
+                .set('Authorization', 'Bearer ' + generatedToken)
+                .expect('Content-Type', /json/)
+                .expect(500)
+                .end(function (err, res) {
+                    expect(err).to.equal(null);
+                    expect(res).to.not.equal(null);
+                    expect(res.body).to.have.property('error', 'Internal Server Error');
+                    serviceStub.restore();
+                    done();
+                });
+
+        });
+
+        it('should return a standard server error if an error occurs attempting to remove screenshots', function (done) {
+
+            var serviceStub = sinon.stub(ScreenshotService, 'removeAllScreenshots').yields({message: 'error'}, null);
+
+            request.del(`/api/screenshot/${baseline.name}/${baseline._id}`)
+                .set('Authorization', 'Bearer ' + generatedToken)
+                .expect('Content-Type', /json/)
+                .expect(500)
+                .end(function (err, res) {
+                    expect(err).to.equal(null);
+                    expect(res).to.not.equal(null);
+                    expect(res.body).to.have.property('error', 'Internal Server Error');
+                    serviceStub.restore();
+                    done();
+                });
+
+        });
+
+        it('should remove the diff and all candidates, diffs related to the baseline', function (done) {
+
+            request.del(`/api/screenshot/${baseline.name}/${baseline._id}`)
+                .set('Authorization', 'Bearer ' + generatedToken)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    expect(err).to.equal(null);
+                    expect(res).to.not.equal(null);
+
+                    checkCandidates();
+
+                    function checkCandidates() {
+                        CandidateModel.count({
+                            _id: candidate._id
+                        }, function (err, candidateCount) {
+                            expect(err).to.equal(null);
+                            expect(candidateCount).to.equal(0);
+                            checkDiffs();
+                        });
+                    }
+
+                    function checkDiffs() {
+                        DiffModel.count({
+                            _id: diff._id
+                        }, function (err, diffCount) {
+                            expect(err).to.equal(null);
+                            expect(diffCount).to.equal(0);
+                            checkBaseline();
+                        });
+                    }
+
+                    function checkBaseline() {
+
+                        BaselineModel.count({
+                            _id: baseline._id
+                        }, function (err, diffCount) {
+                            expect(err).to.equal(null);
+                            expect(diffCount).to.equal(0);
+                            checkAlternateBaselineExists();
+                        });
+                    }
+
+                    function checkAlternateBaselineExists() {
+
+                        BaselineModel.count({
+                            _id: alternateBaseline._id
+                        }, function (err, diffCount) {
+                            expect(err).to.equal(null);
+                            expect(diffCount).to.equal(1);
+                            done();
+                        });
+                    }
+
+                });
+
+        });
+
+    });
+
 
     it('PUT /api/screenshot/:name/promote/:id should 404 if no candidate found', function (done) {
 
@@ -241,7 +408,8 @@ describe('Screenshot API', function () {
                     }, function (err, results) {
                         expect(results.length).to.equal(0, 'diff count not 0!');
                         BaselineModel.find({
-                            name: imageName
+                            name: imageName,
+                            'meta.browser': testBrowser
                         }, function (err, results) {
                             expect(results.length).to.equal(1, 'baseline count not 1!');
                             expect(results[0].data).to.equal(candidate.data);
@@ -271,8 +439,8 @@ describe('Screenshot API', function () {
             });
     });
 
-    it('DEL /api/screenshot/:name/:diffId should delete diff and its candidate and return a 204', function (done) {
-        request.del('/api/screenshot/' + imageName + '/' + diff._id)
+    it('DEL /api/screenshot/:name/diff/:diffId should delete diff and its candidate and return a 204', function (done) {
+        request.del('/api/screenshot/' + imageName + '/diff/' + diff._id)
             .set('Authorization', 'Bearer ' + generatedToken)
             .expect('Content-Type', /json/)
             .expect(200)
@@ -294,8 +462,8 @@ describe('Screenshot API', function () {
             });
     });
 
-    it('DEL /api/screenshot/:name/:diffId should 404 if no diff found', function (done) {
-        request.del('/api/screenshot/' + imageName + '/aMadeUpDiffId')
+    it('DEL /api/screenshot/:name/diff/:diffId should 404 if no diff found', function (done) {
+        request.del('/api/screenshot/' + imageName + '/diff/aMadeUpDiffId')
             .set('Authorization', 'Bearer ' + generatedToken)
             .expect('Content-Type', /json/)
             .expect(404)
@@ -306,4 +474,5 @@ describe('Screenshot API', function () {
             });
     });
 
-});
+})
+;

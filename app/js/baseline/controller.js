@@ -44,10 +44,29 @@
 
     }]);
 
-    component.controller('ViewBaselineController', ['results', '$routeParams', function (results, $routeParams) {
+    component.controller('ViewBaselineController', ['BaselineService', 'results', '$routeParams', '$location', 'toastr', function (BaselineService, results, $routeParams, $location, toastr) {
 
-        this.name = $routeParams.name;
-        this.results = results;
+        var vm = this;
+        vm.name = $routeParams.name;
+        vm.results = results;
+
+        vm.remove = function (screenshot) {
+            BaselineService.deleteScreenshot(screenshot).then(function (res) {
+                console.log('res', res);
+                vm.results = _.reject(vm.results, {_id: screenshot._id});
+                toastr.info('Successfully removed Screenshot.', {
+                    timeOut: 5 * 1000,
+                    progressBar: true
+                });
+
+
+                if(vm.results.length === 0) {
+                    $location.url('/baseline');
+                }
+
+            });
+
+        }
 
     }]);
 

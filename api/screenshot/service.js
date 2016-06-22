@@ -36,24 +36,16 @@ function saveComparisons(baseline, diffImage, submittedImageData, callback) {
 
 function clearCandidatesAndDiffs(query, callback) {
 	async.parallel({
-			candidateError: function clearCandidates(candidateCallback) {
-				CandidateService.remove(query, function (err) {
-					candidateCallback(null, err);
-				});
+			candidate: function clearCandidates(candidateCallback) {
+				CandidateService.remove(query, candidateCallback);
 			},
-			diffError: function saveDiff(diffCallback) {
+			diff: function clearDiffs(diffCallback) {
 				DiffService.remove(query, function (err) {
-					diffCallback(null, err);
+					diffCallback(err);
 				});
 			}
 		},
-		function (err, results) {
-			var statusCode = 201;
-			if (results.candidateError || results.diffError) {
-				statusCode = 500;
-			}
-			callback(statusCode, {});
-		});
+		callback);
 }
 
 function deleteComparison(diffId, candidateId, callback) {
@@ -61,7 +53,7 @@ function deleteComparison(diffId, candidateId, callback) {
 	async.parallel({
 		diffError: function deleteDiff(diffCallback) {
 			DiffService.remove({
-				_id: diffId,
+				_id: diffId
 			}, function (err) {
 				diffCallback(null, err);
 			});
@@ -131,12 +123,10 @@ module.exports = {
 		result.meta.lastUpdatedBy = `${user.firstName} ${user.lastName}`;
 		BaselineService.save(result, function (err, insertedDoc) {
 			if (err) {
-				return callback(500, {
-					error: err.message
-				});
-			} else {
-				clearCandidatesAndDiffs({name: result.name, 'meta.browser': result.meta.browser}, callback);
+				return callback(err);
 			}
+
+			clearCandidatesAndDiffs({name: result.name, 'meta.browser': result.meta.browser}, callback);
 		});
 	},
 	deleteSnapshot: function (diffId, callback) {
@@ -148,6 +138,20 @@ module.exports = {
 			}
 		});
 	},
+
+	removeAllScreenshots: function(baselineRecord, callback) {
+		clearCandidatesAndDiffs({name: baselineRecord.name, 'meta.browser': baselineRecord.meta.browser}, function(err){
+			if(err) {
+				return callback(err);
+			}
+
+			BaselineService.remove({
+				_id: baselineRecord._id
+			}, callback);
+		});
+	},
+
+
 	extractMetadata: function (headersObject) {
 		headersObject = headersObject || {};
 		var metaObject = {};

@@ -28,16 +28,13 @@ module.exports = {
         }, callback);
     },
     findOne: function (query, fields, callback) {
-        var statusCode = 200;
         BaselineModel.findOne(query, fields, {
             lean: true
         }, function (err, result) {
-            if (!result) {
-                statusCode = 404;
-            } else {
+            if(result) {
                 addRawUrl(result);
             }
-            callback(statusCode, result);
+            callback(err, result);
         });
     },
     save: function (payload, callback) {
@@ -47,6 +44,10 @@ module.exports = {
         }, function () {
             new BaselineModel(payload).save(callback);
         });
+    },
+
+    remove: function(query, callback) {
+        BaselineModel.remove(query, callback)
     }
 
 };
