@@ -10,7 +10,7 @@
     <div class="filter">
         Currently filtering on:
         <div class="terms">
-            {{list.filters.join(', ')}}
+            {{ list.filters.join(', ') || 'Nothing'}}
         </div>
     </div>
 </div>
