@@ -1,32 +1,70 @@
 (function (component) {
 
-    component.controller('ListBaselineController', ['BaselineService', 'baselines', 'outstandingCandidates', function (BaselineService, baselines, outstandingCandidates) {
+    component.controller('ListBaselineController', ['BaselineService', 'baselines', 'outstandingCandidates', '$filter', function (BaselineService, baselines, outstandingCandidates, $filter) {
 
         var vm = this;
+        vm.filters = [];
+
+        vm.filtering = false;
+        vm.outstandingFilter = false;
+        vm.labelFilters = {};
+        vm.nameFilter = '';
+
         vm.baselines = baselines;
+        vm.outstandingCandidates = outstandingCandidates;
+
+        var requiredChecks = [];
+        requiredChecks.push(function isOutstanding(baseline) {
+            if (vm.outstandingFilter) {
+                return vm.outstandingCandidates.indexOf(baseline._id) !== -1;
+            }
+            return true;
+        });
+        requiredChecks.push(function matchesName(baseline) {
+            if (vm.nameFilter) {
+                return baseline._id.indexOf(vm.nameFilter) !== -1;
+            }
+            return true;
+        });
+        requiredChecks.push(function hasLabels(baseline) {
+            var labels = Object.keys(vm.labelFilters);
+            if (labels.length > 0) {
+                return _.every(labels.map(function (label) {
+                    return baseline.labels.indexOf(label) !== -1;
+                }), function (res) {
+                    return res
+                });
+            }
+            return true;
+        });
 
         if (outstandingCandidates.length > 0) {
-            filterBaselines(outstandingCandidates);
+            vm.outstandingFilter = true;
         }
 
-        function filterBaselines(outstandingCandidates) {
-            vm.filtering = true;
+        vm.filter = function () {
+            vm.baselines = $filter('filter')(baselines, function (baseline) {
+                var res = requiredChecks.map(function (fn) {
+                    return fn(baseline);
+                });
+                return _.every(res, function (result) {
+                    return result;
+                });
 
-            vm.baselines = _.filter(baselines, function (baseline) {
-                return outstandingCandidates.indexOf(baseline._id) !== -1;
             });
-
-        }
+        };
 
         vm.showOutstanding = function () {
             BaselineService.getOutstandingCandidates().then(function (candidates) {
-                filterBaselines(candidates);
+                vm.outstandingCandidates = candidates;
+                vm.outstandingFilter = true;
+                vm.updateFilters();
             });
         };
 
         vm.showAll = function () {
-            vm.filtering = false;
-            vm.baselines = baselines;
+            vm.outstandingFilter = false;
+            vm.updateFilters();
         };
 
         vm.getBrowsers = function (baseline) {
@@ -35,12 +73,40 @@
             }).join(', ');
         };
 
-        vm.getLabels = function (baseline) {
+        vm.setLabels = function (baseline) {
             var labels = baseline.results.map(function (res) {
-                return res.labels.join(', ');
+                return res.labels;
             });
-            return _.uniq(labels).join(', ');
+            baseline.labels = _.uniq(_.flatten(labels));
         };
+
+        vm.toggleLabelToFilter = function (label) {
+            if(vm.labelFilters[label]) {
+                delete vm.labelFilters[label];
+            } else {
+                vm.labelFilters[label] = true;
+            }
+            vm.updateFilters();
+        };
+
+        vm.updateFilters = function () {
+            vm.filtering = false;
+            vm.filters = [];
+            if (vm.outstandingFilter) {
+                vm.filters.push('Outstanding Only');
+            }
+            if (vm.nameFilter) {
+                vm.filters.push('Name: ' + vm.nameFilter);
+            }
+            angular.forEach(vm.labelFilters, function (value, key) {
+                vm.filters.push('Label: ' + key);
+            });
+
+            if (vm.filters.length > 0) {
+                vm.filtering = true;
+            }
+            vm.filter();
+        }
 
     }]);
 
@@ -52,7 +118,6 @@
 
         vm.remove = function (screenshot) {
             BaselineService.deleteScreenshot(screenshot).then(function (res) {
-                console.log('res', res);
                 vm.results = _.reject(vm.results, {_id: screenshot._id});
                 toastr.info('Successfully removed Screenshot.', {
                     timeOut: 5 * 1000,
@@ -60,7 +125,7 @@
                 });
 
 
-                if(vm.results.length === 0) {
+                if (vm.results.length === 0) {
                     $location.url('/baseline');
                 }
 

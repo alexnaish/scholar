@@ -42,7 +42,6 @@ a {
 }
 
 .content {
-    padding-top: 70px;
     .title {
         font-size: 40px;
         margin: 20px;
@@ -55,16 +54,6 @@ a {
             padding: 0 20px;
         }
     }
-}
-
-.search {
-  padding: 10px;
-  width: 100%;
-  input {
-      width: 20%;
-      max-width: 240px;
-      display: inline-block;
-  }
 }
 
 [ng-cloak],

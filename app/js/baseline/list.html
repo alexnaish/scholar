@@ -1,22 +1,33 @@
 <div class="search">
-    <input class="input" type="text" ng-model="list.nameFilter" placeholder="Search">
-    <a class="button" ng-click="list.showOutstanding()">Filter By Outstanding</a>
-    <a class="button" ng-click="list.showAll()">Show All</a>
+    <div class="actions">
+        <input class="input" type="text" ng-model="list.nameFilter" ng-model-options="{debounce: 150}" ng-change="list.updateFilters()" placeholder="Search">
+
+        <div class="buttons">
+            <button ng-click="list.showOutstanding()">Filter By Outstanding</button>
+            <button ng-click="list.showAll()">Show All</button>
+        </div>
+    </div>
+    <div class="filter">
+        Currently filtering on:
+        <div class="terms">
+            {{list.filters.join(', ')}}
+        </div>
+    </div>
 </div>
 
 <ul class="baseline-list">
     <div class="baseline-item"
-         ng-repeat="baseline in list.baselines | filter:{ _id: list.nameFilter } track by baseline._id">
-        <div class="snapshot">
+         ng-repeat="baseline in list.baselines track by baseline._id">
+        <div class="snapshot" ng-init="list.setLabels(baseline)">
             <img class="snapshot-image" ng-src={{::"/api/baseline/"+baseline.results[0]._id+"/raw"}}></img>
             <div class="snapshot-info">
                 <h2 class="name">{{:: baseline._id }}</h2>
                 <ul class="meta">
-                    <li>Created: {{:: baseline.dateCreated | date:"dd/MM/yyyy 'at' h:mma" }}</li>
+                    <li>Created: {{:: ( baseline.dateCreated | date:"dd/MM/yyyy 'at' h:mma") || 'N/A' }}</li>
                     <li>Last Updated By: {{:: baseline.lastUpdatedBy || 'N/A' }}</li>
                     <li>Last Updated: {{:: (baseline.lastUpdated | date:"dd/MM/yyyy 'at' h:mma") || 'N/A'}}</li>
-                    <li>Browser(s): {{:: list.getBrowsers(baseline) || 'N/A'}}</li>
-                    <li>Labels: {{:: list.getLabels(baseline) || 'N/A'}}</li>
+                    <li>Browser(s): {{:: list.getBrowsers(baseline) || 'N/A'}}</li>{{list.test}}
+                    <li>Labels: <tag ng-repeat="label in baseline.labels track by label" value="label" ng-click="list.toggleLabelToFilter(label)"></tag></li>
                 </ul>
                 <div class="snapshot-actions">
                     <a href="#/snapshot/{{:: baseline._id }}">View Candidates</a>
@@ -30,6 +41,6 @@
 <div ng-show="!list.baselines.length">
     <div class="error">
         <div class="face">:)</div>
-        <div class="message">No {{list.filtering? "matching" : null}} baselines. <span class="highlight">Get out there and find some!</span>
-        </div>
+        <div class="message">No {{list.filtering ? "matching" : null}} baselines. <span class="highlight">Get out there and find some!</span></div>
     </div>
+</div>

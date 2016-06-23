@@ -10,15 +10,25 @@ module.exports = {
     list: function (callback) {
 
         BaselineModel.aggregate(
-            {
-                $group: {
-                    _id: '$name',
-                    dateCreated: {$first: '$dateCreated'},
-                    lastUpdatedBy: {$first: '$meta.lastUpdatedBy'},
-                    lastUpdated: {$first: '$meta.lastUpdated'},
-                    results: { $push: { _id: '$_id', browser: '$meta.browser', labels: '$meta.labels', resolution: '$meta.resolution' }}
+            [
+                { $sort : { 'meta.lastUpdated' : -1 } },
+                {
+                    $group: {
+                        _id: '$name',
+                        dateCreated: {$first: '$dateCreated'},
+                        lastUpdatedBy: {$first: '$meta.lastUpdatedBy'},
+                        lastUpdated: {$first: '$meta.lastUpdated'},
+                        results: {
+                            $push: {
+                                _id: '$_id',
+                                browser: '$meta.browser',
+                                labels: '$meta.labels',
+                                resolution: '$meta.resolution'
+                            }
+                        }
+                    }
                 }
-            },
+            ],
             callback);
 
     },
@@ -31,7 +41,7 @@ module.exports = {
         BaselineModel.findOne(query, fields, {
             lean: true
         }, function (err, result) {
-            if(result) {
+            if (result) {
                 addRawUrl(result);
             }
             callback(err, result);
@@ -46,7 +56,7 @@ module.exports = {
         });
     },
 
-    remove: function(query, callback) {
+    remove: function (query, callback) {
         BaselineModel.remove(query, callback)
     }
 

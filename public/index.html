@@ -10,15 +10,18 @@
 </head>
 
 <body ng-app="Scholar">
-    <header class="top-bar">
-        <div class="top-title">
-            <a href="/#/"><i class="fa fa-university"></i> Scholar</a>
-        </div>
-        <div class="easter-egg">
-            <a href="http://naish.io">¯\_(ツ)_/¯</a>
-        </div>
-        <user-dropdown></user-dropdown>
-    </header>
+    <div class="nav-container">
+        <header class="top-bar">
+            <div class="top-title">
+                <a href="/#/"><i class="fa fa-university"></i> Scholar</a>
+            </div>
+            <div class="easter-egg">
+                <a href="http://naish.io">¯\_(ツ)_/¯</a>
+            </div>
+            <user-dropdown></user-dropdown>
+        </header>
+    </div>
+
 
     <main class="content grid">
         <ng-view></ng-view>

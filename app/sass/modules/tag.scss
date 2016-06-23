@@ -1,0 +1,22 @@
+.tag {
+  display: inline-block;
+  height: 24px;
+  padding: 0 0.5em;
+  margin: 5px 0 0 5px;
+  color: white;
+  font-weight: 400;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .15rem;
+  background: transparent;
+  border: solid 1px #C9C9C9;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover, &.active {
+    background: lightgrey;
+    color: #333;
+  }
+
+}
