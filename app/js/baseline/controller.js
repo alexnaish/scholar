@@ -40,6 +40,7 @@
 
         if (outstandingCandidates.length > 0) {
             vm.outstandingFilter = true;
+            vm.updateFilters();
         }
 
         vm.filter = function () {
