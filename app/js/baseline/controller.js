@@ -91,13 +91,13 @@
 
         vm.getBrowsers = function (baseline) {
             return baseline.results.map(function (res) {
-                return res.browser + ' (' + res.resolution + ')';
+                return res.browser + ' (' + res.resolution || 'N/A' + ')';
             }).join(', ');
         };
 
         vm.setLabels = function (baseline) {
             var labels = baseline.results.map(function (res) {
-                return res.labels;
+                return res.labels || [];
             });
             baseline.labels = _.uniq(_.flatten(labels));
         };
