@@ -13,6 +13,37 @@
         vm.baselines = baselines;
         vm.outstandingCandidates = outstandingCandidates;
 
+        vm.filter = function () {
+            vm.baselines = $filter('filter')(baselines, function (baseline) {
+                var res = requiredChecks.map(function (fn) {
+                    return fn(baseline);
+                });
+                return _.every(res, function (result) {
+                    return result;
+                });
+
+            });
+        };
+
+        vm.updateFilters = function updateFilters() {
+            vm.filtering = false;
+            vm.filters = [];
+            if (vm.outstandingFilter) {
+                vm.filters.push('Outstanding Only');
+            }
+            if (vm.nameFilter) {
+                vm.filters.push('Name: ' + vm.nameFilter);
+            }
+            angular.forEach(vm.labelFilters, function (value, key) {
+                vm.filters.push('Label: ' + key);
+            });
+
+            if (vm.filters.length > 0) {
+                vm.filtering = true;
+            }
+            vm.filter();
+        };
+
         var requiredChecks = [];
         requiredChecks.push(function isOutstanding(baseline) {
             if (vm.outstandingFilter) {
@@ -43,17 +74,7 @@
             vm.updateFilters();
         }
 
-        vm.filter = function () {
-            vm.baselines = $filter('filter')(baselines, function (baseline) {
-                var res = requiredChecks.map(function (fn) {
-                    return fn(baseline);
-                });
-                return _.every(res, function (result) {
-                    return result;
-                });
 
-            });
-        };
 
         vm.showOutstanding = function () {
             BaselineService.getOutstandingCandidates().then(function (candidates) {
@@ -90,24 +111,7 @@
             vm.updateFilters();
         };
 
-        vm.updateFilters = function () {
-            vm.filtering = false;
-            vm.filters = [];
-            if (vm.outstandingFilter) {
-                vm.filters.push('Outstanding Only');
-            }
-            if (vm.nameFilter) {
-                vm.filters.push('Name: ' + vm.nameFilter);
-            }
-            angular.forEach(vm.labelFilters, function (value, key) {
-                vm.filters.push('Label: ' + key);
-            });
 
-            if (vm.filters.length > 0) {
-                vm.filtering = true;
-            }
-            vm.filter();
-        }
 
     }]);
 
