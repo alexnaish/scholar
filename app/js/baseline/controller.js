@@ -91,7 +91,7 @@
 
         vm.getBrowsers = function (baseline) {
             return baseline.results.map(function (res) {
-                return res.browser + ' (' + res.resolution || 'N/A' + ')';
+                return res.browser + ' (' + (res.resolution || 'N/A') + ')';
             }).join(', ');
         };
 
