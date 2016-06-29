@@ -35,10 +35,6 @@ if(process.env.NODE_ENV !== 'test') {
   }));
 }
 
-process.on('uncaughtException', function(error){
-    console.error('Uncaught Error: ', error);
-});
-
 router.apply(app);
 app.get('/api/config', function (req, res) {
     res.json(config);
