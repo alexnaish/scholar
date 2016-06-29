@@ -95,13 +95,6 @@
             }).join(', ');
         };
 
-        vm.setLabels = function (baseline) {
-            var labels = baseline.results.map(function (res) {
-                return res.labels || [];
-            });
-            baseline.labels = _.uniq(_.flatten(labels));
-        };
-
         vm.toggleLabelToFilter = function (label) {
             if(vm.labelFilters[label]) {
                 delete vm.labelFilters[label];

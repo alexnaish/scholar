@@ -1,5 +1,7 @@
-var BaselineModel = require('./model'),
-    config = require('config');
+'use strict';
+const BaselineModel = require('./model');
+const config = require('config');
+const _ = require('lodash');
 
 function addRawUrl(result) {
     result.raw = config.app.apiPath + '/baseline/' + result._id + '/raw';
@@ -11,25 +13,35 @@ module.exports = {
 
         BaselineModel.aggregate(
             [
-                { $sort : { 'meta.lastUpdated' : -1 } },
+                {$sort: {'meta.lastUpdated': -1}},
                 {
                     $group: {
                         _id: '$name',
                         dateCreated: {$first: '$dateCreated'},
                         lastUpdatedBy: {$first: '$meta.lastUpdatedBy'},
                         lastUpdated: {$first: '$meta.lastUpdated'},
+                        labels: {$push: '$meta.labels'},
                         results: {
                             $push: {
                                 _id: '$_id',
                                 browser: '$meta.browser',
-                                labels: '$meta.labels',
                                 resolution: '$meta.resolution'
                             }
                         }
                     }
                 }
             ],
-            callback);
+            function (err, results) {
+                if (err) {
+                    return callback(err);
+                }
+                results.map(function(result){
+                    result.labels = _.uniq(_.flatten(result.labels));
+                    return result;
+                });
+
+                callback(err, results);
+            });
 
     },
     find: function (query, fields, callback) {
