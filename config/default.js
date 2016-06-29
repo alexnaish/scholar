@@ -4,7 +4,7 @@ module.exports = {
         secret: 'SomeSecr3t'
     },
     mongo: {
-        host: "localhost",
+        host: process.env.MONGO_HOST || "localhost",
         db: "scholar",
         user: "scholar",
         pass: "kernel"
