@@ -44,7 +44,7 @@ describe('Baseline Service', function () {
         BaselineService.list(function (err, results) {
             expect(aggregateStub.calledOnce).to.be.true;
             expect(err).to.equal(sampleError);
-            expect(results).to.equal(null);
+            expect(results).to.include.members([]);
             done();
         });
     });

@@ -32,9 +32,10 @@ module.exports = {
                 }
             ],
             function (err, results) {
-                if (err) {
-                    return callback(err);
+                if (err || !results) {
+                    return callback(err, []);
                 }
+
                 results.map(function(result){
                     result.labels = _.uniq(_.flatten(result.labels));
                     return result;
