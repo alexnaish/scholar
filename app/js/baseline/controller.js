@@ -1,19 +1,18 @@
 (function (component) {
 
-    component.controller('ListBaselineController', ['BaselineService', 'baselines', 'outstandingCandidates', '$filter', function (BaselineService, baselines, outstandingCandidates, $filter) {
+    component.controller('ListBaselineController', ['BaselineService', 'baselines', 'outstandingCandidates', 'preAppliedTags', '$filter', function (BaselineService, baselines, outstandingCandidates, preAppliedTags, $filter) {
 
         var vm = this;
         vm.filters = [];
-
+        vm.baselines = baselines;
+        vm.outstandingCandidates = outstandingCandidates;
         vm.filtering = false;
         vm.outstandingFilter = false;
         vm.labelFilters = {};
         vm.nameFilter = '';
 
-        vm.baselines = baselines;
-        vm.outstandingCandidates = outstandingCandidates;
 
-        vm.filter = function () {
+        vm.filter = function filter() {
             vm.baselines = $filter('filter')(baselines, function (baseline) {
                 var res = requiredChecks.map(function (fn) {
                     return fn(baseline);
@@ -73,8 +72,12 @@
             vm.outstandingFilter = true;
             vm.updateFilters();
         }
-
-
+        if(preAppliedTags.length > 0) {
+          preAppliedTags.forEach(function(tag){
+            vm.labelFilters[tag] = true;
+          });
+          vm.updateFilters();
+        }
 
         vm.showOutstanding = function () {
             BaselineService.getOutstandingCandidates().then(function (candidates) {
