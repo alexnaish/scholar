@@ -121,6 +121,7 @@ module.exports = {
 		delete result._id;
 		result.meta.lastUpdated = new Date();
 		result.meta.lastUpdatedBy = `${user.firstName} ${user.lastName}`;
+		result.meta.lastUpdatedByUser = user._id;
 		BaselineService.save(result, function (err, insertedDoc) {
 			if (err) {
 				return callback(err);

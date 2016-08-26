@@ -26,7 +26,11 @@ var screenshotSchema = {
       },
       lastUpdatedBy: {
         type: String
+      },
+      lastUpdatedByUser: {
+        type: String
       }
+
     }
 };
 
