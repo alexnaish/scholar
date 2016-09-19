@@ -15,25 +15,31 @@ describe('Users API', function() {
         firstName: 'first1',
         lastName: 'last1',
         email: 'test1@mail.com',
-        password: 'test2test2'
+        password: 'test2test2',
+        social: {}
     }, {
         username: 'test-2',
         firstName: 'first2',
         lastName: 'last2',
         email: 'test2@mail.com',
-        password: '$2a$10$m/woUV57PjN/w/Af0P3RLOiGJ3Q91j3BYhSSMg4q5enrXduWl5EIO'
+        password: '$2a$10$m/woUV57PjN/w/Af0P3RLOiGJ3Q91j3BYhSSMg4q5enrXduWl5EIO',
+        social: {}
     }, {
         username: 'test-3',
         firstName: 'first3',
         lastName: 'last3',
         email: 'test3@mail.com',
-        password: 'test4test4'
+        password: 'test4test4',
+        social: {
+          github: 'blah'
+        }
     }, {
         username: 'update-me',
         firstName: 'update',
         lastName: 'please',
         email: 'update@mail.com',
-        password: 'update4update4'
+        password: 'update4update4',
+        social: {}
     }];
     var insertedAssets;
     var generatedToken;
@@ -109,10 +115,11 @@ describe('Users API', function() {
                     expect(res).to.not.equal(null);
                     expect(Object.keys(res.body).length).to.equal(5);
                     expect(res.body).to.have.property('_id', specificUser._id.toString());
-                    expect(res.body).to.have.property('username', specificUser.username);
                     expect(res.body).to.have.property('firstName', specificUser.firstName);
                     expect(res.body).to.have.property('lastName', specificUser.lastName);
                     expect(res.body).to.have.property('email', specificUser.email);
+                    expect(res.body).to.have.property('social');
+                    expect(res.body).to.not.have.property('username');
                     expect(res.body).to.not.have.property('password');
                     done();
                 });
