@@ -55,6 +55,7 @@ describe('Baseline API', function () {
                 var specificBaseline = _.find(res.body, function(b) { return b._id === 'test-run-1'; });
                 expect(specificBaseline).to.not.equal(undefined);
                 expect(specificBaseline).to.have.property('_id');
+                expect(specificBaseline).to.have.property('labels');
                 expect(specificBaseline).to.have.property('dateCreated');
                 expect(specificBaseline).to.have.property('lastUpdated');
                 expect(specificBaseline).to.have.property('lastUpdatedBy');
@@ -63,7 +64,6 @@ describe('Baseline API', function () {
                 var firstResult = specificBaseline.results[0];
                 expect(firstResult).to.have.property('browser');
                 expect(firstResult).to.have.property('resolution');
-                expect(firstResult).to.have.property('labels');
                 done();
             });
     });

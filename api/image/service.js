@@ -30,6 +30,9 @@ module.exports = {
             });
     },
     generateImage: function (res, imageData) {
+        if(!imageData) {
+            return res.status(404).send();
+        }
         res.set('Content-Type', 'image/png');
         var buffer = new Buffer(imageData, 'base64');
         res.status(200).send(buffer);

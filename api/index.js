@@ -15,7 +15,7 @@ db.once('open', function () {
     console.log('database connection established');
 });
 
-mongoose.connect("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@" + config.mongo.host + "/" + config.mongo.db);
+mongoose.connect(process.env.MONGODB_URI || ("mongodb://" + config.mongo.user + ":" + config.mongo.pass + "@" + config.mongo.host + "/" + config.mongo.db));
 
 app.use(helmet());
 app.use(express.static(__dirname + '/../public'));
@@ -34,10 +34,6 @@ if(process.env.NODE_ENV !== 'test') {
       }
   }));
 }
-
-process.on('uncaughtException', function(error){
-    console.error('Uncaught Error: ', error);
-});
 
 router.apply(app);
 app.get('/api/config', function (req, res) {

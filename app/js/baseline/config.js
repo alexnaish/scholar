@@ -12,6 +12,16 @@
                     }],
                     outstandingCandidates: ['BaselineService', function (BaselineService) {
                         return BaselineService.getOutstandingCandidates();
+                    }],
+                    preAppliedTags: ['$location', function ($location) {
+                        var params = $location.search();
+                        var tags = [];
+                        if(Array.isArray(params.tag)){
+                          tags = tags.concat(params.tag);
+                        } else if(params.tag) {
+                          tags.push(params.tag);
+                        }
+                        return tags;
                     }]
                 }
             })
