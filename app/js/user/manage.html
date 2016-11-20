@@ -1,17 +1,38 @@
 <div class="container">
     <div class="profile">
+        <div class="profile-cover">
+            <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none">
+             <defs>
+              <path
+                id="wave"
+                 d="m -160,44.4 c 30,0 58,
+                    -18 87.7,-18 30.3,0 58.3,
+                    18 87.3,18 30,0 58,-18 88,
+                    -18 30,0 58,18 88,18 l 0,
+                    34.5 -351,0 z" />
+             </defs>
+              <g class="parallax">
+               <use class="wave" xlink:href="#wave" x="0" y="0" fill="#3461c1"/>
+               <use class="wave" xlink:href="#wave" x="50" y="0" fill="#2d55aa"/>
+              </g>
+            </svg>
+        </div>
         <img class="profile-image" src="{{::'/api/user/'+ctrl.user._id+'/avatar'}}" alt="Avatar">
-        <div class="profile-info">
-            <h2 class="profile-title">{{::ctrl.user.firstName}} {{::ctrl.user.lastName}}</h2>
-            <div>
-                <h3>Some More Information</h3>
-            </div>
-            <div>
-                <h3>Recent Images</h3>
+        <div class="profile-main">
+            <h2 class="profile-title">
+        {{::ctrl.user.firstName}}
+        {{::ctrl.user.lastName}}
+      </h2>
+            <div class="profile-social">
+                <a ng-if="::ctrl.user.social.github" href="http://github.com/{{::ctrl.user.social.github}}"><i class="fa fa-github" aria-hidden="true"></i> {{::ctrl.user.social.github}}</a>
+                <a ng-if="::ctrl.user.social.website" href="{{::ctrl.user.social.website}}"><i class="fa fa-code" aria-hidden="true"></i>  {{::ctrl.user.social.website}}</a>
+                <a ng-if="::ctrl.user.email"><i class="fa fa-envelope" aria-hidden="true"></i> {{::ctrl.user.email}}</a>
             </div>
         </div>
+        <div class="profile-info">
+            <h3>Some More Information</h3>
+            <h3>Recent Images</h3>
+        </div>
     </div>
-
-
 
 </div>
