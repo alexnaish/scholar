@@ -27,6 +27,15 @@ module.exports = {
 		});
 	},
 	register: function (req, res, next) {
+
+		var validationErrors = UserService.validateCredentialsToken(req.hostname, req.body.credentials);
+		if(!req.body.credentials || validationErrors.length > 0) {
+			if(validationErrors.length) console.error(`Invalid credentials: ${validationErrors.join(', ')}`);
+			return res.status(400).json({
+				error: 'Invalid credentials token'
+			});
+		}
+		// Decode token here?????????
 		var validity = UserService.valid(req.body, true);
 		if (!validity.valid) {
 			return res.status(400).json({

@@ -45,7 +45,7 @@
 		};
 
 		this.register = function (userData) {
-			return $http.post('/api/user', userData)
+			return $http.post('/api/user', {credentials: generateCredentialsToken(userData)})
 				.then(function (resp) {
 					return service.login(userData);
 				});
