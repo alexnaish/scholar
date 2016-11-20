@@ -5,8 +5,8 @@
         <div>Date Taken: <span class="highlight">{{snapshot.dateCreated | date:"dd/MM/yyyy 'at' h:mma"}}</span></div>
         <div>Browser: <span class="highlight">{{snapshot.meta.browser}}</span></div>
         <div class="comparison-actions">
-            <a class="button delete" ng-click="removeSnapshot(snapshot._id)">Remove This Candidate</a>
-            <a class="button promote" ng-click="promoteCandidate(snapshot.candidate)">Baseline This Candidate</a>
+            <a class="button delete" ng-click="removeSnapshot(snapshot)">Remove This Candidate</a>
+            <a class="button promote" ng-click="promoteCandidate(snapshot)">Baseline This Candidate</a>
         </div>
     </div>
 
