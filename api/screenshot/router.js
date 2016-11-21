@@ -2,29 +2,32 @@ var config = require('config');
 var api = require('./api');
 var auth = require('../middleware/auth');
 var validate = require('../middleware/validate');
+var express = require('express');
 
 module.exports = {
 
     apply: function (app) {
 
-        var basePath = '/screenshot/:name';
+        var screenshotRouter = express.Router();
 
-        // POST /api/screenshot/:name
-        //  DEL /api/screenshot/:name/:id
-        //  PUT /api/screenshot/:name/promote/:id
-        //  DEL /api/screenshot/:name/diff/:id
+        screenshotRouter.param('id', validate.objectId);
 
-        app.route(config.app.apiPath + basePath)
+        screenshotRouter.route('/:name')
             .post(api.submitNewScreenshot);
 
-        app.route(config.app.apiPath + basePath + '/:id')
-            .delete(validate.objectId, auth.requireValidToken, api.deleteScreenshot);
+        screenshotRouter.route('/:name/:id')
+            .all(auth.requireValidToken)
+            .delete(api.deleteScreenshot);
 
-        app.route(config.app.apiPath + basePath + '/promote/:candidateId')
-            .put(validate.objectId, auth.requireValidToken, api.promoteScreenshot);
+        screenshotRouter.route('/:name/promote/:candidateId')
+            .all(auth.requireValidToken)
+            .put(api.promoteScreenshot);
 
-        app.route(config.app.apiPath + basePath + '/diff/:diffId')
-            .delete(validate.objectId, auth.requireValidToken, api.deleteDiff);
+        screenshotRouter.route('/:name/diff/:diffId')
+            .all(auth.requireValidToken)
+            .delete(api.deleteDiff);
+
+        app.use(config.app.apiPath + '/screenshot', screenshotRouter);
 
     }
 

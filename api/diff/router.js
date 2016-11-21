@@ -1,17 +1,20 @@
-var config = require('config'),
-    api = require('./api');
+var config = require('config');
+var api = require('./api');
+var express = require('express');
 
 module.exports = {
 
     apply: function (app) {
 
-        var path = '/diff/:name';
+        var diffRouter = express.Router();
 
-        app.route(config.app.apiPath + path)
+        diffRouter.route('/:name')
             .get(api.find);
 
-        app.route(config.app.apiPath + path + '/:id/raw')
+        diffRouter.route('/:name/:id/raw')
             .get(api.renderRawImage);
+
+        app.use(config.app.apiPath + '/diff', diffRouter);
 
     }
 
