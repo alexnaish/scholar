@@ -1,8 +1,4 @@
-var resemble = require('../lib/resemble');
-
-resemble.setErrorRgbColour(255, 0, 0);
-resemble.setErrorOpacity(0.4);
-resemble.setLargeImageThreshold(2400);
+var scholarCompare = require('scholar-comparison');
 
 module.exports = {
 
@@ -10,24 +6,19 @@ module.exports = {
         var bufferA = new Buffer(image1, 'base64');
         var bufferB = new Buffer(image2, 'base64');
 
-        resemble(bufferA)
-            .compareTo(bufferB)
-            .ignoreAntialiasing()
-            .ignoreColors()
-            .onComplete(function (diffData) {
+        scholarCompare(bufferA, bufferB, (err, diffData) => {
+          var chunks = [];
+          var png = diffData.getDiffImage().pack();
 
-                var chunks = [];
-                var png = diffData.getDiffImage().pack();
+          png.on('data', function (chunk) {
+              chunks.push(chunk);
+          });
 
-                png.on('data', function (chunk) {
-                    chunks.push(chunk);
-                });
-
-                png.on('end', function () {
-                    var result = Buffer.concat(chunks);
-                    callback(diffData, result.toString('base64'));
-                });
-            });
+          png.on('end', function () {
+              var result = Buffer.concat(chunks);
+              callback(diffData, result.toString('base64'));
+          });
+        });
     },
     generateImage: function (res, imageData) {
         if(!imageData) {
