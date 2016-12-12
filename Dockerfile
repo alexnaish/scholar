@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:4
+FROM mhart/alpine-node:6
 
 WORKDIR /src
 ADD . .
@@ -6,4 +6,4 @@ ADD . .
 RUN npm install --production
 ENV NODE_ENV docker
 EXPOSE 8080
-CMD ["node", "api/server.js"] 
+CMD ["node", "api/server.js"]
