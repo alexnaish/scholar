@@ -3,8 +3,8 @@ var scholarCompare = require('scholar-comparison');
 module.exports = {
 
     compareImages: function (image1, image2, callback) {
-        var bufferA = new Buffer(image1, 'base64');
-        var bufferB = new Buffer(image2, 'base64');
+        var bufferA = Buffer.from(image1, 'base64');
+        var bufferB = Buffer.from(image2, 'base64');
 
         scholarCompare(bufferA, bufferB, (err, diffData) => {
           var chunks = [];
