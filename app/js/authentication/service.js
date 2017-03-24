@@ -6,10 +6,10 @@
 
 		function generateCredentialsToken (credentialsObject) {
 			function _generateMetadata(){
-				//Set 30 second expiration time for token
+				//Set 15 minute expiration time for token
 				var metaData = {
 					iss: document.location.hostname,
-					exp: Date.now() + (30 * 1000)
+					exp: Date.now() + (15 * 60 * 1000)
 				}
 				return btoa(JSON.stringify(metaData));
 			}
