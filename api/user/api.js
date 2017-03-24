@@ -1,8 +1,8 @@
 var UserService = require('./service');
 
 module.exports = {
-	list: function(req, res, next) {
-        UserService.find({}, 'firstName lastName email', function(err, results) {
+	list: (req, res, next) => {
+        UserService.find({}, 'firstName lastName email', (err, results) => {
             if (err) {
                 console.error('UserApi.list errored');
                 return next(err);
@@ -10,10 +10,10 @@ module.exports = {
             res.status(200).json(results);
         });
     },
-    fetch: function(req, res, next) {
+    fetch: (req, res, next) => {
         UserService.findOne({
             _id: req.params.id
-        }, 'firstName lastName email social', function(err, result) {
+        }, 'firstName lastName email social', (err, result) => {
             if (err) {
                 console.error('UserApi.fetch errored');
                 return next(err);
@@ -26,15 +26,15 @@ module.exports = {
             res.status(200).json(result);
         });
     },
-    register: function(req, res, next) {
-		var credentialDetails = UserService.validateCredentialsToken(req.hostname, req.body.credentials);
-		if(credentialDetails.valid === false) {
-			console.error(`Invalid credentials: ${credentialDetails.errors.join(', ')}`);
-			return res.status(400).json({
-				error: 'Invalid credentials token',
-				details: credentialDetails.errors
-			});
-		}
+    register: (req, res, next) => {
+    		var credentialDetails = UserService.validateCredentialsToken(req.hostname, req.body.credentials);
+    		if(credentialDetails.valid === false) {
+      			console.error(`Invalid credentials: ${credentialDetails.errors.join(', ')}`);
+      			return res.status(400).json({
+      				error: 'Invalid credentials token',
+      				details: credentialDetails.errors
+      			});
+    		}
         var validity = UserService.valid(credentialDetails.payload, true);
         if (!validity.valid) {
             return res.status(400).json({
@@ -47,27 +47,27 @@ module.exports = {
             }, {
                 email: credentialDetails.payload.email
             }]
-        }, function(err, result) {
+        }, (err, result) => {
             if (err) return next(err);
             if (result) {
                 return res.status(409).json({
                     error: 'User already exists'
                 });
             }
-            UserService.create(credentialDetails.payload, function(err, data) {
+            UserService.create(credentialDetails.payload, (err, data) => {
                 if (err) return next(err)
                 res.status(201).json(data);
             });
         });
     },
-    update: function(req, res, next) {
+    update: (req, res, next) => {
         var validity = UserService.valid(req.body, false);
         if (!validity.valid) {
             return res.status(400).json({
                 error: validity.reason
             });
         }
-        UserService.update(req.params.id, req.body, function(err, result) {
+        UserService.update(req.params.id, req.body, (err, result) => {
             if (err) return next(err);
             if (!result) {
                 return res.status(404).json({
@@ -77,40 +77,40 @@ module.exports = {
             res.status(200).json(result);
         });
     },
-    remove: function(req, res, next) {
+    remove: (req, res, next) => {
         UserService.findOne({
             _id: req.params.id
-        }, function(err, result) {
+        }, (err, result) => {
             if (err) return next(err);
             if (!result) {
                 return res.status(404).json({
                     error: 'User not found'
                 });
             }
-            UserService.delete(req.params.id, function(err) {
+            UserService.delete(req.params.id, (err) => {
                 if (err) return next(err)
                 res.status(200).json({});
             });
         });
     },
-    generateToken: function(req, res, next) {
+    generateToken: (req, res, next) => {
         var credentialDetails = UserService.validateCredentialsToken(req.hostname, req.body.credentials);
         if (credentialDetails.valid === false) {
             console.error(`Invalid credentials: ${credentialDetails.errors.join(', ')}`);
             return res.status(400).json({
                 error: 'Invalid credentials token',
-				details: credentialDetails.errors
+				        details: credentialDetails.errors
             });
         }
 
-        UserService.checkLogin(credentialDetails.payload, function(err, userRecord) {
+        UserService.checkLogin(credentialDetails.payload, (err, userRecord) => {
             if (err) return next(err);
             if (!userRecord) {
                 return res.status(401).json({
                     error: 'Incorrect credentials'
                 });
             }
-            UserService.generateAuthToken(userRecord, function(generatedToken) {
+            UserService.generateAuthToken(userRecord, (generatedToken) => {
                 res.status(201).json({
                     token: generatedToken
                 });
@@ -118,8 +118,8 @@ module.exports = {
 
         });
     },
-    generateAvatar: function(req, res, next) {
-        UserService.avatar(req.params.id, function(err, resp) {
+    generateAvatar: (req, res, next) => {
+        UserService.avatar(req.params.id, (err, resp) => {
             if (err) {
                 console.error('UserApi.generateAvatar errored');
                 return next(err);
