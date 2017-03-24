@@ -24,7 +24,7 @@
                 <h2 class="name">{{:: baseline._id }}</h2>
                 <ul class="meta">
                     <li>Created: {{:: ( baseline.dateCreated | date:"dd/MM/yyyy 'at' h:mma") || 'N/A' }}</li>
-                    <li>Last Updated By: {{:: baseline.lastUpdatedBy || 'N/A' }}</li>
+                    <li ng-if="baseline.lastUpdatedByUser">Last Updated By: <a href="#/user/{{:: baseline.lastUpdatedByUser}}">{{:: baseline.lastUpdatedBy || 'N/A' }}</a></li>
                     <li>Last Updated: {{:: (baseline.lastUpdated | date:"dd/MM/yyyy 'at' h:mma") || 'N/A'}}</li>
                     <li>Browser(s): {{:: list.getBrowsers(baseline) || 'N/A'}}</li>{{list.test}}
                     <li>Labels: <tag ng-repeat="label in baseline.labels track by label" value="label" ng-click="list.toggleLabelToFilter(label)"></tag></li>

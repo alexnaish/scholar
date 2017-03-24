@@ -18,6 +18,7 @@ module.exports = {
                     $group: {
                         _id: '$name',
                         dateCreated: {$first: '$dateCreated'},
+                        lastUpdatedByUser: {$first: '$meta.lastUpdatedByUser'},
                         lastUpdatedBy: {$first: '$meta.lastUpdatedBy'},
                         lastUpdated: {$first: '$meta.lastUpdated'},
                         labels: {$push: '$meta.labels'},
