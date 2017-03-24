@@ -38,7 +38,10 @@ gulp.task('templates', function() {
 });
 
 gulp.task('build-js', ['templates'], function() {
-  return gulp.src(['./app/js/**/*.js'])
+  return gulp.src([
+    './node_modules/lazysizes/lazysizes.min.js',
+    './app/js/**/*.js'
+  ])
     .pipe(concat('bundle.js'))
     .pipe(uglify().on('error', console.log.bind(this)))
     .pipe(gulp.dest('./public/js/'));

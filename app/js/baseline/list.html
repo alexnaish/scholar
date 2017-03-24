@@ -19,7 +19,7 @@
     <div class="baseline-item"
          ng-repeat="baseline in list.baselines track by baseline._id">
         <div class="snapshot">
-            <img class="snapshot-image" ng-src={{::"/api/baseline/"+baseline.results[0]._id+"/raw"}}></img>
+            <img class="snapshot-image lazyload" data-src={{::"/api/baseline/"+baseline.results[0]._id+"/raw"}}></img>
             <div class="snapshot-info">
                 <h2 class="name">{{:: baseline._id }}</h2>
                 <ul class="meta">
