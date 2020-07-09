@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless": "^1.74.1",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-offline": "^6.4.0",
+    "serverless-plugin-optimize": "^4.1.4-rc.1",
+    "serverless-s3-local": "^0.6.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.710.0",
+    "dynasty": "^0.3.15",
+    "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.0",
+    "pino": "^6.3.2",
+    "uuid": "^8.2.0"
+  }
+}

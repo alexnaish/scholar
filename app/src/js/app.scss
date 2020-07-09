@@ -1,0 +1,77 @@
+$dark_blue: #1E2A50;
+$yellow: #EAB643;
+$green: #36AA63;
+$orange: #C64C2C;
+$white: #FCFCFC;
+$dark: #2F2D2E;
+
+$google: #DF4A32;
+$github: #333;
+
+$desktop: 1240px;
+$tablet: 750px;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  // Colours
+  --black: #111;
+  --white: #{$white};
+  --grey: #{darken($white, 10)};
+  --light: #{lighten($dark, 10)};
+  --dark: #{$dark};
+  --light-blue: #{lighten($dark_blue, 20)};
+  --blue: #{lighten($dark_blue, 10)};
+  --dark-blue: #{$dark_blue};
+  --darkest-blue: #{darken($dark_blue, 10)};
+  --orange: #{$orange};
+  --dark-orange: #{darken($orange, 10)};
+
+  // Social
+  --google: #{$google};
+  --google-dark: #{darken($google, 10)};
+  --github: #{$github};
+  --github-dark: #{darken($github, 10)};
+
+  // Size stuff
+  --nav-height: 80px;
+  --container-width: 1240px;
+  --padding: 60px;
+  --padding-small: 30px;
+  --button-height: 50px;
+  --border-radius: 4px;
+
+  // Font stuff
+  --font-family: 'Open Sans', sans-serif;
+  --text-size: 16px;
+
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  font-weight: 300;
+  font-size: var(--text-size);
+  line-height: 1.5;
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media only screen and (max-width: $desktop) {
+  :root {
+    --padding: 45px;
+    --padding-small: 20px;
+  }
+}
+
+@media only screen and (max-width: $tablet) {
+  :root {
+    --padding: 30px;
+    --padding-small: 10px;
+  }
+}

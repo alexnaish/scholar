@@ -1,0 +1,52 @@
+.social-button {
+  display: block;
+  position: relative;
+  font-family: var(--font-family);
+  font-size: var(--text-size);
+  border: none;
+  height: 50px;
+  color: white;
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto 16px;
+  padding-left: 60px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    height: 50px;
+    width: 50px;
+    background-size: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.social-button--google {
+  background-color: var(--google);
+
+  &:hover {
+    background-color: var(--google-dark);
+  }
+
+  &::before {
+    background-image: url('https://img.icons8.com/color/48/000000/google-logo.png');
+  }
+}
+
+.social-button--github {
+  background-color: var(--github);
+
+  &:hover {
+    background-color: var(--github-dark);
+  }
+
+  &::before {
+    background-image: url('https://img.icons8.com/fluent/48/000000/github.png');
+  }
+}

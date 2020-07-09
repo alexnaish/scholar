@@ -1,0 +1,142 @@
+.footer {
+  background-color: var(--dark);
+  padding: var(--padding-small) var(--padding);
+  color: white;
+
+  &__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+  }
+
+  &__columns, &__links-panel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &__contact, &__links-panel {
+    min-width: 315px;
+    flex-grow: 1;
+    flex-basis: 50%;
+    margin: 16px 0;
+    padding: var(--padding-small);
+  }
+
+  &__contact-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  &__contact-message {
+    margin-bottom: 24px;
+  }
+
+  &__contact-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &__contact-link {
+    position: relative;
+    background-color: var(--white);
+    width: 50px;
+    overflow: hidden;
+    padding: 0;
+    color: transparent;
+    border-radius: 25px;
+    height: 50px;
+    line-height: 50px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+
+    text-decoration: none;
+    transition: background-color 0.3s ease, width 0.3s ease, border-radius 0.1s ease;
+
+    &:hover {
+      background-color: var(--grey);
+      color: var(--black);
+      width: 130px;
+      padding: 0 16px 0 50px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-position: center;
+      background-size: 32px;
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+    }
+
+    &--github {
+      &:hover {
+        border-radius: 25px 4px 4px 25px;
+      }
+      &::before {
+        background-image: url('https://img.icons8.com/fluent/48/000000/github.png');
+      }
+    }
+
+    &--linkedin {
+      &:hover {
+        border-radius: 4px;
+      }
+      &::before {
+        background-image: url('https://img.icons8.com/color/48/000000/linkedin.png');
+      }
+    }
+
+    &--website {
+      &:hover {
+        border-radius: 4px 25px 25px 4px;
+      }
+      &::before {
+        background-image: url('https://img.icons8.com/color/48/000000/web.png');
+      }
+    }
+
+  }
+
+  &__links-column {
+    width: 50%;
+    min-width: 175px;
+  }
+
+  &__links-header {
+    font-weight: 400;
+    margin-bottom: 24px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  &__link {
+    display: block;
+    text-decoration: none;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  &__copyright {
+    position: relative;
+    text-align: center;
+    padding-top: 40px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 1px;
+      left: 20%;
+      top: 20px;
+      background-color: var(--light);
+    }
+  }
+
+}

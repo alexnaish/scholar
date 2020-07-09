@@ -1,0 +1,43 @@
+.promo {
+  position: relative;
+  min-height: 380px;
+
+  &__link {
+    display: inline-block;
+    height: var(--button-height);
+    min-width: 200px;
+    line-height: var(--button-height);
+    background-color: var(--darkest-blue);
+    font-family: var(--font-family);
+    text-align: center;
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 300;
+    border-radius: var(--border-radius);
+    margin-top: 24px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--black);
+    }
+  }
+
+  &__image {
+    position: absolute;
+    left: 60%;
+    bottom: calc(var(--padding) * -1);
+    width: 50%;
+    max-height: 620px;
+    height: auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    &__content {
+      max-width: 40%;
+    }
+    &__image {
+      width: 60%;
+    }
+  }
+
+}

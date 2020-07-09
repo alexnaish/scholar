@@ -1,0 +1,39 @@
+SnapshotsTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${env:SNAPSHOTS_TABLE}
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    ProvisionedThroughput:
+      ReadCapacityUnits: 1
+      WriteCapacityUnits: 1
+UsersTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${env:USERS_TABLE}
+    AttributeDefinitions:
+      - AttributeName: email
+        AttributeType: S
+    KeySchema:
+      - AttributeName: email
+        KeyType: HASH
+    ProvisionedThroughput:
+      ReadCapacityUnits: 1
+      WriteCapacityUnits: 1
+AuthCacheTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${env:AUTH_CACHE_TABLE}
+    AttributeDefinitions:
+      - AttributeName: token
+        AttributeType: S
+    KeySchema:
+      - AttributeName: token
+        KeyType: HASH
+    ProvisionedThroughput:
+      ReadCapacityUnits: 1
+      WriteCapacityUnits: 1

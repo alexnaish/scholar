@@ -23,3 +23,9 @@ tmp
 *.iml
 *.iws
 *.ipr
+
+.cache
+dist
+.dynamodb
+.env
+.DS_Store

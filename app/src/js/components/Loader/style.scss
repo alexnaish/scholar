@@ -1,0 +1,79 @@
+.loader {
+  margin: 0 auto;
+  width: 200px;
+  text-align: center;
+  padding: 16px;
+
+  &__spinner {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 16px auto;
+    background-color: var(--grey);
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+    }
+    &::before {
+      background-color: var(--light);
+      height: 12px;
+      width: 12px;
+      border-radius: 12px;
+      animation: follow-edge 2s ease infinite;
+    }
+
+    &::after {
+      background-color: var(--dark);
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      opacity: 1;
+      animation: fill 8s ease infinite;
+    }
+
+  }
+
+}
+
+@keyframes follow-edge {
+    0% {
+      left: -12px;
+      top: -12px;
+    }
+    25% {
+      left: 100%;
+      top: -12px;
+    }
+    50% {
+      left: 100%;
+      top: 100%;
+    }
+    75% {
+      left: -12px;
+      top: 100%;
+    }
+    100% {
+      left: -12px;
+      top: -12px;
+    }
+}
+
+@keyframes fill {
+    0% {
+      width: 0;
+    }
+    70% {
+      width: 100%;
+      opacity: 1;
+    }
+    90% {
+      opacity: 0;
+      width: 100%;
+    }
+    100% {
+      opacity: 0;
+      width: 0;
+    }
+}

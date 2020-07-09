@@ -1,0 +1,76 @@
+service: scholar
+provider:
+  name: aws
+  runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/snapshots"
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:PutObject
+      Resource: "arn:aws:s3:::scholar-snapshots/*"
+
+functions:
+  list-snapshots:
+    handler: modules/snapshots/list.handler
+    events:
+      - http:
+          path: snapshots
+          method: get
+          cors: true
+  categorise-image:
+    handler: modules/snapshots/categorise.handler
+    events:
+      - s3: scholar-snapshots
+        event: s3:*
+  auth-signin:
+    handler: modules/auth/signin.handler
+    events:
+      - http:
+          path: auth/{provider}
+          method: get
+  auth-callback:
+    handler: modules/auth/callback.handler
+    events:
+      - http:
+          path: auth/{provider}/callback
+          method: get
+
+resources:
+   - Resources: ${file(resources/dynamodb.yml)}
+   - Resources: ${file(resources/s3.yml)}
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-s3-local
+  - serverless-plugin-optimize
+
+custom:
+  dotenv:
+    basePath: ../
+  s3:
+    port: 8000
+    directory: ./offline/s3/
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      domain:
+        sources:
+          - table: ${env:SNAPSHOTS_TABLE}
+            sources: [./offline/seed/snapshots.json]

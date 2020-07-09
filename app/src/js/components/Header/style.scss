@@ -1,0 +1,38 @@
+.header {
+  height: var(--nav-height);
+  line-height: var(--nav-height);
+  padding: 0 var(--padding);
+  border-bottom: 2px solid var(--grey);
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: var(--container-width);
+    margin: 0 auto;
+  }
+
+  &__name {
+    position: relative;
+    font-size: 36px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: var(--black);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 80%;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--black);
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+  }
+}
