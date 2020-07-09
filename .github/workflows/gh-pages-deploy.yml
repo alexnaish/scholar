@@ -3,10 +3,12 @@ on:
   push:
     branches:
       - modernisation
+
 defaults:
   run:
     shell: bash
     working-directory: app
+
 jobs:
   gh-pages-deploy:
     name: Deploying to gh-pages
@@ -27,8 +29,8 @@ jobs:
         run: npm ci
       - name: Build production assets
         run: npm run build
-      - name: Run deploy script
-        run: |
-          git config user.name "alexnaish"
-          git config user.email "alex@naish.io"
-          npx gh-pages -d dist
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./app/dist

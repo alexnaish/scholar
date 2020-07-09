@@ -13,7 +13,7 @@ const DashboardPage = lazy(() => import('./pages/Dashboard').then(destructModule
 const AboutPage = lazy(() => import('./pages/About').then(destructModule('AboutPage')));
 const PrivacyPage = lazy(() => import('./pages/Privacy').then(destructModule('PrivacyPage')));
 
-const basePath = process.env.NODE_ENV === 'production' ? 'scholar' : '/';
+const basePath = process.env.NODE_ENV === 'production' ? '/scholar' : '';
 
 export const AppRouter = () => {
   return (
