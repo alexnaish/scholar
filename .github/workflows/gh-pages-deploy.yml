@@ -29,5 +29,6 @@ jobs:
         run: npm run build
       - name: Run deploy script
         run: |
-          git config user.name "alexnaish" && git config user.email "alex@naish.io"
+          git config user.name "alexnaish"
+          git config user.email "alex@naish.io"
           npx gh-pages -d dist
