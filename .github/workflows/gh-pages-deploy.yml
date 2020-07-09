@@ -1,4 +1,4 @@
-name: Deploy to github pages
+name: Deploy
 on:
   push:
     branches:
@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   gh-pages-deploy:
-    name: Deploying to gh-pages
+    name: Deploying frontend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
