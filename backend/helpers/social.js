@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const config = {
   google: {
     client_id: '1011728256302-kbvpisa32oadh7udiniea5gks5cmqsqj.apps.googleusercontent.com',
-    client_secret: 'xNap9Bv24p9xfvkIm5r65t71',
+    client_secret: process.env.GOOGLE_SECRET,
     authorisation_uri: 'https://accounts.google.com/o/oauth2/v2/auth',
     token_uri: 'https://oauth2.googleapis.com/token',
     response_type: 'code',
@@ -13,7 +13,7 @@ const config = {
   },
   github: {
     client_id: 'c86eca8cd3719af6e6f7',
-    client_secret: 'ab51c484d82f2082085f0a8ccd9d06ac70a2d197',
+    client_secret: process.env.GITHUB_SECRET,
     authorisation_uri: 'https://github.com/login/oauth/authorize',
     token_uri: 'https://github.com/login/oauth/access_token',
     response_type: 'code',
