@@ -10,12 +10,22 @@ endif
 
 # Utils
 SHELL := /bin/bash
+MAKEFLAGS += -j2
 
 # Add node_module dependencies to path
 export PATH := $(PATH):./node_modules/.bin
 DONE = echo ✓ $@ done
 
 .PHONY: api
+
+install-app:
+	@cd app && npm ci
+
+install-api:
+	cd backend && npm ci
+
+install: install-app install-api
+	npm ci
 
 pretty:
 	prettier --write "{app\/src,backend\/modules}/**/*.js"
