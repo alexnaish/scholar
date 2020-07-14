@@ -2,15 +2,15 @@ import React, { useReducer, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 const initialState = {
-  snapshots: [],
+  snapshots: ['blah'],
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case 'increment':
-      return { snapshots: [...state.snapshots, 'new snap!'] };
+      return { snapshots: [...state.snapshots, `new snap! ${Math.random()}`] };
     case 'reset':
-      return { snapshots: [] };
+      return initialState;
     default:
       throw new Error(`Unknown action.type: ${action.type}`);
   }

@@ -5,6 +5,10 @@ $orange: #C64C2C;
 $white: #FCFCFC;
 $dark: #2F2D2E;
 
+$success: #34B249;
+$warning: #E8B130;
+$error: #C91D2B;
+
 $google: #DF4A32;
 $github: #333;
 
@@ -36,6 +40,14 @@ $tablet: 750px;
   --google-dark: #{darken($google, 10)};
   --github: #{$github};
   --github-dark: #{darken($github, 10)};
+
+	// Status
+	--success: #{$success};
+	--success-dark: #{darken($success, 10)};
+	--warning: #{$warning};
+	--warning-dark: #{darken($warning, 10)};
+	--error: #{$error};
+	--error-dark: #{darken($error, 10)};
 
   // Size stuff
   --nav-height: 80px;

@@ -58,9 +58,9 @@ export const Overlay = ({
             >
               {typeof children === 'function'
                 ? children({
-                    state,
-                    close: handleClose,
-                  })
+                  state,
+                  close: handleClose,
+                })
                 : children}
             </div>
           );

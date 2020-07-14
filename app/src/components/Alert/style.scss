@@ -1,0 +1,40 @@
+.alert {
+	position: relative;
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto 24px;
+	padding: 16px;
+	border-radius: 4px;
+
+	&__title {
+		font-size: 24px;
+		margin-bottom: 8px;
+	}
+
+	&__dismiss {
+		position: absolute;
+		top: 12px;
+		right: 16px;
+		cursor: pointer;
+		padding: 2px 4px;
+		background: none;
+    border: none;
+    color: var(--white);
+    font-size: 20px;
+	}
+
+	&--success {
+		background-color: var(--success);
+	}
+
+	&--warning {
+		background-color: var(--warning);
+	}
+
+	&--error {
+		background-color: var(--error);
+		color: var(--white);
+	}
+
+
+}

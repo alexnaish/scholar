@@ -7,8 +7,8 @@ import { AuthContext } from '../../contexts/Auth';
 export const AuthenticatedRoute = ({ path, component }) => {
   const [match] = useRoute(path);
   const setLocation = useLocation()[1];
-  const authState = useContext(AuthContext);
-  const allowed = (match && authState) || null;
+  const [state] = useContext(AuthContext);
+  const allowed = (match && state.accessToken) || null;
 
   useEffect(() => {
     if (!allowed) {
