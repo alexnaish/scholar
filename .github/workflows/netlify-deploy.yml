@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
         with:
-          version: 12.x
+          node-version: 12.x
       - uses: actions/checkout@v2
       - run: npm ci
       - run: npm run build
