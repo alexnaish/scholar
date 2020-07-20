@@ -11,7 +11,9 @@ jobs:
   netlify-deploy:
     name: Deploying frontend
     runs-on: ubuntu-latest
-    working-directory: app
+    defaults:
+      run:
+        working-directory: app
     steps:
       - uses: actions/setup-node@v1
         with:

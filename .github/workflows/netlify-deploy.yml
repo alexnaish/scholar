@@ -12,7 +12,9 @@ jobs:
   netlify-deploy:
     name: Deploying frontend
     runs-on: ubuntu-latest
-    working-directory: app
+    defaults:
+      run:
+        working-directory: app
     steps:
       - uses: actions/setup-node@v1
         with:
@@ -34,7 +36,9 @@ jobs:
   backend-deploy:
     name: Deploying backend
     runs-on: ubuntu-latest
-    working-directory: backend
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - uses: actions/setup-node@v1
         with:
@@ -43,4 +47,4 @@ jobs:
       - run: npm ci
       - run: npm t
       - name: Deploy
-        run: 'should do something serverless or terraform here...'
+        run: echo "should do something serverless or terraform here...""
