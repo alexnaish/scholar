@@ -1,8 +1,7 @@
 name: Deploy
 on:
-  push:
-    branches:
-      - modernisation
+  pull_request:
+    types: ['opened', 'edited', 'synchronize']
 
 defaults:
   run:
@@ -26,21 +25,6 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_API_ID }}
           NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
-          NETLIFY_DEPLOY_TO_PROD: true
           build_directory: ./app/dist
           install_command: echo "already installed!"
           build_command: cp app/netlify.toml app/dist/
-
-  backend-deploy:
-    name: Deploying backend
-    runs-on: ubuntu-latest
-    working-directory: backend
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - uses: actions/checkout@v2
-      - run: npm ci
-      - run: npm t
-      - name: Deploy
-        run: 'should do something serverless or terraform here...'
