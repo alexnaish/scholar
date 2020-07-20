@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Router, Route, Switch } from 'wouter';
+import { Route, Switch } from 'wouter';
 import { AuthenticatedRoute } from './components/AuthenticatedRoute';
 import { Loader } from './components/Loader';
 import { AuthProvider } from './contexts/Auth';
@@ -15,24 +15,20 @@ const AboutPage = lazy(() => import('./pages/About').then(destructModule('AboutP
 const PrivacyPage = lazy(() => import('./pages/Privacy').then(destructModule('PrivacyPage')));
 const ErrorPage = lazy(() => import('./pages/Error').then(destructModule('ErrorPage')));
 
-const basePath = process.env.NODE_ENV === 'production' ? '/scholar' : '';
-
 export const AppRouter = () => {
-  return (
+	return (
 		<AuthProvider>
 			<Suspense fallback={<Loader />}>
-				<Router base={basePath}>
-					<Switch>
-						<Route path="/" component={HomePage} />
-						<Route path="/login" component={LoginPage} />
-						<Route path="/logout" component={LogoutPage} />
-						<Route path="/about" component={AboutPage} />
-						<Route path="/privacy" component={PrivacyPage} />
-						<AuthenticatedRoute path="/dashboard" component={DashboardPage} />
-						<Route path="/:rest*" component={() => <ErrorPage statusCode="404" />} />
-					</Switch>
-				</Router>
+				<Switch>
+					<Route path="/" component={HomePage} />
+					<Route path="/login" component={LoginPage} />
+					<Route path="/logout" component={LogoutPage} />
+					<Route path="/about" component={AboutPage} />
+					<Route path="/privacy" component={PrivacyPage} />
+					<AuthenticatedRoute path="/dashboard" component={DashboardPage} />
+					<Route path="/:rest*" component={() => <ErrorPage statusCode="404" />} />
+				</Switch>
 			</Suspense>
 		</AuthProvider>
-  );
+	);
 };
