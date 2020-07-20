@@ -28,3 +28,5 @@ jobs:
           NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
           NETLIFY_DEPLOY_TO_PROD: true
           build_directory: ./app/dist
+          install_command: echo "already installed!"
+          build_command: echo "already build!"
