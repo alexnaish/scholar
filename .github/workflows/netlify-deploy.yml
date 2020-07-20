@@ -10,7 +10,7 @@ defaults:
     working-directory: app
 
 jobs:
-  gh-pages-deploy:
+  netlify-deploy:
     name: Deploying frontend
     runs-on: ubuntu-latest
     steps:
@@ -29,4 +29,4 @@ jobs:
           NETLIFY_DEPLOY_TO_PROD: true
           build_directory: ./app/dist
           install_command: echo "already installed!"
-          build_command: echo "already build!"
+          build_command: cp app/netlify.toml app/dist/
