@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel build src/index.html --no-source-maps --public-url /scholar/",
+    "build": "npx parcel build src/index.html --no-source-maps",
     "start": "parcel serve src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
