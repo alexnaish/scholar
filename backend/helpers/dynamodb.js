@@ -15,6 +15,7 @@ const credentials = !onAws ? {
 
 const DynamoDB = new AWS.DynamoDB.DocumentClient(credentials);
 const DynamoDBClient = {
+  query: (params) => DynamoDB.query(params).promise(),
   get: (params) => DynamoDB.get(params).promise().then(res => res.Item),
   put: (params) => DynamoDB.put(params).promise(),
   update: (params) => DynamoDB.update(params).promise(),

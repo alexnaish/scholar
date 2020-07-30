@@ -3,6 +3,23 @@ SnapshotsTable:
   Properties:
     TableName: ${env:SNAPSHOTS_TABLE}
     AttributeDefinitions:
+      - AttributeName: team_id
+        AttributeType: S
+      - AttributeName: id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: team_id
+        KeyType: HASH
+      - AttributeName: id
+        KeyType: RANGE
+    ProvisionedThroughput:
+      ReadCapacityUnits: 1
+      WriteCapacityUnits: 1
+TeamsTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${env:TEAMS_TABLE}
+    AttributeDefinitions:
       - AttributeName: id
         AttributeType: S
     KeySchema:

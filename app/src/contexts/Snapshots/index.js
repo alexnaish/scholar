@@ -1,16 +1,23 @@
 import React, { useReducer, createContext } from 'react';
 import PropTypes from 'prop-types';
 
+import { TYPES } from './config';
+
 const initialState = {
-  snapshots: ['blah'],
+  snapshots: [],
+  cursor: undefined,
+  count: 0
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'increment':
-      return { snapshots: [...state.snapshots, `new snap! ${Math.random()}`] };
-    case 'reset':
-      return initialState;
+    case TYPES.UPDATE:
+      return {
+        ...state,
+        count: state.count + action.payload.count,
+        snapshots: [...state.snapshots, ...action.payload.data],
+        cursor: action.payload.cursor
+      };
     default:
       throw new Error(`Unknown action.type: ${action.type}`);
   }

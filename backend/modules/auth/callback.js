@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const { onAws } = require('../../helpers/aws');
 const { client } = require('../../helpers/dynamodb');
 const providers = require('../../helpers/social');
@@ -43,13 +44,21 @@ const callbackHandler = async (event, context, { logger }) => {
 
     await client.delete({ TableName: process.env.AUTH_CACHE_TABLE, Key: { token: state } });
     let user = await client.get({ TableName: process.env.USERS_TABLE, Key: { email } });
+    const team_id = user ? user.team_id : uuidv4();
 
     if (!user) {
       logger.info('registering new user %o', { provider, email });
-      user = await register({ email, name, socialProvider: provider });
+      await client.put({
+        TableName: process.env.TEAMS_TABLE,
+        Item: {
+          id: team_id,
+          name: `Team ${name}`
+        }
+      });
+      user = await register({ email, name, team_id, social_provider: provider });
     }
 
-    const accessToken = await generateAccessToken({ email, name, refresh_token: user.refresh_token });
+    const accessToken = await generateAccessToken({ email, name, team_id, refresh_token: user.refresh_token });
 
     return {
       statusCode: 200,

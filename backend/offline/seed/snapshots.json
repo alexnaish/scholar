@@ -1,6 +1,26 @@
 [
   {
-    "id": "5942b19e-46fa-4cca-a570-c6bb59ff2c26",
-    "name": "example"
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+    "id": "main#splash"
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+    "id": "main#footer"
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+    "id": "main#header"
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+    "id": "main#promo"
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+    "id": "main#signup"
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+    "id": "main#github"
   }
 ]

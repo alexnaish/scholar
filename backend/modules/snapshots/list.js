@@ -1,26 +1,36 @@
-const AWS = require('aws-sdk');
 const wrapper = require('../wrapper');
-
-// const S3 = new AWS.S3({
-//   s3ForcePathStyle: true,
-//   endpoint: new AWS.Endpoint('http://localhost:8000'),
-//   accessKeyId: 'S3RVER',
-// });
+const { client } = require('../../helpers/dynamodb');
+const { getRawId } = require('../../helpers/snapshot');
 
 const snapshotListHandler = async (event, context, { logger }) => {
   logger.error('starting!');
 
-  // await S3.putObject({
-  //   Bucket: 'scholar-snapshots',
-  //   Key: 'lol',
-  //   Body: Buffer.from('this is a tést'),
-  // }).promise();
+  const { cursor } = event.queryStringParameters || {};
+  const { team_id } = context.user;
+
+  const { Count, Items, LastEvaluatedKey } = await client.query({
+    TableName: process.env.SNAPSHOTS_TABLE,
+    KeyConditionExpression: 'team_id = :team and begins_with(id, :selector)',
+    ProjectionExpression: 'id',
+    ExclusiveStartKey: cursor ? {
+      team_id,
+      id: `main#${cursor}`
+    } : undefined,
+    Limit: 20,
+    ExpressionAttributeValues: {
+      ':team': team_id,
+      ':selector': 'main'
+    }
+  });
+
+  let lastKey = LastEvaluatedKey && getRawId(LastEvaluatedKey.id);
 
   return {
     statusCode: 200,
     body: JSON.stringify({
-      event,
-      context
+      count: Count,
+      data: Items.map(item => ({ id: getRawId(item.id) })),
+      cursor: lastKey
     }),
   };
 };

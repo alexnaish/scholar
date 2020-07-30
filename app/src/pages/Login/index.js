@@ -18,9 +18,19 @@ export const LoginPage = () => {
 
     const queryParams = parse(window.location.search);
     if (queryParams.errorCode) {
-      const message = queryParams.errorCode === 'fulfilled'
-        ? 'Your authentication attempt was already fulfilled. Please clear your browser cookies and retry.'
-        : 'An unknown error occured when attempting to link accounts.';
+      let message;
+      switch (queryParams.errorCode) {
+        case 'fulfilled':
+          message = 'Your authentication attempt was already fulfilled. Please clear your browser cookies and retry.';
+          break;
+        case 'expired':
+          message = 'Your login has expired.';
+          break;
+        default:
+          message = 'An unknown error occured';
+          break;
+      }
+
       setError(message);
     }
 

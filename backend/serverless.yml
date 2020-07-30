@@ -74,3 +74,7 @@ custom:
         sources:
           - table: ${env:SNAPSHOTS_TABLE}
             sources: [./offline/seed/snapshots.json]
+          - table: ${env:TEAMS_TABLE}
+            sources: [./offline/seed/teams.json]
+          - table: ${env:USERS_TABLE}
+            sources: [./offline/seed/users.json]

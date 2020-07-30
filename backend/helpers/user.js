@@ -7,8 +7,8 @@ const { client } = require('./dynamodb');
 const sign = promisify(jwt.sign);
 const verify = promisify(jwt.verify);
 
-async function generateAccessToken({ email, name, refresh_token }) {
-  return await sign({ email, name, refresh_token }, process.env.JWT_SIGNING_SECRET, { expiresIn: '20m' });
+async function generateAccessToken({ email, name, team_id, refresh_token }) {
+  return await sign({ email, name, team_id, refresh_token }, process.env.JWT_SIGNING_SECRET, { expiresIn: '10m' });
 }
 
 async function revokeRefreshToken(email) {
@@ -43,14 +43,15 @@ async function refreshAccessToken(token) {
   const newRefreshToken = await revokeRefreshToken(email);
 
   // Generate a token with the new refresh_token
-  return generateAccessToken({ email, name: user.name, refresh_token: newRefreshToken });
+  return generateAccessToken({ email, name: user.name, team_id: user.team_id, refresh_token: newRefreshToken });
 }
 
 async function validateAccessToken(token) {
   const result = {};
   try {
     const verifiedToken = await verify(token, process.env.JWT_SIGNING_SECRET);
-    return result.user = verifiedToken;
+    result.user = verifiedToken;
+    return result;
   } catch (error) {
     result.error = error;
   }
@@ -69,12 +70,12 @@ async function validateAccessToken(token) {
 }
 
 module.exports = {
-  register: async ({ email, password = null, name, social_provider = null }) => {
-    const today = new Date();
+  register: async ({ email, name, team_id, social_provider }) => {
+    const today = Date.now();
     const Item = {
       email,
-      password,
       name,
+      team_id,
       social_provider,
       refresh_token: uuidv4(),
       created: today,

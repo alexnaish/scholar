@@ -19,6 +19,13 @@ export const login = (dispatch) => (payload) => {
   });
 };
 
+export const refresh = (dispatch) => (payload) => {
+  return dispatch({
+    type: TYPES.REFRESH,
+    payload
+  });
+};
+
 export const logout = (dispatch) => () => {
   return dispatch({
     type: TYPES.LOGOUT

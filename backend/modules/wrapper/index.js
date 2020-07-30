@@ -26,12 +26,13 @@ module.exports = ({ handler, requiresAccessToken }) => async (event, context) =>
       }
       // Token has been refreshed
       if (newToken) {
-        additionalHeaders['x-access-token'] = newToken;
+        const newTokenHeader = 'x-access-token';
+        additionalHeaders[newTokenHeader] = newToken;
+        additionalHeaders['access-control-expose-headers'] = newTokenHeader;
       }
       // Augment context with decoded token
       context.user = user;
     }
-
     const result = await handler(event, context, { logger });
 
     // If its a HTTP response, attach additional headers

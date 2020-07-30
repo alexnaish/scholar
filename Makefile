@@ -22,10 +22,11 @@ install-app:
 	@cd app && npm ci
 
 install-api:
-	cd backend && npm ci
+	@cd backend && npm ci
 
 install: install-app install-api
-	npm ci
+	@npm ci
+	@$(DONE)
 
 pretty:
 	prettier --write "{app\/src,backend\/modules}/**/*.js"
