@@ -1,26 +1,66 @@
 [
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
-    "id": "main#splash"
+		"id": "main#splash",
+		"version": 1,
+		"image_url": "https://picsum.photos/seed/splash/600",
+		"approval_date": 1596212765681
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
-    "id": "main#footer"
+		"id": "candidate#splash#123123",
+		"image_url": "https://picsum.photos/seed/splash-123/600",
+		"diff_image_url": "https://picsum.photos/seed/splash-123-diff/600?grayscale"
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
-    "id": "main#header"
+		"id": "candidate#splash#456456",
+		"image_url": "https://picsum.photos/seed/splash-456/600",
+		"diff_image_url": "https://picsum.photos/seed/splash-456-diff/600?grayscale"
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
-    "id": "main#promo"
+		"id": "main#footer",
+		"image_url": "https://picsum.photos/seed/footer/600",
+		"version": 3,
+		"approval_date": 1596212662681
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
-    "id": "main#signup"
+		"id": "version#footer#1",
+		"image_url": "https://picsum.photos/seed/footer-old/600"
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
-    "id": "main#github"
+		"id": "version#footer#2",
+		"image_url": "https://picsum.photos/seed/footer-less-old/600"
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+		"id": "main#header",
+		"image_url": "https://picsum.photos/seed/header/600",
+		"version": 1,
+		"approval_date": 1596212665681
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+		"id": "main#promo",
+		"image_url": "https://picsum.photos/seed/promo/600",
+		"version": 1,
+		"approval_date": 1596212760681
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+		"id": "main#signup",
+		"image_url": "https://picsum.photos/seed/signup/600",
+		"version": 1,
+		"approval_date": 1596212755681
+  },
+  {
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+		"id": "main#github",
+		"image_url": "https://picsum.photos/seed/github/600",
+		"version": 1,
+		"approval_date": 1596212765281
   }
 ]

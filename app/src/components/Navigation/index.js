@@ -1,6 +1,6 @@
-import React, { useContext, Fragment } from 'react';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'wouter';
-import { AuthContext } from '../../contexts/Auth';
 
 import './style.scss';
 
@@ -14,16 +14,19 @@ const LoggedInLinks = () => {
   );
 };
 
-export const Navigation = () => {
-  const [{ accessToken }] = useContext(AuthContext);
+export const Navigation = ({ authorised }) => {
 
   return (
     <nav className="nav">
       {
-        accessToken
+        authorised
           ? <LoggedInLinks />
           : <Link href="/login"><a className="nav__link">Login</a></Link>
       }
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  authorised: PropTypes.bool
 };

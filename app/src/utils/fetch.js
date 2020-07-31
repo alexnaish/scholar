@@ -7,7 +7,7 @@ import { storeSession, refresh, clearSession, logout } from '../contexts/Auth/ac
 
 export default function useFetch({ method = 'get', path, data = null }) {
   const [auth, dispatch] = useContext(AuthContext);
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState(undefined);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const setLocation = useLocation()[1];

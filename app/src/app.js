@@ -3,6 +3,7 @@ import { Route, Switch } from 'wouter';
 import { AuthenticatedRoute } from './components/AuthenticatedRoute';
 import { Loader } from './components/Loader';
 import { AuthProvider } from './contexts/Auth';
+import { SnapshotsProvider } from './contexts/Snapshots';
 import { HomePage } from './pages/Home';
 
 import './app.scss';
@@ -13,22 +14,28 @@ const LogoutPage = lazy(() => import('./pages/Logout').then(destructModule('Logo
 const DashboardPage = lazy(() => import('./pages/Dashboard').then(destructModule('DashboardPage')));
 const AboutPage = lazy(() => import('./pages/About').then(destructModule('AboutPage')));
 const PrivacyPage = lazy(() => import('./pages/Privacy').then(destructModule('PrivacyPage')));
+const ProfilePage = lazy(() => import('./pages/Profile').then(destructModule('ProfilePage')));
+const SnapshotPage = lazy(() => import('./pages/Snapshot').then(destructModule('SnapshotPage')));
 const ErrorPage = lazy(() => import('./pages/Error').then(destructModule('ErrorPage')));
 
 export const AppRouter = () => {
 	return (
 		<AuthProvider>
-			<Suspense fallback={<Loader />}>
-				<Switch>
-					<Route path="/" component={HomePage} />
-					<Route path="/login" component={LoginPage} />
-					<Route path="/logout" component={LogoutPage} />
-					<Route path="/about" component={AboutPage} />
-					<Route path="/privacy" component={PrivacyPage} />
-					<AuthenticatedRoute path="/dashboard" component={DashboardPage} />
-					<Route path="/:rest*" component={() => <ErrorPage statusCode="404" />} />
-				</Switch>
-			</Suspense>
+			<SnapshotsProvider>
+				<Suspense fallback={<Loader />}>
+					<Switch>
+						<Route path="/" component={HomePage} />
+						<Route path="/login" component={LoginPage} />
+						<Route path="/logout" component={LogoutPage} />
+						<Route path="/about" component={AboutPage} />
+						<Route path="/privacy" component={PrivacyPage} />
+						<AuthenticatedRoute path="/profile" component={ProfilePage} />
+						<AuthenticatedRoute path="/dashboard" component={DashboardPage} />
+						<AuthenticatedRoute path="/snapshot/:id" component={SnapshotPage} />
+						<Route path="/:rest*" component={() => <ErrorPage statusCode="404" />} />
+					</Switch>
+				</Suspense>
+			</SnapshotsProvider>
 		</AuthProvider>
 	);
 };

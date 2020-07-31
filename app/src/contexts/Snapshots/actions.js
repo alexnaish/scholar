@@ -6,3 +6,10 @@ export const update = (dispatch) => (payload) => {
     payload
   });
 };
+
+export const count = (dispatch) => (payload) => {
+  return dispatch({
+    type: TYPES.COUNT,
+    payload
+  });
+};

@@ -27,9 +27,11 @@ export const Signin = ({ error }) => {
         return setLocation(`/login?errorCode=${data.errorCode}`, true);
       }
 
-      storeSession(data);
-      login(dispatch)(data);
-      setLocation('/dashboard');
+      if (data.accessToken) {
+        storeSession(data);
+        login(dispatch)(data);
+        setLocation('/dashboard');
+      }
 
     };
     window.addEventListener('message', listener);

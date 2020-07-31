@@ -6,7 +6,6 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:Query
-        - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
@@ -16,9 +15,16 @@ provider:
       Action:
         - s3:GetObject
         - s3:PutObject
-      Resource: "arn:aws:s3:::scholar-snapshots/*"
+      Resource: "arn:aws:s3:::${env:S3_BUCKET}/*"
 
 functions:
+  dashboard-stats:
+    handler: modules/stats/info.handler
+    events:
+      - http:
+          path: stats
+          method: get
+          cors: true
   list-snapshots:
     handler: modules/snapshots/list.handler
     events:
@@ -26,11 +32,13 @@ functions:
           path: snapshots
           method: get
           cors: true
-  categorise-image:
-    handler: modules/snapshots/categorise.handler
+  get-snapshot:
+    handler: modules/snapshots/get.handler
     events:
-      - s3: scholar-snapshots
-        event: s3:*
+      - http:
+          path: snapshots/{id}
+          method: get
+          cors: true
   auth-signin:
     handler: modules/auth/signin.handler
     events:
@@ -51,9 +59,9 @@ resources:
 plugins:
   - serverless-dotenv-plugin
   - serverless-offline
-  - serverless-dynamodb-local
-  - serverless-s3-local
   - serverless-plugin-optimize
+  - serverless-dynamodb-local
+  # - serverless-s3-local
 
 custom:
   dotenv:

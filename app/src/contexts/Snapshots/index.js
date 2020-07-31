@@ -6,17 +6,25 @@ import { TYPES } from './config';
 const initialState = {
   snapshots: [],
   cursor: undefined,
-  count: 0
+  approved: 0,
+  candidates: 0,
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case TYPES.UPDATE:
+    case TYPES.UPDATE: {
       return {
         ...state,
         count: state.count + action.payload.count,
-        snapshots: [...state.snapshots, ...action.payload.data],
+        snapshots: action.payload.data,
         cursor: action.payload.cursor
+      };
+    }
+    case TYPES.COUNT:
+      return {
+        ...state,
+        approved: action.payload.approved,
+        candidates: action.payload.candidates,
       };
     default:
       throw new Error(`Unknown action.type: ${action.type}`);
