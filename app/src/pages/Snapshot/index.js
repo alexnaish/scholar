@@ -7,7 +7,10 @@ import { Section } from '../../components/Section';
 import { Loader } from '../../components/Loader';
 import { GridContainer } from '../../components/GridContainer';
 import { InfoPanel } from '../../components/InfoPanel';
+import { Title } from '../../components/Title';
 import { OffscreenSection } from '../../components/OffscreenSection';
+import { Paragraph } from '../../components/Paragraph';
+import { Snapshot } from '../../components/Snapshot';
 import useFetch from '../../utils/fetch';
 
 const SnapshotDetails = ({ version, approval_date }) => {
@@ -25,7 +28,7 @@ SnapshotDetails.propTypes = {
 };
 
 export const SnapshotPage = ({ params }) => {
-  const [showOverlay, setShowOverlay] = useState(null);
+  const [historicalVersion, setHistoricalVersion] = useState(null);
   const { response, error, loading } = useFetch({ path: `/snapshots/${params.id}` });
 
   return (
@@ -37,14 +40,14 @@ export const SnapshotPage = ({ params }) => {
             <Fragment>
               <SnapshotDetails {...response.main} />
               <div>
-								History
+                <Title>History</Title>
                 {
                   response.history.map(history => {
                     return (
                       <div key={history.id}>
                         <div>{history.version}</div>
                         <div>Approved {timeDistance(history.approval_date)} ago</div>
-                        <button className="button" onClick={() => setShowOverlay(true)}>View Image</button>
+                        <button className="button" onClick={() => setHistoricalVersion(history)}>View Image</button>
                       </div>
                     );
                   })
@@ -55,12 +58,20 @@ export const SnapshotPage = ({ params }) => {
         }
       </Section>
       <OffscreenSection
-        display={showOverlay}
-        size="50%"
+        display={!!historicalVersion}
+        size="60%"
         minSize="320px"
-        onClose={() => setShowOverlay(false)}
+        onClose={() => setHistoricalVersion(null)}
       >
-				hello
+        {
+          historicalVersion ? (
+            <Section title={`Version ${historicalVersion.version}`}>
+              <Paragraph title={new Date(historicalVersion.approval_date).toLocaleDateString()}>Approved {timeDistance(historicalVersion.approval_date)} ago</Paragraph>
+              <Snapshot id={historicalVersion.id} image_url={historicalVersion.image_url} />
+            </Section>
+          ) : ''
+        }
+
       </OffscreenSection>
     </Shell>
   );

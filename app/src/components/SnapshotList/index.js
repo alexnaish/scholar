@@ -1,15 +1,13 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
-import { Link } from 'wouter';
 import PropTypes from 'prop-types';
 
 import { Loader } from '../Loader';
 import { GridContainer } from '../GridContainer';
 import { CallToAction } from '../Button';
+import { Snapshot } from '../Snapshot';
 import { SnapshotsContext } from '../../contexts/Snapshots';
 import { update } from '../../contexts/Snapshots/actions';
 import useFetch from '../../utils/fetch';
-
-import './style.scss';
 
 export const SnapshotList = ({ outstanding = {} }) => {
   const [nextCursor, setNextCursor] = useState(undefined);
@@ -37,12 +35,8 @@ export const SnapshotList = ({ outstanding = {} }) => {
       }
       <GridContainer>
         {
-          snapshots.map(snapshot => {
-            return <div key={snapshot.id} className="snapshot">
-              <img className="snapshot__image" src={snapshot.image_url} alt={`${snapshot.id} image`} />
-              <Link href={`/snapshot/${snapshot.id}`}><a className="snapshot__link">{snapshot.id}</a></Link>
-              { outstanding[snapshot.id] && <div title="Has unapproved candidates" className="snapshot__marker">?</div> }
-            </div>;
+          snapshots.map(({ id, image_url }) => {
+            return <Snapshot key={id} id={id} image_url={image_url} link marker={!!outstanding[id]} />;
           })
         }
       </GridContainer>

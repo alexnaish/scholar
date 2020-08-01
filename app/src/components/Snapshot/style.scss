@@ -1,6 +1,5 @@
 $border-radius: 4px;
 
-
 .snapshot {
 	position: relative;
 	display: flex;
@@ -29,11 +28,6 @@ $border-radius: 4px;
 		object-fit: cover;
 		border-radius: $border-radius;
 		transition: transform 1s ease;
-
-		&:hover {
-			transform: scale(1.2);
-			transition: transform 10s ease;
-		}
 	}
 
 	&__link {
@@ -77,5 +71,10 @@ $border-radius: 4px;
 		font-size: var(--title-size);
 		transform: rotate(45deg);
 		cursor: default;
+	}
+
+	&:hover &__image {
+		transform: scale(1.1);
+		transition: transform 10s ease;
 	}
 }
