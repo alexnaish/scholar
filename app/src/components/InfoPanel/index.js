@@ -6,7 +6,7 @@ import './style.scss';
 export const InfoPanel = ({ icon, title, value }) => {
   return (
     <div className="info-panel">
-      { icon && <img src={`https://img.icons8.com/bubbles/50/000000/${icon}.png`} className="info-panel__icon" role="presentational" /> }
+      { icon && <img src={`https://img.icons8.com/color/50/000000/${icon}.png`} className="info-panel__icon" role="presentational" /> }
       <div>
         <div className="info-panel__title">{title}</div>
         <div className="info-panel__value">{value}</div>

@@ -2,7 +2,6 @@
 	display: inline-flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin-right: 8px;
 	background: white;
 	margin-bottom: 16px;
 	min-width: 180px;
@@ -19,8 +18,12 @@
     text-align: right;
 	}
 
+	&__title {
+		font-size: var(--sub-title-size);
+	}
+
 	&__value {
-		font-size: 32px;
+		font-size: var(--title-size);
 	}
 
 }

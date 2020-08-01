@@ -10,10 +10,10 @@ const getSizeAttribute = (position) => {
   switch (position) {
     case 'right':
     case 'left':
-      return 'width';
+      return { sizeAttribute: 'width', minSizeAttribute: 'minWidth' };
     case 'top':
     case 'bottom':
-      return 'height';
+      return { sizeAttribute: 'height', minSizeAttribute: 'minHeigh' };
   }
 };
 
@@ -24,9 +24,10 @@ export const OffscreenSection = ({
   position = 'right',
   closeOnOverlayClick = true,
   size,
+  minSize,
   children,
 }) => {
-  const sizeAttribute = getSizeAttribute(position);
+  const { sizeAttribute, minSizeAttribute } = getSizeAttribute(position);
 
   return (
     <Overlay
@@ -42,7 +43,7 @@ export const OffscreenSection = ({
               [`offscreen--${[position]}`]: !!position,
               'offscreen--displayed': state === 'entered',
             })}
-            style={{ [sizeAttribute]: size }}
+            style={{ [sizeAttribute]: size, [minSizeAttribute]: minSize }}
           >
             <button className="offscreen__close" aria-label="Close overlay" onClick={() => close()}>
               X
@@ -66,4 +67,5 @@ OffscreenSection.propTypes = {
   ]).isRequired,
   position: PropTypes.string,
   size: PropTypes.string,
+  minSize: PropTypes.string,
 };

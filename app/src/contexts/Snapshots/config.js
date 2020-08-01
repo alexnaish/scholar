@@ -1,4 +1,4 @@
 export const TYPES = {
   UPDATE: 'snapshots/update',
-  COUNT: 'snapshots/count',
+  STATS: 'snapshots/stats',
 };

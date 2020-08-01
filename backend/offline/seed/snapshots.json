@@ -10,30 +10,43 @@
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
 		"id": "candidate#splash#123123",
 		"image_url": "https://picsum.photos/seed/splash-123/600",
-		"diff_image_url": "https://picsum.photos/seed/splash-123-diff/600?grayscale"
+		"diff_image_url": "https://picsum.photos/seed/splash-123-diff/600?grayscale",
+		"creation_date": 1596294567663
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
 		"id": "candidate#splash#456456",
 		"image_url": "https://picsum.photos/seed/splash-456/600",
-		"diff_image_url": "https://picsum.photos/seed/splash-456-diff/600?grayscale"
+		"diff_image_url": "https://picsum.photos/seed/splash-456-diff/600?grayscale",
+		"creation_date": 1596294568663
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
 		"id": "main#footer",
 		"image_url": "https://picsum.photos/seed/footer/600",
 		"version": 3,
-		"approval_date": 1596212662681
-  },
+		"approval_date": 1596301955421
+	},
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
 		"id": "version#footer#1",
-		"image_url": "https://picsum.photos/seed/footer-old/600"
+		"version": 1,
+		"image_url": "https://picsum.photos/seed/footer-old/600",
+		"approval_date": 1595902462681
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
 		"id": "version#footer#2",
-		"image_url": "https://picsum.photos/seed/footer-less-old/600"
+		"version": 2,
+		"image_url": "https://picsum.photos/seed/footer-less-old/600",
+		"approval_date": 1596212562681
+	},
+	{
+		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
+		"id": "candidate#footer#123123",
+		"image_url": "https://picsum.photos/seed/footer-123/600",
+		"diff_image_url": "https://picsum.photos/seed/footer-123-diff/600?grayscale",
+		"creation_date": 1596294568663
   },
   {
 		"team_id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",

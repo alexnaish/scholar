@@ -1,7 +1,7 @@
 const pino = require('pino');
 const { validateAccessToken } = require('../../helpers/user');
 
-module.exports = ({ handler, requiresAccessToken }) => async (event, context) => {
+module.exports = ({ handler, requiresAccessToken, requireBodyParams }) => async (event, context) => {
   const logger = pino({
     traceId: process.env._X_AMZN_TRACE_ID,
     awsRequestId: context.awsRequestId,
@@ -33,6 +33,22 @@ module.exports = ({ handler, requiresAccessToken }) => async (event, context) =>
       // Augment context with decoded token
       context.user = user;
     }
+
+    if (requireBodyParams) {
+      const body = JSON.parse(event.body);
+      const missingProperties = requireBodyParams.filter(param => body[param] === undefined);
+      if (missingProperties.length) {
+        logger.error(`missing properties, expected ${requireBodyParams}, missing ${missingProperties}`);
+        return {
+          statusCode: 400,
+          body: JSON.stringify({
+            error: 'Missing required properties'
+          })
+        };
+      }
+      event.payload = body;
+    }
+
     const result = await handler(event, context, { logger });
 
     // If its a HTTP response, attach additional headers

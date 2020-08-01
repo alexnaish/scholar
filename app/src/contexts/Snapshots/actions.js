@@ -7,9 +7,9 @@ export const update = (dispatch) => (payload) => {
   });
 };
 
-export const count = (dispatch) => (payload) => {
+export const stats = (dispatch) => (payload) => {
   return dispatch({
-    type: TYPES.COUNT,
+    type: TYPES.STATS,
     payload
   });
 };

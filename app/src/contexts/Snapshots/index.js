@@ -5,9 +5,10 @@ import { TYPES } from './config';
 
 const initialState = {
   snapshots: [],
+  outstanding: {},
   cursor: undefined,
   approved: 0,
-  candidates: 0,
+  candidates: 0
 };
 
 function reducer(state, action) {
@@ -20,11 +21,15 @@ function reducer(state, action) {
         cursor: action.payload.cursor
       };
     }
-    case TYPES.COUNT:
+    case TYPES.STATS:
       return {
         ...state,
         approved: action.payload.approved,
         candidates: action.payload.candidates,
+        outstanding: action.payload.outstanding.reduce((acc, id)=> {
+          acc[id] = 1;
+          return acc;
+        }, {}),
       };
     default:
       throw new Error(`Unknown action.type: ${action.type}`);

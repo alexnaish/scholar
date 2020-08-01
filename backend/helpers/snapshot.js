@@ -4,6 +4,11 @@ const getRawId = key => key.split('#')[1];
 
 module.exports = {
   getRawId,
+  getUniqueIds: (results) => {
+    return Array.from(
+      new Set(results.map(r => getRawId(r.id)))
+    );
+  },
   getCount: ({ team_id, selector }) => {
     return client.query({
       TableName: process.env.SNAPSHOTS_TABLE,

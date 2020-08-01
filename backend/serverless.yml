@@ -39,6 +39,13 @@ functions:
           path: snapshots/{id}
           method: get
           cors: true
+  approve-snapshot:
+    handler: modules/snapshots/approve.handler
+    events:
+      - http:
+          path: snapshots/{id}/approve
+          method: post
+          cors: true
   auth-signin:
     handler: modules/auth/signin.handler
     events:
