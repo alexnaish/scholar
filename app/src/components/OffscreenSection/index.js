@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -28,6 +28,14 @@ export const OffscreenSection = ({
   children,
 }) => {
   const { sizeAttribute, minSizeAttribute } = getSizeAttribute(position);
+  const id = `offscreen-${position}`;
+  useEffect(() => {
+    if (display) {
+      window.location.hash = `#${id}`;
+    } else {
+      window.location.hash = '';
+    }
+  }, [display]);
 
   return (
     <Overlay
@@ -48,7 +56,7 @@ export const OffscreenSection = ({
             <button className="offscreen__close" aria-label="Close overlay" onClick={() => close()}>
               X
             </button>
-            <div className="offscreen__container" role="dialog">{children}</div>
+            <div id={id} className="offscreen__container" role="dialog" aria-modal="true">{children}</div>
           </div>
         );
       }}

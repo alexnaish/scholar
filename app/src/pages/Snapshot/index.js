@@ -8,6 +8,7 @@ import { Loader } from '../../components/Loader';
 import { GridContainer } from '../../components/GridContainer';
 import { InfoPanel } from '../../components/InfoPanel';
 import { Title } from '../../components/Title';
+import { Icon } from '../../components/Icon';
 import { OffscreenSection } from '../../components/OffscreenSection';
 import { Paragraph } from '../../components/Paragraph';
 import { Snapshot } from '../../components/Snapshot';
@@ -40,7 +41,9 @@ export const SnapshotPage = ({ params }) => {
             <Fragment>
               <SnapshotDetails {...response.main} />
               <div>
-                <Title>History</Title>
+                <Title>
+                  <Icon name="activity-history" /> History
+                </Title>
                 {
                   response.history.map(history => {
                     return (

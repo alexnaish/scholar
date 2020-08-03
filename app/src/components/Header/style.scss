@@ -1,3 +1,19 @@
+.skip-link {
+	position: absolute;
+	top: 4px;
+	left: -9999px;
+	z-index: 100;
+	padding: 8px;
+	color: white;
+	background:var(--orange);
+	border: 2px solid var(--dark-orange);
+	outline: none;
+
+	&:focus {
+		left: 4px;
+	}
+}
+
 .header {
   height: var(--nav-height);
   line-height: var(--nav-height);

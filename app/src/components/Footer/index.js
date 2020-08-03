@@ -5,7 +5,7 @@ import './style.scss';
 
 export const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" id="footer">
       <div className="footer__container">
 
         <div className="footer__columns">
