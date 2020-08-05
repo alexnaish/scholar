@@ -1,0 +1,11 @@
+.item-listing {
+	display: grid;
+	grid-template-columns: 50px auto minmax(auto, 200px);
+	grid-column-gap: 8px;
+	align-items: center;
+
+	&__emphasis {
+		font-size: var(--title-size);
+		color: var(--orange);
+	}
+}

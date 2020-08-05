@@ -3,34 +3,23 @@ import PropTypes from 'prop-types';
 import timeDistance from 'date-fns/formatDistanceToNow';
 
 import { Shell } from '../../components/Shell';
-import { Section } from '../../components/Section';
 import { Loader } from '../../components/Loader';
-import { GridContainer } from '../../components/GridContainer';
-import { InfoPanel } from '../../components/InfoPanel';
-import { Title } from '../../components/Title';
-import { Icon } from '../../components/Icon';
-import { OffscreenSection } from '../../components/OffscreenSection';
+import { Section } from '../../components/Section';
 import { Paragraph } from '../../components/Paragraph';
+import { ActionBar } from '../../components/ActionBar';
+import { OffscreenSection } from '../../components/OffscreenSection';
 import { Snapshot } from '../../components/Snapshot';
+import { Button, InternalLink } from '../../components/Button';
 import useFetch from '../../utils/fetch';
 
-const SnapshotDetails = ({ version, approval_date }) => {
-  return (
-    <GridContainer>
-      <InfoPanel icon="versions" title="Version" value={version} />
-      <InfoPanel icon="calendar" title="Approved" value={new Date(approval_date).toLocaleDateString()} />
-    </GridContainer>
-  );
-};
+import { SnapshotDetails } from './components/SnapshotDetails';
+import { HistorySection } from './components/HistorySection';
 
-SnapshotDetails.propTypes = {
-  version: PropTypes.number,
-  approval_date: PropTypes.number
-};
+import './style.scss';
 
 export const SnapshotPage = ({ params }) => {
-  const [historicalVersion, setHistoricalVersion] = useState(null);
-  const { response, error, loading } = useFetch({ path: `/snapshots/${params.id}` });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const { response = { history: [], candidates: [] }, error, loading } = useFetch({ path: `/snapshots/${params.id}` });
 
   return (
     <Shell>
@@ -40,37 +29,29 @@ export const SnapshotPage = ({ params }) => {
           loading ? <Loader /> : (
             <Fragment>
               <SnapshotDetails {...response.main} />
-              <div>
-                <Title>
-                  <Icon name="activity-history" /> History
-                </Title>
-                {
-                  response.history.map(history => {
-                    return (
-                      <div key={history.id}>
-                        <div>{history.version}</div>
-                        <div>Approved {timeDistance(history.approval_date)} ago</div>
-                        <button className="button" onClick={() => setHistoricalVersion(history)}>View Image</button>
-                      </div>
-                    );
-                  })
-                }
-              </div>
+              <ActionBar>
+
+                <Button style="blue" onClick={() => setSelectedImage(response.main)} collapse small>View Approved Image</Button>
+                { response.candidates.length > 0 && <InternalLink href={`/snapshot/${params.id}/candidates`} style="cta" collapse small>View Candidates</InternalLink> }
+              </ActionBar>
+              {
+                response.history.length > 0 && <HistorySection history={response.history} onItemClick={setSelectedImage} />
+              }
             </Fragment>
           )
         }
       </Section>
       <OffscreenSection
-        display={!!historicalVersion}
+        display={!!selectedImage}
         size="60%"
         minSize="320px"
-        onClose={() => setHistoricalVersion(null)}
+        onClose={() => setSelectedImage(null)}
       >
         {
-          historicalVersion ? (
-            <Section title={`Version ${historicalVersion.version}`}>
-              <Paragraph title={new Date(historicalVersion.approval_date).toLocaleDateString()}>Approved {timeDistance(historicalVersion.approval_date)} ago</Paragraph>
-              <Snapshot id={historicalVersion.id} image_url={historicalVersion.image_url} />
+          selectedImage ? (
+            <Section title={`Version ${selectedImage.version}`}>
+              <Paragraph title={new Date(selectedImage.approval_date).toLocaleDateString()}>Approved {timeDistance(selectedImage.approval_date)} ago</Paragraph>
+              <Snapshot id={selectedImage.id} image_url={selectedImage.image_url} />
             </Section>
           ) : ''
         }

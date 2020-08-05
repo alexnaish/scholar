@@ -5,10 +5,16 @@ import classNames from 'classnames';
 
 import './style.scss';
 
-const createClasses = ({ centre, style }) => classNames('button', { 'button--central': centre, [`button--${style}`]: !!style });
+const createClasses = ({ centre, style, small, collapse }) =>
+  classNames('button', {
+    'button--central': centre,
+    [`button--${style}`]: !!style,
+    ['button--small']: small,
+    ['button--collapse']: collapse
+  });
 
-export const CallToAction = ({ centre, onClick, children }) => {
-  const className = createClasses({ centre, style: 'cta' });
+export const Button = ({ centre, onClick, style = 'cta', small, collapse, children }) => {
+  const className = createClasses({ centre, style, small, collapse  });
   return (
     <button className={className} onClick={onClick}>
       {children}
@@ -16,8 +22,8 @@ export const CallToAction = ({ centre, onClick, children }) => {
   );
 };
 
-export const InternalLink = ({ href, centre, style, children }) => {
-  const className = createClasses({ centre, style });
+export const InternalLink = ({ href, centre, style, collapse, small, children }) => {
+  const className = createClasses({ centre, style, collapse, small });
   return (
     <Link href={href}>
       <a className={className}>{children}</a>
@@ -32,18 +38,19 @@ export const ExternalLink = ({ href, centre, style, children }) => {
   );
 };
 
-const LinkProps = {
+const baseProps = {
   href: PropTypes.string,
   style: PropTypes.string,
   centre: PropTypes.bool,
+  small: PropTypes.bool,
+  collapse: PropTypes.bool,
   children: PropTypes.node,
 };
 
-InternalLink.propTypes = LinkProps;
-ExternalLink.propTypes = LinkProps;
+InternalLink.propTypes = baseProps;
+ExternalLink.propTypes = baseProps;
 
-CallToAction.propTypes = {
-  centre: PropTypes.bool,
-  onClick: PropTypes.func,
-  children: PropTypes.node,
+Button.propTypes = {
+  ...baseProps,
+  onClick: PropTypes.func
 };

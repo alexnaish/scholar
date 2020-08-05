@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Loader } from '../Loader';
 import { GridContainer } from '../GridContainer';
-import { CallToAction } from '../Button';
+import { Button } from '../Button';
 import { Snapshot } from '../Snapshot';
 import { SnapshotsContext } from '../../contexts/Snapshots';
 import { update } from '../../contexts/Snapshots/actions';
@@ -31,7 +31,7 @@ export const SnapshotList = ({ outstanding = {} }) => {
         error && <div>There is an error</div>
       }
       {
-        loading && <Loader />
+        loading && !snapshots && <Loader />
       }
       <GridContainer>
         {
@@ -40,7 +40,7 @@ export const SnapshotList = ({ outstanding = {} }) => {
           })
         }
       </GridContainer>
-      { cursor && <CallToAction centre onClick={() => setNextCursor(cursor)}>Load More</CallToAction> }
+      { cursor && <Button centre onClick={() => setNextCursor(cursor)}>Load More</Button> }
     </Fragment>
 
   );

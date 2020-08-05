@@ -14,6 +14,7 @@
   border-radius: var(--border-radius);
   transition: background-color 0.3s ease;
 	margin-top: 32px;
+	overflow: hidden;
 
 	background-color: var(--dark);
 	&:hover {
@@ -32,11 +33,33 @@
     background-color: var(--dark-orange);
   }
 
+  &--blue {
+    background-color: var(--light-blue);
+  }
+  &--blue:hover {
+    background-color: var(--blue);
+	}
+
   &--dark {
     background-color: var(--darkest-blue);
   }
   &--dark:hover {
     background-color: var(--black);
-  }
+	}
+
+	&--collapse {
+		margin: 0;
+	}
+
+	&--small {
+		height: 40px;
+		line-height: 40px;
+		width: auto;
+		padding: 0 16px;
+	}
+
+	& + & {
+		margin-left: 8px;
+	}
 
 }

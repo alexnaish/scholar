@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Section } from '../../components/Section';
-import { CallToAction } from '../../components/Button';
+import { Button } from '../../components/Button';
 import { Shell } from '../../components/Shell';
 import { OffscreenSection } from '../../components/OffscreenSection';
 import { Promo } from '../../components/Promo';
@@ -22,9 +22,9 @@ export const HomePage = () => {
           <div className="intro__content">
             <h1 className="intro__title">Visual testing made easy.</h1>
             <span>Catch regressions before they become an issue.</span>
-            <CallToAction centre onClick={() => setShowSigninOverlay(true)}>
+            <Button centre onClick={() => setShowSigninOverlay(true)}>
               Get Started
-            </CallToAction>
+            </Button>
           </div>
         </div>
       </div>
