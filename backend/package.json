@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-		"deploy": "serverless deploy --conceal",
+		"deploy": "serverless deploy",
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [],

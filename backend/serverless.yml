@@ -20,6 +20,12 @@ provider:
         - s3:GetObject
         - s3:PutObject
       Resource: "arn:aws:s3:::${env:S3_BUCKET}/*"
+  environment:
+    JWT_SIGNING_SECRET: ${env:JWT_SIGNING_SECRET}
+    TEAMS_TABLE: ${env:TEAMS_TABLE}
+    USERS_TABLE: ${env:USERS_TABLE}
+    AUTH_CACHE_TABLE: ${env:AUTH_CACHE_TABLE}
+    SNAPSHOTS_TABLE: ${env:SNAPSHOTS_TABLE}
 
 functions:
   dashboard-stats:
@@ -56,19 +62,26 @@ functions:
       - http:
           path: auth/{provider}
           method: get
+    environment:
+      AUTH_GITHUB_SECRET: ${env:AUTH_GITHUB_SECRET}
+      AUTH_GOOGLE_SECRET: ${env:AUTH_GOOGLE_SECRET}
+
   auth-callback:
     handler: modules/auth/callback.handler
     events:
       - http:
           path: auth/{provider}/callback
           method: get
+    environment:
+      AUTH_GITHUB_SECRET: ${env:AUTH_GITHUB_SECRET}
+      AUTH_GOOGLE_SECRET: ${env:AUTH_GOOGLE_SECRET}
 
 resources:
    - Resources: ${file(resources/dynamodb.yml)}
    - Resources: ${file(resources/s3.yml)}
 
 plugins:
-  - serverless-dotenv-plugin
+  # - serverless-dotenv-plugin
   - serverless-offline
   - serverless-plugin-optimize
   - serverless-dynamodb-local
