@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import { useLocation } from 'wouter';
 import axios from 'axios';
 
@@ -7,6 +7,7 @@ import { storeSession, refresh, clearSession, logout } from '../contexts/Auth/ac
 
 export default function useFetch({ method = 'get', path, data = null }) {
   const [auth, dispatch] = useContext(AuthContext);
+  let isRendered = useRef(false);
   const [response, setResponse] = useState(undefined);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -29,10 +30,17 @@ export default function useFetch({ method = 'get', path, data = null }) {
   });
 
   useEffect(() => {
+    isRendered = true;
     const fetchData = async () => {
       try {
+        if (!path) {
+          return;
+        }
         setLoading(true);
         const res = await instance[method](path, JSON.parse(data));
+        if (!isRendered) {
+          return;
+        }
         setResponse(res.data);
         setLoading(false);
       } catch (err) {
@@ -48,6 +56,9 @@ export default function useFetch({ method = 'get', path, data = null }) {
     };
 
     fetchData();
+    return () => {
+      isRendered = false;
+    };
   }, [method, path, data]);
 
   return { response, error, loading };
