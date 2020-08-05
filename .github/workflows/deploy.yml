@@ -47,9 +47,16 @@ jobs:
       - run: npm ci
       - run: npm t
       - name: Deploy
-        uses: serverless/github-action@master
-        with:
-          args: deploy
+        run: npm run deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+          TEAMS_TABLE: scholar-teams
+          USERS_TABLE: scholar-users
+          AUTH_CACHE_TABLE: scholar-auth
+          SNAPSHOTS_TABLE: scholar-snapshots
+          S3_BUCKET: scholar-snapshots
+          JWT_SIGNING_SECRET: ${{ secrets.JWT_SIGNING_SECRET }}
+          AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
+          AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}

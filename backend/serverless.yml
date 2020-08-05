@@ -1,7 +1,11 @@
 service: scholar
 provider:
   name: aws
+  region: ${opt:region, 'eu-west-2'}
+  logRetentionInDays: 30
+  timeout: 8
   runtime: nodejs12.x
+  memorySize: 128mb
   iamRoleStatements:
     - Effect: Allow
       Action:
