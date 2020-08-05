@@ -74,6 +74,9 @@ plugins:
   - serverless-dynamodb-local
   # - serverless-s3-local
 
+package:
+  individually: true
+
 custom:
   dotenv:
     basePath: ../
