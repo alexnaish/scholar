@@ -16,6 +16,7 @@ const AboutPage = lazy(() => import('./pages/About').then(destructModule('AboutP
 const PrivacyPage = lazy(() => import('./pages/Privacy').then(destructModule('PrivacyPage')));
 const ProfilePage = lazy(() => import('./pages/Profile').then(destructModule('ProfilePage')));
 const SnapshotPage = lazy(() => import('./pages/Snapshot').then(destructModule('SnapshotPage')));
+const SnapshotCandidatesPage = lazy(() => import('./pages/SnapshotCandidates').then(destructModule('SnapshotCandidatesPage')));
 const ErrorPage = lazy(() => import('./pages/Error').then(destructModule('ErrorPage')));
 
 export const AppRouter = () => {
@@ -32,6 +33,7 @@ export const AppRouter = () => {
 						<AuthenticatedRoute path="/profile" component={ProfilePage} />
 						<AuthenticatedRoute path="/dashboard" component={DashboardPage} />
 						<AuthenticatedRoute path="/snapshot/:id" component={SnapshotPage} />
+						<AuthenticatedRoute path="/snapshot/:id/candidates" component={SnapshotCandidatesPage} />
 						<Route path="/:rest*" component={() => <ErrorPage statusCode="404" />} />
 					</Switch>
 				</Suspense>
