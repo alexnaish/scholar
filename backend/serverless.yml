@@ -26,6 +26,7 @@ provider:
     USERS_TABLE: ${env:USERS_TABLE}
     AUTH_CACHE_TABLE: ${env:AUTH_CACHE_TABLE}
     SNAPSHOTS_TABLE: ${env:SNAPSHOTS_TABLE}
+    API_URL: ${env:API_URL}
 
 functions:
   dashboard-stats:

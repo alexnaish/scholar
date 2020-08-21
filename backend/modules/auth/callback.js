@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const { onAws } = require('../../helpers/aws');
+const { generateCallbackUrl } = require('../../helpers/auth');
 const { client } = require('../../helpers/dynamodb');
 const providers = require('../../helpers/social');
 const { register, generateAccessToken } = require('../../helpers/user');
@@ -39,8 +39,8 @@ const callbackHandler = async (event, context, { logger }) => {
         body: template.fulfilled,
       };
     }
-    const redirect_uri = onAws ? 'https://naish.io/something/something' : `http://localhost:3000/auth/${provider}/callback`;
-    const { email, name } = await providerInstance.authorise(code, redirect_uri);
+    const redirectUrl = generateCallbackUrl(provider);
+    const { email, name } = await providerInstance.authorise(code, redirectUrl);
 
     await client.delete({ TableName: process.env.AUTH_CACHE_TABLE, Key: { token: state } });
     let user = await client.get({ TableName: process.env.USERS_TABLE, Key: { email } });

@@ -1,10 +1,10 @@
 
 const { v4: uuidv4 } = require('uuid');
 
-const { onAws } = require('../../helpers/aws');
 const { client } = require('../../helpers/dynamodb');
 const providers = require('../../helpers/social');
 const wrapper = require('../wrapper');
+const { generateCallbackUrl } = require('../../helpers/auth');
 
 const signinHandler = async (event) => {
   const provider = event.pathParameters['provider'].toLowerCase();
@@ -15,8 +15,8 @@ const signinHandler = async (event) => {
   }
 
   const state = uuidv4();
-  const redirect_uri = onAws ? 'https://naish.io/something/something' : `http://localhost:3000/auth/${provider}/callback`;
-  const loginUri = providerInstance.generateAuthUrl(redirect_uri, state);
+  const redirectUrl = generateCallbackUrl(provider);
+  const loginUri = providerInstance.generateAuthUrl(redirectUrl, state);
 
   // Cache state token
   await client.put({
