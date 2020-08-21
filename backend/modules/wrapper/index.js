@@ -1,4 +1,5 @@
 const pino = require('pino');
+const { getAuthToken } = require('../../helpers/auth');
 const { validateAccessToken } = require('../../helpers/user');
 
 module.exports = ({ handler, requiresAccessToken, requireBodyParams }) => async (event, context) => {
@@ -11,9 +12,7 @@ module.exports = ({ handler, requiresAccessToken, requireBodyParams }) => async 
 
   try {
     if (requiresAccessToken) {
-      console.log('event.headers', event.headers);
-
-      const token = (event.headers['authorization'] || '').split(' ')[1];
+      const token = getAuthToken(event.headers);
       const { user, newToken, error } = await validateAccessToken(token);
 
       // Something went wrong with validating token
