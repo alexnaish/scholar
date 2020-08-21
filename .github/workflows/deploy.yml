@@ -8,20 +8,19 @@ defaults:
   run:
     shell: bash
 
+env:
+  API_URL: ${{ secrets.API_URL }}
+
 jobs:
   netlify-deploy:
     name: Deploying frontend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
     steps:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - uses: actions/checkout@v2
-      - run: npm ci
-      - run: npm run build
+      - run: make install-app build
       - name: Deploy
         uses: jsmrcaga/action-netlify-deploy@master
         with:

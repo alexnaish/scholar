@@ -42,4 +42,4 @@ api:
 	@$(DONE)
 
 build:
-	cd app && npm run build
+	@cd app && npm run build
