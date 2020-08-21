@@ -41,13 +41,13 @@ $tablet: 750px;
   --github: #{$github};
   --github-dark: #{darken($github, 10)};
 
-	// Status
-	--success: #{$success};
-	--success-dark: #{darken($success, 10)};
-	--warning: #{$warning};
-	--warning-dark: #{darken($warning, 10)};
-	--error: #{$error};
-	--error-dark: #{darken($error, 10)};
+  // Status
+  --success: #{$success};
+  --success-dark: #{darken($success, 10)};
+  --warning: #{$warning};
+  --warning-dark: #{darken($warning, 10)};
+  --error: #{$error};
+  --error-dark: #{darken($error, 10)};
 
   // Size stuff
   --nav-height: 80px;
@@ -55,20 +55,20 @@ $tablet: 750px;
   --padding: 60px;
   --padding-small: 30px;
   --button-height: 50px;
-	--border-radius: 4px;
-	--grid-col-gap: 8px;
-	--grid-row-gap: 16px;
+  --border-radius: 4px;
+  --grid-col-gap: 8px;
+  --grid-row-gap: 16px;
 
-	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-	grid-column-gap: 8px;
-	grid-row-gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-column-gap: 8px;
+  grid-row-gap: 16px;
 
 
   // Font stuff
   --font-family: 'Open Sans', sans-serif;
-	--text-size: 16px;
-	--title-size: 32px;
-	--sub-title-size: 24px;
+  --text-size: 16px;
+  --title-size: 32px;
+  --sub-title-size: 24px;
 
 }
 
@@ -81,6 +81,10 @@ html, body {
   line-height: 1.5;
   color: var(--black);
   -webkit-font-smoothing: antialiased;
+}
+
+strong {
+  font-weight: 500;
 }
 
 //Tablet
