@@ -3,6 +3,7 @@
   to = "https://scholar-api-prod.naish.io/:splat"
   headers = { X-From = "Netlify" }
   force = true
+	status = 200
 
 [[redirects]]
   from = "/*"

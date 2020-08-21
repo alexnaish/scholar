@@ -11,6 +11,8 @@ module.exports = ({ handler, requiresAccessToken, requireBodyParams }) => async 
 
   try {
     if (requiresAccessToken) {
+      console.log('event.headers', event.headers);
+
       const token = (event.headers['authorization'] || '').split(' ')[1];
       const { user, newToken, error } = await validateAccessToken(token);
 
