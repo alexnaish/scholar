@@ -2,3 +2,9 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://scholar-api-prod.naish.io/:splat"
+  headers = { X-From = "Netlify" }
+  force = true
