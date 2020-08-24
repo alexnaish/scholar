@@ -87,6 +87,10 @@ strong {
   font-weight: 500;
 }
 
+ul {
+	margin-left: 24px;
+}
+
 //Tablet
 @media only screen and (max-width: $desktop) {
   :root {

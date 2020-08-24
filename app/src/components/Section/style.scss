@@ -18,6 +18,10 @@
     margin: 0 auto;
   }
 
+  &--white {
+    background-color: white;
+	}
+
   &--grey {
     background-color: var(--grey);
   }
