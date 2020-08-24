@@ -42,6 +42,7 @@ export const Overlay = ({
     preventScrolling && removeScrolling(display);
     document.body.addEventListener('keydown', handleEscape, false);
     return () => {
+      removeScrolling(false);
       document.body.removeEventListener('keydown', handleEscape, false);
     };
   }, [display]);
