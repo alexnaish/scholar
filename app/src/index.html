@@ -12,12 +12,22 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89625067-2"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
+		window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'UA-89625067-2');
-  </script>
+		</script>
+		<script async src="https://js-agent.newrelic.com/nr-loader-spa-current.min.js"></script>
+		<script>
+			window.NREUM = window.NREUM || {};
+			window.NREUM.info={
+				beacon: 'bam.eu01.nr-data.net',
+				errorBeacon: 'bam.eu01.nr-data.net',
+				licenseKey: process.env.NEWRELIC_LICENCE_KEY,
+				applicationID: process.env.NEWRELIC_APP_ID
+			};
+		</script>
 </head>
 
 <body>
