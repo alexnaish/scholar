@@ -24,7 +24,7 @@ const signinHandler = async (event) => {
     Item: {
       token: state,
       provider,
-      ttl: Math.floor(Date.now() / 1000) + (60 * 60) // 1 hour in seconds
+      ttl: Date.now() + (60 * 60 * 1000) // 1 hour in seconds
     }
   });
 
