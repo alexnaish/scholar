@@ -6,7 +6,7 @@ import { Navigation } from '../Navigation';
 import './style.scss';
 
 export const Header = () => {
-  const [{ accessToken }] = useContext(AuthContext);
+  const [{ accessToken }] = useContext(AuthContext) || [{}];
   const authorised = !!accessToken;
 
   return (

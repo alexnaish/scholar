@@ -34,7 +34,7 @@ export const AppRouter = () => {
 						<AuthenticatedRoute path="/dashboard" component={DashboardPage} />
 						<AuthenticatedRoute path="/snapshot/:id" component={SnapshotPage} />
 						<AuthenticatedRoute path="/snapshot/:id/candidates" component={SnapshotCandidatesPage} />
-						<Route path="/:rest*" component={() => <ErrorPage statusCode="404" />} />
+						<Route component={() => <ErrorPage statusCode="404" />} />
 					</Switch>
 				</Suspense>
 			</SnapshotsProvider>
