@@ -31,7 +31,7 @@ export const SnapshotList = ({ outstanding = {} }) => {
         error && <div>There is an error</div>
       }
       {
-        loading && !snapshots && <Loader />
+        loading && snapshots.length === 0 && <Loader />
       }
       <GridContainer>
         {
