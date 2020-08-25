@@ -50,6 +50,9 @@ export const Footer = () => {
                 <a href="https://icons8.com/" className="footer__link" target="_blank" rel="noopener noreferrer">
                   Icons CDN
                 </a>
+                <a href="https://undraw.co/" className="footer__link" target="_blank" rel="noopener noreferrer">
+                  Undraw
+                </a>
               </nav>
             </div>
           </div>

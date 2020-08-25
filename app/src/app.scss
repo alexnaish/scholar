@@ -80,7 +80,8 @@ html, body {
   font-size: var(--text-size);
   line-height: 1.5;
   color: var(--black);
-  -webkit-font-smoothing: antialiased;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizelegibility;
 }
 
 strong {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import { SnapshotsContext } from '../../contexts/Snapshots';
 import { stats } from '../../contexts/Snapshots/actions';
@@ -7,8 +7,12 @@ import { SnapshotList } from '../../components/SnapshotList';
 import { Section } from '../../components/Section';
 import { GridContainer } from '../../components/GridContainer';
 import { InfoPanel } from '../../components/InfoPanel';
+import { Centre } from '../../components/Centre';
+import { Panel } from '../../components/Panel';
+import { DataIllustrationSvg } from '../../components/DataIllustrationSvg';
 
 import useFetch from '../../utils/fetch';
+import { Paragraph } from '../../components/Paragraph';
 
 export const DashboardPage = () => {
   const [{ approved, candidates, outstanding }, dispatch] = useContext(SnapshotsContext);
@@ -28,6 +32,17 @@ export const DashboardPage = () => {
           <InfoPanel icon="question-mark" title="Unapproved" value={candidates} />
         </GridContainer>
         <SnapshotList outstanding={outstanding} />
+        {
+          response && approved === 0 && outstanding === 0 &&
+          <Centre>
+            <Panel>
+              <Paragraph>
+							You don&apos;t have any snapshots!
+              </Paragraph>
+              <DataIllustrationSvg />
+            </Panel>
+          </Centre>
+        }
       </Section>
     </Shell>
   );
