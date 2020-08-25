@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { Alert } from '../Alert';
 import { Loader } from '../Loader';
 import { GridContainer } from '../GridContainer';
 import { Button } from '../Button';
@@ -28,7 +29,7 @@ export const SnapshotList = ({ outstanding = {} }) => {
   return (
     <Fragment>
       {
-        error && <div>There is an error</div>
+        error && <Alert type="error" title="Unable to fetch" message="An error occurred attempting to retrieve snapshots." dismissable={false} />
       }
       {
         loading && snapshots.length === 0 && <Loader />
