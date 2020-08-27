@@ -33,7 +33,7 @@ export const DashboardPage = () => {
         </GridContainer>
         <SnapshotList outstanding={outstanding} />
         {
-          response && approved === 0 && outstanding === 0 &&
+          response && approved === 0 && candidates === 0 &&
           <Centre>
             <Panel>
               <Paragraph>
