@@ -21,6 +21,10 @@ jobs:
           node-version: 12.x
       - uses: actions/checkout@v2
       - run: make install-app build
+        env:
+          NEWRELIC_LICENCE_KEY: ${{ secrets.NEWRELIC_LICENCE_KEY }}
+          NEWRELIC_APP_ID: ${{ secrets.NEWRELIC_APP_ID }}
+
       - name: Deploy
         uses: jsmrcaga/action-netlify-deploy@master
         with:
