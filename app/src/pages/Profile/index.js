@@ -8,6 +8,9 @@ import { Alert } from '../../components/Alert';
 import { Loader } from '../../components/Loader';
 import { GridContainer } from '../../components/GridContainer';
 import { DataPanel } from '../../components/DataPanel';
+import { IllustratedCTA } from '../../components/IllustratedCTA';
+import { Button } from '../../components/Button';
+import { TeamIllustrationSvg } from '../../components/TeamIllustrationSvg';
 
 const personalDescription = <span>
 	We do not store more information than is required. <Link href="/privacy">See our privacy policy.</Link>
@@ -41,6 +44,11 @@ export const ProfilePage = () => {
             </GridContainer>
           )
         }
+        <IllustratedCTA
+          text="Everything is better with company. Invite your team."
+          cta={<Button centre onClick={() => alert('Coming soon!')}>Invite</Button>}
+          svg={<TeamIllustrationSvg />}
+        />
       </Section>
     </Shell>
   );

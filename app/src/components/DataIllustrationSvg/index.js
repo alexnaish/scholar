@@ -3,7 +3,6 @@ import React from 'react';
 export const DataIllustrationSvg = () => {
   return (
     <svg
-      data-name="Layer 1"
       viewBox="0 0 855.418 610.775"
       aria-label="Pages entering computer illustration"
     >

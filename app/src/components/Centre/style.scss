@@ -1,6 +1,10 @@
 .centre {
 	display: block;
-	max-width: 50%;
 	margin: 32px auto;
 	text-align: center;
+
+	@media only screen and (min-width: 650px) {
+		max-width: 50%;
+	}
+
 }
