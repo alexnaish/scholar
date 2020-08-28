@@ -7,7 +7,6 @@ import { SnapshotList } from '../../components/SnapshotList';
 import { Section } from '../../components/Section';
 import { GridContainer } from '../../components/GridContainer';
 import { InfoPanel } from '../../components/InfoPanel';
-import { Centre } from '../../components/Centre';
 import { IllustratedCTA } from '../../components/IllustratedCTA';
 import { Button } from '../../components/Button';
 import { DataIllustrationSvg } from '../../components/DataIllustrationSvg';
@@ -34,13 +33,11 @@ export const DashboardPage = () => {
         <SnapshotList outstanding={outstanding} />
         {
           response && approved === 0 && candidates === 0 &&
-          <Centre>
             <IllustratedCTA
               text="You don&apos;t have any snapshots!"
               cta={<Button centre onClick={() => alert('Coming soon!')}>View Documentation</Button>}
               svg={<DataIllustrationSvg />}
             />
-          </Centre>
         }
       </Section>
     </Shell>
