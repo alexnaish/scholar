@@ -52,7 +52,9 @@ const callbackHandler = async (event, context, { logger }) => {
         TableName: process.env.TEAMS_TABLE,
         Item: {
           id: team_id,
-          name: `Team ${name}`
+          name: `Team ${name}`,
+          users: [email],
+          plan: null
         }
       });
       user = await register({ email, name, team_id, social_provider: provider });

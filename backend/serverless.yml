@@ -35,28 +35,24 @@ functions:
       - http:
           path: stats
           method: get
-          cors: true
   list-snapshots:
     handler: modules/snapshots/list.handler
     events:
       - http:
           path: snapshots
           method: get
-          cors: true
   get-snapshot:
     handler: modules/snapshots/get.handler
     events:
       - http:
           path: snapshots/{id}
           method: get
-          cors: true
   approve-snapshot:
     handler: modules/snapshots/approve.handler
     events:
       - http:
           path: snapshots/{id}/approve
           method: post
-          cors: true
   auth-signin:
     handler: modules/auth/signin.handler
     events:
@@ -66,7 +62,6 @@ functions:
     environment:
       AUTH_GITHUB_SECRET: ${env:AUTH_GITHUB_SECRET}
       AUTH_GOOGLE_SECRET: ${env:AUTH_GOOGLE_SECRET}
-
   auth-callback:
     handler: modules/auth/callback.handler
     events:
@@ -76,7 +71,12 @@ functions:
     environment:
       AUTH_GITHUB_SECRET: ${env:AUTH_GITHUB_SECRET}
       AUTH_GOOGLE_SECRET: ${env:AUTH_GOOGLE_SECRET}
-
+  fetch-profile:
+    handler: modules/profile/fetch.handler
+    events:
+      - http:
+          path: profile
+          method: get
 resources:
    - Resources: ${file(resources/dynamodb.yml)}
    - Resources: ${file(resources/s3.yml)}

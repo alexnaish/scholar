@@ -1,6 +1,8 @@
 [
   {
     "id": "5eb01fa9-cc80-4357-8d64-7c4f4d5ad511",
-    "name": "Alex's Team"
+		"name": "Alex's Team",
+		"users": ["alex@naish.io"],
+		"plan": null
   }
 ]

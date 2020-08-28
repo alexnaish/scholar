@@ -28,12 +28,12 @@ const generate = (title, description, messageContents, delay) => base(`
 module.exports = {
   success: (payload) => generate(
     'Successfully linked.',
-    'This window will automatically close.', payload, 500),
+    'This window will automatically close.', payload, 200),
   fulfilled: generate(
     'Attempt Unsuccessful', 'This token has already been used, please ensure a fresh session is used.',
-    { errorCode: 'fulfilled' }, 1000),
+    { errorCode: 'fulfilled' }, 500),
   error: generate(
     'Unknown Error', 'Unfortunately an error occured and we were unable to authenticate with the provider. An incident has been created.',
-    { errorCode: 'unknown' }, 1000)
+    { errorCode: 'unknown' }, 500)
 
 };

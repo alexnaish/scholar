@@ -24,6 +24,7 @@ $tablet: 750px;
 :root {
   // Colours
   --black: #111;
+  --dark-grey: #{lighten(#111, 20)};
   --white: #{$white};
   --grey: #{darken($white, 10)};
   --light: #{lighten($dark, 10)};
@@ -90,6 +91,10 @@ strong {
 
 ul {
 	margin-left: 24px;
+}
+
+a {
+	color: var(--dark-grey);
 }
 
 //Tablet
