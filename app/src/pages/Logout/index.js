@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useLocation } from 'wouter';
 
 import { Shell } from '../../components/Shell';
 import { Section } from '../../components/Section';
@@ -8,10 +9,14 @@ import { logout, clearSession } from '../../contexts/Auth/actions';
 
 export const LogoutPage = () => {
   const dispatch = useContext(AuthContext)[1];
+  const setLocation = useLocation()[1];
 
   useEffect(() => {
     logout(dispatch)();
     clearSession();
+    setTimeout(() => {
+      setLocation('/');
+    }, 500);
   }, []);
 
   return (
