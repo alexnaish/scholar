@@ -30,7 +30,6 @@ export const SnapshotPage = ({ params }) => {
             <Fragment>
               <SnapshotDetails {...response.main} />
               <ActionBar>
-
                 <Button style="blue" onClick={() => setSelectedImage(response.main)} collapse small>View Approved Image</Button>
                 { response.candidates.length > 0 && <InternalLink href={`/snapshot/${params.id}/candidates`} style="cta" collapse small>View Candidates</InternalLink> }
               </ActionBar>

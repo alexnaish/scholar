@@ -11,7 +11,7 @@ export const IllustratedCTA = ({ text, cta, svg }) => {
       <Panel>
         <Paragraph>
           {text}
-          <div>{cta}</div>
+          {cta}
         </Paragraph>
         {svg}
       </Panel>

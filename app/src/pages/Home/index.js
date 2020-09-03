@@ -32,7 +32,7 @@ export const HomePage = () => {
         <Promo
           imageElement={<GrowthIconSvg colour="var(--dark)" />}
         >
-          <Paragraph>Whether you&apos;re testing one image or thousands, Scholar was built on top of CDN and Serverless tech - offering endless scaling capabilities to meet all demands.</Paragraph>
+          <Paragraph>Whether you&apos;re testing one image or thousands, Scholar is built on top of CDN and serverless tech - offering endless scaling capabilities to meet all demands.</Paragraph>
         </Promo>
       </Section>
       <Section title="Open Source" style="splash">
