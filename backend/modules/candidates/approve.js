@@ -1,5 +1,4 @@
 const wrapper = require('../wrapper');
-const { getImage, fetchImages } = require('../../helpers/snapshot');
 
 const handler = async (event, context) => {
   const id = event.pathParameters['id'].toLowerCase();
