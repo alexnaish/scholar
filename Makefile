@@ -38,7 +38,7 @@ run:
 	cd app && npm start
 
 api:
-	@cd backend && serverless offline start --noPrependStageInUrl --migrate
+	@cd backend && serverless offline start --noPrependStageInUrl --migrate --apiKey API_KEY_123
 	@$(DONE)
 
 build:

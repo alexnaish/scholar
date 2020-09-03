@@ -10,6 +10,12 @@ module.exports = ({ handler, requiresAccessToken, requireBodyParams }) => async 
 
   const additionalHeaders = {};
 
+  // Lowercase all headers
+  const headers = Object.keys(event.headers);
+  for (const key of headers) {
+    event.headers[key.toLowerCase()] = event.headers[key];
+  }
+
   try {
     if (requiresAccessToken) {
       const token = getAuthToken(event.headers);

@@ -49,5 +49,16 @@ module.exports = {
       results: Items
     };
 
+  },
+  saveImage: ({ team_id, id, ...data }) => {
+    return client.put({
+      TableName: process.env.SNAPSHOTS_TABLE,
+      Key: { team_id, id },
+      Item: {
+        team_id,
+        id,
+        ...data
+      }
+    });
   }
 };

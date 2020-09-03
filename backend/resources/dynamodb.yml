@@ -28,6 +28,35 @@ TeamsTable:
     ProvisionedThroughput:
       ReadCapacityUnits: 1
       WriteCapacityUnits: 1
+TeamKeysTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${env:TEAM_KEYS_TABLE}
+    AttributeDefinitions:
+      - AttributeName: key
+        AttributeType: S
+      - AttributeName: team_id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: key
+        KeyType: HASH
+    ProvisionedThroughput:
+      ReadCapacityUnits: 1
+      WriteCapacityUnits: 1
+    GlobalSecondaryIndexes:
+      - IndexName: TeamKeysIndexByTeam
+        KeySchema:
+        - AttributeName: team_id
+          KeyType: HASH
+        - AttributeName: key
+          KeyType: RANGE
+        Projection:
+          NonKeyAttributes:
+          - Album
+          ProjectionType: INCLUDE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 UsersTable:
   Type: AWS::DynamoDB::Table
   Properties:
