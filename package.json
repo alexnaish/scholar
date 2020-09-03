@@ -4,8 +4,15 @@
   "description": "Image Comparison Tool For Visual Regression Testing",
   "author": "Alex Naish",
   "devDependencies": {
+    "@financial-times/secret-squirrel": "^2.15.0",
     "eslint": "^6.8.0",
+    "husky": "^4.2.5",
     "prettier": "^2.1.0"
   },
-  "dependencies": {}
+	"dependencies": {},
+	"husky": {
+    "hooks": {
+			"pre-commit": "secret-squirrel"
+    }
+  }
 }
