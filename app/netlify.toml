@@ -7,7 +7,7 @@
 
 [[redirects]]
   from = "/docs/*"
-  to = "https://scholar-docs.readme.io/:splat"
+  to = "https://scholar-docs.readme.io/reference/:splat"
   force = true
 	status = 200
 
