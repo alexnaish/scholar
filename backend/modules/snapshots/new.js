@@ -40,7 +40,8 @@ const handler = async (event, context, { logger }) => {
         id: `main#${name}`,
         approval_date: Date.now(),
         version: 1,
-        image_url: `${url}/${imageKey}`
+        image_url: `${url}/${imageKey}`,
+        dimensions
       })
     ]);
     return {

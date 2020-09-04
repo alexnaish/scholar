@@ -6,6 +6,7 @@ import { Panel } from '../Panel';
 import './style.scss';
 
 const defaultSerialiser = (array) => array.map(i => <div key={i}>{i}</div>);
+const formatKey = (key) => key.replace('_', ' ');
 const formatValue = (key, value, metadata) => {
   const meta = metadata[key];
   if (!meta) {
@@ -14,6 +15,8 @@ const formatValue = (key, value, metadata) => {
   switch (meta.type) {
     case 'date':
       return new Date(value).toLocaleDateString();
+    case 'datetime':
+      return new Date(value).toLocaleString();
     case 'array':
       return (meta.serialiser || defaultSerialiser)(value);
     default:
@@ -30,7 +33,7 @@ export const DataPanel = ({ title, description, data, metadata = {} }) => {
         Object.entries(data).map(([key, value]) => {
           return (
             <div className="data-panel__row" key={key}>
-              <div className="data-panel__key">{key}</div>
+              <div className="data-panel__key">{formatKey(key)}</div>
               <div className="data-panel__value">{formatValue(key, value, metadata)}</div>
             </div>
           );

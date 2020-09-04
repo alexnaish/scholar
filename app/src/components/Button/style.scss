@@ -47,6 +47,20 @@
     background-color: var(--black);
 	}
 
+	&--success {
+    background-color: var(--success);
+  }
+  &--success:hover {
+    background-color: var(--success-dark);
+	}
+
+	&--danger {
+    background-color: var(--error);
+  }
+  &--danger:hover {
+    background-color: var(--error-dark);
+	}
+
 	&--collapse {
 		margin: 0;
 	}

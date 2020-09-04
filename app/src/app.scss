@@ -1,11 +1,9 @@
 $dark_blue: #1E2A50;
-$yellow: #EAB643;
-$green: #36AA63;
 $orange: #C64C2C;
-$white: #FCFCFC;
+$white: #FDFDFD;
 $dark: #2F2D2E;
 
-$success: #34B249;
+$success: #2E9E41;
 $warning: #E8B130;
 $error: #C91D2B;
 
@@ -43,7 +41,7 @@ $tablet: 750px;
   --github-dark: #{darken($github, 10)};
 
   // Status
-  --success: #{$success};
+  --success: #{darken($success, 5)};
   --success-dark: #{darken($success, 10)};
   --warning: #{$warning};
   --warning-dark: #{darken($warning, 10)};
