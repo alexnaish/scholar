@@ -3,7 +3,7 @@ import React from 'react';
 export const DataIllustrationSvg = () => {
   return (
     <svg
-      viewBox="0 0 855.418 610.775"
+      viewBox="-10 -20 750 650"
       aria-label="Pages entering computer illustration"
     >
       <circle cx={39.536} cy={110.727} r={13.631} fill="#e6e6e6" />
