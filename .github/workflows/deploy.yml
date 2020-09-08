@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 12.x
       - uses: actions/checkout@v2
-      - run: make install-app build
+      - run: make install-app build install-docs build-docs
         env:
           NEWRELIC_LICENCE_KEY: ${{ secrets.NEWRELIC_LICENCE_KEY }}
           NEWRELIC_APP_ID: ${{ secrets.NEWRELIC_APP_ID }}

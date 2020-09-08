@@ -1,0 +1,103 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+
+:root {
+	--ifm-color-primary: #111;
+	--ifm-footer-link-hover-color: white;
+
+	--ifm-font-weight-normal: 300;
+	--ifm-font-weight-semibold: 300;
+	--ifm-heading-font-weight: 300;
+	--ifm-code-font-size: 95%;
+
+	/* --ifm-color-success: '';
+	--ifm-color-warning: '';
+	--ifm-color-danger: '';
+	--ifm-color-secondary: ''; */
+}
+
+body {
+	background-color: #FDFDFD;
+	font-family: "Open Sans", sans-serif;
+}
+
+.navbar {
+	height: 80px;
+	border-bottom: 2px solid #e4e4e4;
+	box-shadow: none;
+}
+
+.navbar__title {
+	font-weight: 300;
+	font-size: 36px;
+	letter-spacing: 2px;
+	text-decoration: none;
+	color: var(--ifm-color-primary);
+}
+@media (max-width: 996px) {
+	.navbar__title {
+		margin-left: 16px;
+	}
+}
+
+.menu {
+	background-color: white;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+	position: relative;
+	display: inline-block;
+	background: none;
+	padding: var(--ifm-menu-link-padding-vertical) 0;
+	margin-left: var(--ifm-menu-link-padding-horizontal);
+}
+
+.menu__link--active:not(.menu__link--sublist):hover {
+	background: none;
+}
+
+.menu__link--active:not(.menu__link--sublist)::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 0;
+	height: 1px;
+	background-color: var(--black);
+	transition: width 0.3s ease;
+}
+.menu__link--active:not(.menu__link--sublist):hover::after {
+	width: 100%;
+}
+
+.pagination-nav__link {
+	background-color: white;
+}
+
+.footer {
+	background-color: #2F2D2E;
+}
+
+.footer__title {
+	font-weight: 400;
+	margin-bottom: 24px;
+	display: block;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.footer__link-item {
+	font-weight: 300;
+}
+
+.footer__link-item:hover {
+	text-decoration: none;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgb(72, 77, 91);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}

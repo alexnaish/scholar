@@ -10,7 +10,6 @@ endif
 
 # Utils
 SHELL := /bin/bash
-MAKEFLAGS += -j2
 
 # Add node_module dependencies to path
 export PATH := $(PATH):./node_modules/.bin
@@ -20,6 +19,9 @@ DONE = echo ✓ $@ done
 
 install-app:
 	@cd app && npm ci
+
+install-docs:
+	@cd documentation && npm ci
 
 install-api:
 	@cd backend && npm ci
@@ -43,3 +45,8 @@ api:
 
 build:
 	@cd app && npm run build
+
+build-docs:
+	@cd documentation && npm run build
+	mkdir app/dist/docs
+	cp -R documentation/build/* app/dist/docs/
