@@ -15,7 +15,7 @@ module.exports = {
       title: 'Scholar',
       items: [
         {
-          to: '/',
+          to: 'https://scholar.naish.io',
           label: 'Home',
           position: 'right',
         },
