@@ -2,14 +2,17 @@
 title: Cypress
 ---
 
-1. Install the integration.
+
+## Installation
 
 ```sh
 	npm i -D @scholar/cypress
 ```
 
+## Setup
 
-2. Make the Snapshot command available to Cypress.
+
+1. Make the Snapshot command available to Cypress.
 
 ```js title="cypress/support/commands.js"
 
@@ -23,7 +26,7 @@ Cypress.Commands.add(name, { prevSubject: 'optional' }, command);
 
 ```
 
-3. Configure the Scholar plugin.
+2. Configure the Scholar plugin.
 
 ```js title="cypress/plugins/index.js"
 
@@ -40,7 +43,9 @@ module.exports = (on, config) => {
 
 ```
 
-4. Use in your tests!
+## Usage
+
+Given that you have configured the command using the default name, the following code represents example usage.
 
 ```js
 

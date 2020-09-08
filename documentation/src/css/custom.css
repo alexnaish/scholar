@@ -17,6 +17,10 @@
 	--ifm-color-secondary: ''; */
 }
 
+html {
+	scroll-padding: 50px 0 0 0;
+}
+
 body {
 	background-color: #FDFDFD;
 	font-family: "Open Sans", sans-serif;
@@ -53,22 +57,12 @@ body {
 	margin-left: var(--ifm-menu-link-padding-horizontal);
 }
 
-.menu__link--active:not(.menu__link--sublist):hover {
-	background: none;
+.menu__link--active {
+	font-weight: 400;
 }
 
-.menu__link--active:not(.menu__link--sublist)::after {
-	content: "";
-	position: absolute;
-	top: 100%;
-	left: 0;
-	width: 0;
-	height: 1px;
-	background-color: var(--black);
-	transition: width 0.3s ease;
-}
-.menu__link--active:not(.menu__link--sublist):hover::after {
-	width: 100%;
+.menu__link:hover {
+	background: none;
 }
 
 .pagination-nav__link {

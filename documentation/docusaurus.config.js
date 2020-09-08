@@ -15,9 +15,8 @@ module.exports = {
       title: 'Scholar',
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
+          to: '/',
+          label: 'Home',
           position: 'right',
         },
         {
@@ -84,8 +83,9 @@ module.exports = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/alexnaish/scholar/edit/master/documentation/',
+          editUrl: 'https://github.com/alexnaish/scholar/edit/master/documentation/',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
