@@ -35,7 +35,7 @@ export const DashboardPage = () => {
           response && approved === 0 && candidates === 0 &&
             <IllustratedCTA
               text="You don&apos;t have any snapshots!"
-              cta={<ExternalLink href="/docs/" centre>View Documentation</ExternalLink>}
+              cta={<ExternalLink href="/docs/" style="cta" centre>View Documentation</ExternalLink>}
               svg={<DataIllustrationSvg />}
             />
         }
