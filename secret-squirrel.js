@@ -5,6 +5,7 @@ module.exports = {
       '.huskyrc',
       'LICENSE.txt',
       'app/.babelrc',
+      'app/src/robots.txt',
       'app/.browserlistrc',
       'app/.eslintrc'
     ],

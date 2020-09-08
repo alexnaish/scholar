@@ -34,7 +34,7 @@ jobs:
           NETLIFY_DEPLOY_TO_PROD: true
           build_directory: ./app/dist
           install_command: echo "already installed!"
-          build_command: cp app/netlify.toml app/dist/
+          build_command: cp app/src/robots.txt app/netlify.toml app/dist/
 
   backend-deploy:
     name: Deploying backend
