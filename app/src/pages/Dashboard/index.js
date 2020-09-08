@@ -8,7 +8,7 @@ import { Section } from '../../components/Section';
 import { GridContainer } from '../../components/GridContainer';
 import { InfoPanel } from '../../components/InfoPanel';
 import { IllustratedCTA } from '../../components/IllustratedCTA';
-import { Button } from '../../components/Button';
+import { Button, ExternalLink } from '../../components/Button';
 import { DataIllustrationSvg } from '../../components/DataIllustrationSvg';
 
 import useFetch from '../../utils/fetch';
@@ -35,7 +35,7 @@ export const DashboardPage = () => {
           response && approved === 0 && candidates === 0 &&
             <IllustratedCTA
               text="You don&apos;t have any snapshots!"
-              cta={<Button centre onClick={() => alert('Coming soon!')}>View Documentation</Button>}
+              cta={<ExternalLink href="/docs/" centre>View Documentation</ExternalLink>}
               svg={<DataIllustrationSvg />}
             />
         }
