@@ -11,13 +11,12 @@
   <link rel="stylesheet" href="./app.scss">
   <title>Scholar</title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89625067-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js"></script>
   <script>
 		window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
-    gtag('config', 'UA-89625067-2');
+    gtag('config', process.env.GOOGLE_ANALYTICS_KEY);
 		</script>
 		<script async src="https://js-agent.newrelic.com/nr-loader-spa-current.min.js"></script>
 		<script>

@@ -24,6 +24,7 @@ jobs:
         env:
           NEWRELIC_LICENCE_KEY: ${{ secrets.NEWRELIC_LICENCE_KEY }}
           NEWRELIC_APP_ID: ${{ secrets.NEWRELIC_APP_ID }}
+          GOOGLE_ANALYTICS_KEY: ${{ secrets.GOOGLE_ANALYTICS_KEY }}
 
       - name: Deploy
         uses: jsmrcaga/action-netlify-deploy@master
