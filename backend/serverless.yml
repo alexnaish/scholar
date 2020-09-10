@@ -19,7 +19,10 @@ provider:
       Action:
         - s3:GetObject
         - s3:PutObject
-      Resource: "arn:aws:s3:::${env:S3_BUCKET}*"
+      Resource:
+        Fn::GetAtt:
+          - SnapshotBucket
+          - Arn
   environment:
     JWT_SIGNING_SECRET: ${env:JWT_SIGNING_SECRET}
     TEAMS_TABLE: ${env:TEAMS_TABLE}
@@ -94,6 +97,7 @@ functions:
 resources:
    - Resources: ${file(resources/dynamodb.yml)}
    - Resources: ${file(resources/s3.yml)}
+   - Resources: ${file(resources/usageplans.yml)}
 
 plugins:
   - serverless-plugin-optimize

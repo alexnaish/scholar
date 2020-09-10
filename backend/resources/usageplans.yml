@@ -1,0 +1,54 @@
+FreeUsagePlan:
+  Type: AWS::ApiGateway::UsagePlan
+  Properties:
+    ApiStages:
+          -
+            ApiId:
+              Ref: ApiGatewayRestApi
+            Stage: ${self:provider.stage}
+    Description: ${self:service} free plan
+    Quota:
+      Limit: 50
+      Offset: 0
+      Period: DAY
+    Tags:
+      - Tag
+    Throttle:
+      ThrottleSettings
+    UsagePlanName: ${self:service}-${self:provider.stage}-free
+AdvancedUsagePlan:
+  Type: AWS::ApiGateway::UsagePlan
+  Properties:
+    ApiStages:
+      -
+        ApiId:
+          Ref: ApiGatewayRestApi
+        Stage: ${self:provider.stage}
+    Description: ${self:service} advanced plan
+    Quota:
+      Limit: 500
+      Offset: 0
+      Period: DAY
+    Tags:
+      - Tag
+    Throttle:
+      ThrottleSettings
+    UsagePlanName: ${self:service}-${self:provider.stage}-advanced
+ProfessionalUsagePlan:
+  Type: AWS::ApiGateway::UsagePlan
+  Properties:
+    ApiStages:
+          -
+            ApiId:
+              Ref: ApiGatewayRestApi
+            Stage: ${self:provider.stage}
+    Description: ${self:service} professional plan
+    Quota:
+      Limit: 2500
+      Offset: 0
+      Period: DAY
+    Tags:
+      - Tag
+    Throttle:
+      ThrottleSettings
+    UsagePlanName: ${self:service}-${self:provider.stage}-professional
