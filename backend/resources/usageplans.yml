@@ -12,9 +12,13 @@ FreeUsagePlan:
       Offset: 0
       Period: DAY
     Tags:
-      - Tag
+      - Key: service
+        Value: ${self:service}
+      - Key: stage
+        Value: ${self:provider.stage}
     Throttle:
-      ThrottleSettings
+      BurstLimit: 5
+      RateLimit: 2
     UsagePlanName: ${self:service}-${self:provider.stage}-free
 AdvancedUsagePlan:
   Type: AWS::ApiGateway::UsagePlan
@@ -30,9 +34,13 @@ AdvancedUsagePlan:
       Offset: 0
       Period: DAY
     Tags:
-      - Tag
+      - Key: service
+        Value: ${self:service}
+      - Key: stage
+        Value: ${self:provider.stage}
     Throttle:
-      ThrottleSettings
+      BurstLimit: 10
+      RateLimit: 5
     UsagePlanName: ${self:service}-${self:provider.stage}-advanced
 ProfessionalUsagePlan:
   Type: AWS::ApiGateway::UsagePlan
@@ -48,7 +56,11 @@ ProfessionalUsagePlan:
       Offset: 0
       Period: DAY
     Tags:
-      - Tag
+      - Key: service
+        Value: ${self:service}
+      - Key: stage
+        Value: ${self:provider.stage}
     Throttle:
-      ThrottleSettings
+      BurstLimit: 20
+      RateLimit: 10
     UsagePlanName: ${self:service}-${self:provider.stage}-professional
