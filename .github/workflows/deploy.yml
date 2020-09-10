@@ -57,6 +57,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
           TEAMS_TABLE: scholar-teams
+          TEAM_KEYS_TABLE: scholar-team-keys
           USERS_TABLE: scholar-users
           AUTH_CACHE_TABLE: scholar-auth
           SNAPSHOTS_TABLE: scholar-snapshots
