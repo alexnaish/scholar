@@ -15,14 +15,6 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/scholar-*"
-    - Effect: Allow
-      Action:
-        - s3:GetObject
-        - s3:PutObject
-      Resource:
-        Fn::GetAtt:
-          - SnapshotBucket
-          - Arn
   environment:
     JWT_SIGNING_SECRET: ${env:JWT_SIGNING_SECRET}
     TEAMS_TABLE: ${env:TEAMS_TABLE}
@@ -32,6 +24,12 @@ provider:
     SNAPSHOTS_TABLE: ${env:SNAPSHOTS_TABLE}
     API_URL: ${env:API_URL}
     S3_BUCKET: ${env:S3_BUCKET}
+    FREE_PLAN_ID:
+      Fn::GetAtt: [ FreeUsagePlan, id ]
+    ADVANCED_PLAN_ID:
+      Fn::GetAtt: [ AdvancedUsagePlan, id ]
+    PROFESSIONAL_PLAN_ID:
+      Fn::GetAtt: [ ProfessionalUsagePlan, id ]
 
 functions:
   dashboard-stats:
@@ -47,6 +45,16 @@ functions:
           path: snapshot
           method: post
           private: true
+    iamRoleStatementsInherit: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:GetObject
+          - s3:PutObject
+        Resource:
+          Fn::GetAtt:
+            - SnapshotBucket
+            - Arn
   list-snapshots:
     handler: modules/snapshots/list.handler
     events:
@@ -95,6 +103,7 @@ functions:
       - http:
           path: profile
           method: get
+
 resources:
    - Resources: ${file(resources/dynamodb.yml)}
    - Resources: ${file(resources/s3.yml)}
@@ -104,6 +113,7 @@ plugins:
   - serverless-plugin-optimize
   - serverless-s3-local
   - serverless-dynamodb-local
+  - serverless-iam-roles-per-function
   - serverless-offline
 
 package:

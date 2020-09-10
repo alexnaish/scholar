@@ -14,6 +14,7 @@
     "serverless": "^1.77.1",
     "serverless-dotenv-plugin": "^3.0.0",
     "serverless-dynamodb-local": "^0.2.39",
+    "serverless-iam-roles-per-function": "^2.0.2",
     "serverless-offline": "^6.5.0",
     "serverless-plugin-optimize": "^4.1.4-rc.1",
     "serverless-s3-local": "^0.6.2"
