@@ -24,10 +24,10 @@ export const Footer = () => {
                 Useful Links
               </span>
               <nav className="footer__links">
-								<a className="footer__link" href="/docs/" target="_blank" rel="noopener noreferrer">
+                <a className="footer__link" href="/docs/" target="_blank" rel="noopener noreferrer">
                     Documentation
-								</a>
-								<Link href="/about">
+                </a>
+                <Link href="/about">
                   <a className="footer__link">
                     About
                   </a>
