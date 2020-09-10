@@ -14,11 +14,9 @@ FreeUsagePlan:
     Tags:
       - Key: service
         Value: ${self:service}
-      - Key: stage
-        Value: ${self:provider.stage}
     Throttle:
-      BurstLimit: 5
-      RateLimit: 2
+      BurstLimit: 3
+      RateLimit: 1
     UsagePlanName: ${self:service}-${self:provider.stage}-free
 AdvancedUsagePlan:
   Type: AWS::ApiGateway::UsagePlan
@@ -36,11 +34,9 @@ AdvancedUsagePlan:
     Tags:
       - Key: service
         Value: ${self:service}
-      - Key: stage
-        Value: ${self:provider.stage}
     Throttle:
       BurstLimit: 10
-      RateLimit: 5
+      RateLimit: 3
     UsagePlanName: ${self:service}-${self:provider.stage}-advanced
 ProfessionalUsagePlan:
   Type: AWS::ApiGateway::UsagePlan
@@ -58,8 +54,6 @@ ProfessionalUsagePlan:
     Tags:
       - Key: service
         Value: ${self:service}
-      - Key: stage
-        Value: ${self:provider.stage}
     Throttle:
       BurstLimit: 20
       RateLimit: 10
