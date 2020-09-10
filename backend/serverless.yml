@@ -25,11 +25,11 @@ provider:
     API_URL: ${env:API_URL}
     S3_BUCKET: ${env:S3_BUCKET}
     FREE_PLAN_ID:
-      Fn::GetAtt: [ FreeUsagePlan, id ]
+      Ref: FreeUsagePlan
     ADVANCED_PLAN_ID:
-      Fn::GetAtt: [ AdvancedUsagePlan, id ]
+      Ref: AdvancedUsagePlan
     PROFESSIONAL_PLAN_ID:
-      Fn::GetAtt: [ ProfessionalUsagePlan, id ]
+      Ref: ProfessionalUsagePlan
 
 functions:
   dashboard-stats:
