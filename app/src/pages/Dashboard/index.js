@@ -8,7 +8,7 @@ import { Section } from '../../components/Section';
 import { GridContainer } from '../../components/GridContainer';
 import { InfoPanel } from '../../components/InfoPanel';
 import { IllustratedCTA } from '../../components/IllustratedCTA';
-import { Button, ExternalLink } from '../../components/Button';
+import { ExternalLink } from '../../components/Button';
 import { DataIllustrationSvg } from '../../components/DataIllustrationSvg';
 
 import useFetch from '../../utils/fetch';

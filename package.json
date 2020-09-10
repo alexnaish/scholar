@@ -9,10 +9,10 @@
     "husky": "^4.2.5",
     "prettier": "^2.1.0"
   },
-	"dependencies": {},
-	"husky": {
+  "dependencies": {},
+  "husky": {
     "hooks": {
-			"pre-commit": "secret-squirrel"
+      "pre-commit": "secret-squirrel"
     }
   }
 }
