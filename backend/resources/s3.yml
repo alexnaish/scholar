@@ -2,3 +2,4 @@ SnapshotBucket:
   Type: AWS::S3::Bucket
   Properties:
     BucketName: ${env:S3_BUCKET}
+    AccessControl: PublicRead
