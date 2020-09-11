@@ -48,12 +48,10 @@ functions:
     iamRoleStatements:
       - Effect: Allow
         Action:
-          - s3:GetObject
-          - s3:PutObject
+          - s3:*
         Resource:
-          Fn::GetAtt:
-            - SnapshotBucket
-            - Arn
+          - !Sub 'arn:aws:s3:::${env:S3_BUCKET}'
+          - !Sub 'arn:aws:s3:::${env:S3_BUCKET}/*'
   list-snapshots:
     handler: modules/snapshots/list.handler
     events:
