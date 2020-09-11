@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { generateCallbackUrl } = require('../../helpers/auth');
 const { client } = require('../../helpers/dynamodb');
+const { PLANS } = require('../../helpers/apigateway');
 const providers = require('../../helpers/social');
 const { register, generateAccessToken } = require('../../helpers/user');
 
@@ -30,7 +31,7 @@ const callbackHandler = async (event, context, { logger }) => {
 
     const authCache = await client.get({ TableName: process.env.AUTH_CACHE_TABLE, Key: { token: state } });
     if (!authCache) {
-      logger.error('Invalid state token');
+      logger.error({ state }, 'Invalid state token');
       return {
         statusCode: 200,
         headers: {
@@ -47,14 +48,14 @@ const callbackHandler = async (event, context, { logger }) => {
     const team_id = user ? user.team_id : uuidv4();
 
     if (!user) {
-      logger.info('registering new user %o', { provider, email });
+      logger.info({ provider }, 'registering new user');
       await client.put({
         TableName: process.env.TEAMS_TABLE,
         Item: {
           id: team_id,
           name: `Team ${name}`,
           users: [email],
-          plan: null
+          plan: PLANS.FREE
         }
       });
       user = await register({ email, name, team_id, social_provider: provider });
@@ -70,7 +71,7 @@ const callbackHandler = async (event, context, { logger }) => {
       body: template.success({ accessToken, name }),
     };
   } catch (error) {
-    logger.error(error);
+    logger.error({ error }, 'callback error');
     return {
       statusCode: 200,
       headers: {

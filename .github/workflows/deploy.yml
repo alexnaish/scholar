@@ -57,7 +57,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
           TEAMS_TABLE: ${{ secrets.TEAMS_TABLE }}
-          TEAM_KEYS_TABLE: ${{ secrets.TEAM_KEYS_TABLE }}
           USERS_TABLE: ${{ secrets.USERS_TABLE }}
           AUTH_CACHE_TABLE: ${{ secrets.AUTH_CACHE_TABLE }}
           SNAPSHOTS_TABLE: ${{ secrets.SNAPSHOTS_TABLE }}

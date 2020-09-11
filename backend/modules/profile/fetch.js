@@ -1,3 +1,4 @@
+const { PLANS } = require('../../helpers/apigateway');
 const { client } = require('../../helpers/dynamodb');
 const wrapper = require('../wrapper');
 
@@ -15,7 +16,7 @@ const handler = async (event, context) => {
     })
   ]);
 
-  team.plan = team.plan || 'Free';
+  team.plan = team.plan || PLANS.FREE;
 
   // Just return relevant properties
   return {

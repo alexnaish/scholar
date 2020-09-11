@@ -12,17 +12,25 @@ const handler = async (event, context, { logger }) => {
   const { payload, headers } = event;
   const { name, dimensions, snapshot, type = 'png' } = payload;
 
-  const keyRecord = await dynamodb.get({
-    TableName: process.env.TEAM_KEYS_TABLE,
-    Key: { key: headers['x-api-key'] }
+  const key = headers['x-api-key'];
+  const keyData = await dynamodb.query({
+    TableName: process.env.TEAMS_TABLE,
+    IndexName: 'TeamByApiKey',
+    KeyConditionExpression: 'api_key = :api_key',
+    ExpressionAttributeValues: {
+      ':api_key': key,
+    }
   });
 
-  if (!keyRecord) {
-    logger.info({ error: 'sync issue - key valid for gateway but missing in db', apiKey: headers['x-api-key'] });
-    throw new Error('Missing API Key record.');
+  const { Items } = keyData;
+
+  if (Items.length !== 1) {
+    const teamIds = Items.map(i => i.team_id);
+    logger.info({ returned_items: Items.length, team_ids: teamIds, key: key && key.slice(0, 4) }, 'sync issue - key valid for gateway but missing or duplicated in db');
+    throw new Error('Missing or duplicate API Key record.');
   }
 
-  const { team_id } = keyRecord;
+  const { id: team_id } = Items[0];
   const main = await getImage({ team_id, id: `main#${name}`,
     projection: 'image_url'
   });

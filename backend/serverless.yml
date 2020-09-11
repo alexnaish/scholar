@@ -18,7 +18,6 @@ provider:
   environment:
     JWT_SIGNING_SECRET: ${env:JWT_SIGNING_SECRET}
     TEAMS_TABLE: ${env:TEAMS_TABLE}
-    TEAM_KEYS_TABLE: ${env:TEAM_KEYS_TABLE}
     USERS_TABLE: ${env:USERS_TABLE}
     AUTH_CACHE_TABLE: ${env:AUTH_CACHE_TABLE}
     SNAPSHOTS_TABLE: ${env:SNAPSHOTS_TABLE}
@@ -103,6 +102,20 @@ functions:
       - http:
           path: profile
           method: get
+  create-key:
+    handler: modules/keys/create.handler
+    events:
+      - http:
+          path: key
+          method: post
+    iamRoleStatementsInherit: true
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - apigateway:POST
+        Resource:
+          - "arn:aws:apigateway:${opt:region, self:provider.region}::/apikeys"
+          - "arn:aws:apigateway:${opt:region, self:provider.region}::/usageplans/"
 
 resources:
    - Resources: ${file(resources/dynamodb.yml)}
@@ -140,7 +153,5 @@ custom:
             sources: [./offline/seed/snapshots.json]
           - table: ${env:TEAMS_TABLE}
             sources: [./offline/seed/teams.json]
-          - table: ${env:TEAM_KEYS_TABLE}
-            sources: [./offline/seed/team_keys.json]
           - table: ${env:USERS_TABLE}
             sources: [./offline/seed/users.json]

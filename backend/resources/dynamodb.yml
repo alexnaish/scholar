@@ -22,38 +22,21 @@ TeamsTable:
     AttributeDefinitions:
       - AttributeName: id
         AttributeType: S
+      - AttributeName: api_key
+        AttributeType: S
     KeySchema:
       - AttributeName: id
         KeyType: HASH
     ProvisionedThroughput:
       ReadCapacityUnits: 1
       WriteCapacityUnits: 1
-TeamKeysTable:
-  Type: AWS::DynamoDB::Table
-  Properties:
-    TableName: ${env:TEAM_KEYS_TABLE}
-    AttributeDefinitions:
-      - AttributeName: key
-        AttributeType: S
-      - AttributeName: team_id
-        AttributeType: S
-    KeySchema:
-      - AttributeName: key
-        KeyType: HASH
-    ProvisionedThroughput:
-      ReadCapacityUnits: 1
-      WriteCapacityUnits: 1
     GlobalSecondaryIndexes:
-      - IndexName: TeamKeysIndexByTeam
+      - IndexName: TeamByApiKey
         KeySchema:
-        - AttributeName: team_id
+        - AttributeName: api_key
           KeyType: HASH
-        - AttributeName: key
-          KeyType: RANGE
         Projection:
-          NonKeyAttributes:
-          - Album
-          ProjectionType: INCLUDE
+          ProjectionType: KEYS_ONLY
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

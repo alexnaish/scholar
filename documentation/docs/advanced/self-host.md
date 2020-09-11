@@ -21,7 +21,6 @@ Both the frontend and the API tiers takes their configuration from environment v
 ```
 # Mandatory
 TEAMS_TABLE=scholar-teams
-TEAM_KEYS_TABLE=scholar-team-keys
 USERS_TABLE=scholar-users
 AUTH_CACHE_TABLE=scholar-auth
 SNAPSHOTS_TABLE=scholar-snapshots

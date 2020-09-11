@@ -2,10 +2,16 @@ const pino = require('pino');
 const { getAuthToken } = require('../../helpers/auth');
 const { validateAccessToken } = require('../../helpers/user');
 
+const newTokenHeader = 'x-access-token';
+
 module.exports = ({ handler, requiresAccessToken, requireBodyParams }) => async (event, context) => {
   const logger = pino({
     traceId: process.env._X_AMZN_TRACE_ID,
     awsRequestId: context.awsRequestId,
+    redact: {
+      paths: ['email', 'refresh_token', 'user.email', 'user.refresh_token', 'api_key', 'team.api_key', 'team.users'],
+      remove: true
+    }
   });
 
   const additionalHeaders = {};
@@ -33,7 +39,6 @@ module.exports = ({ handler, requiresAccessToken, requireBodyParams }) => async 
       }
       // Token has been refreshed
       if (newToken) {
-        const newTokenHeader = 'x-access-token';
         additionalHeaders[newTokenHeader] = newToken;
         additionalHeaders['access-control-expose-headers'] = newTokenHeader;
       }

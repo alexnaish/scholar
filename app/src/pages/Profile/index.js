@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'wouter';
 
 import useFetch from '../../utils/fetch';
@@ -21,6 +21,9 @@ const personalMetadata = {
 
 export const ProfilePage = () => {
   const { response, error, loading } = useFetch({ path: '/profile' });
+  const [createKey, setCreateKey] = useState(false);
+  useFetch({ method: 'post', path: createKey && '/key' });
+
   return (
     <Shell>
       <Section title="Profile">
@@ -44,6 +47,7 @@ export const ProfilePage = () => {
             </GridContainer>
           )
         }
+        <Button onClick={() => setCreateKey(!createKey)}>Create API Key</Button>
         <IllustratedCTA
           text="Everything is better with company. Invite your team."
           cta={<Button centre onClick={() => alert('Coming soon!')}>Invite</Button>}
