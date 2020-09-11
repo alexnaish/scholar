@@ -10,6 +10,7 @@ const PLANS = {
 module.exports = {
   PLANS,
   createApiKey: (params) => apiGateway.createApiKey(params).promise(),
+  createUsagePlanKey: (params) => apiGateway.createUsagePlanKey(params).promise(),
   getUsage: (params) => apiGateway.getUsage(params).promise(),
   getPlanId: (teamPlanName) => {
     switch (teamPlanName) {

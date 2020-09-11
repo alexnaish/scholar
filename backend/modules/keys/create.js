@@ -31,8 +31,16 @@ const handler = async (event, context, { logger }) => {
   });
   // create key
   logger.info({ createdKey, team, user: context.user }, 'key created');
+
   // assign to usagePlan
-  // save key
+  const planId = apiGateway.getPlanId(team.plan);
+  await apiGateway.createUsagePlanKey({
+    keyId: createdKey.id,
+    keyType: 'API_KEY',
+    usagePlanId: planId
+  });
+
+  logger.info({ createdKey, team, user: context.user, planId }, 'key assigned');
 
   const updatedTeam = await client.update({
     TableName: process.env.TEAMS_TABLE,
