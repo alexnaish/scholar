@@ -117,7 +117,21 @@ functions:
         Resource:
           - "arn:aws:apigateway:${opt:region, self:provider.region}::/tags/*"
           - "arn:aws:apigateway:${opt:region, self:provider.region}::/apikeys"
-          - "arn:aws:apigateway:${opt:region, self:provider.region}::/usageplans/"
+          - !Join
+            - ""
+            - - !Sub "arn:aws:apigateway:${opt:region, self:provider.region}::/usageplans/"
+              - !Ref FreeUsagePlan
+              - "/keys"
+          - !Join
+            - ""
+            - - !Sub "arn:aws:apigateway:${opt:region, self:provider.region}::/usageplans/"
+              - !Ref AdvancedUsagePlan
+              - "/keys"
+          - !Join
+            - ""
+            - - !Sub "arn:aws:apigateway:${opt:region, self:provider.region}::/usageplans/"
+              - !Ref ProfessionalUsagePlan
+              - "/keys"
 
 resources:
    - Resources: ${file(resources/dynamodb.yml)}
