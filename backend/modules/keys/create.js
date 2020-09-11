@@ -1,7 +1,6 @@
 const { client } = require('../../helpers/dynamodb');
 const apiGateway = require('../../helpers/apigateway');
 const wrapper = require('../wrapper');
-const dynamodb = require('../../helpers/dynamodb');
 
 const handler = async (event, context, { logger }) => {
   const { team_id, email } = context.user;
@@ -24,7 +23,7 @@ const handler = async (event, context, { logger }) => {
 
   const createdKey = await apiGateway.createApiKey({
     name: `${team_id} key`,
-    description: `Created by ${email} on ${new Date().toLocaleString()}`,
+    description: `Created by ${email} at ${new Date().toLocaleString()}`,
     enabled: true,
     tags: {
       service: 'scholar'
@@ -35,7 +34,7 @@ const handler = async (event, context, { logger }) => {
   // assign to usagePlan
   // save key
 
-  const updatedTeam = await dynamodb.update({
+  const updatedTeam = await client.update({
     TableName: process.env.TEAMS_TABLE,
     Key: { id: team_id },
     UpdateExpression: 'SET api_key = :api_key, api_key_id = :api_key_id',

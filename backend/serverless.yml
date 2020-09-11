@@ -113,7 +113,9 @@ functions:
       - Effect: "Allow"
         Action:
           - apigateway:POST
+          - apigateway:PUT
         Resource:
+          - "arn:aws:apigateway:${opt:region, self:provider.region}::/tags/*"
           - "arn:aws:apigateway:${opt:region, self:provider.region}::/apikeys"
           - "arn:aws:apigateway:${opt:region, self:provider.region}::/usageplans/"
 
