@@ -41,7 +41,8 @@ const handler = async (event, context, { logger }) => {
       client.putObject({
         Bucket: process.env.S3_BUCKET,
         Key: imageKey,
-        Body: Buffer.from(snapshot.data)
+        Body: Buffer.from(snapshot.data),
+        ACL: 'public-read'
       }),
       saveImage({
         team_id,
